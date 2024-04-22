@@ -9,6 +9,7 @@
 
     <title> UW Math Planner </title>
     <link rel="stylesheet" href="style.css">
+    <script src = "script.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://kit.fontawesome.com/96e88eed38.js" crossorigin="anonymous"></script>
@@ -24,22 +25,8 @@
     <section class = "main">
         <h1 class = "title"> UW <span class = "math">MATH </span> PLANNER</h1>
         <h3 class = "desc"> Plan and visualize your 8 semesters at Waterloo. Test out different major/minor combinations to find class overlaps, necessary core courses and spaces for electives, all in one website.</h3>
+        <button class = "button"> GET STARTED</button>
     </section>
 
-    <div class = "button-box">
-        <a href = "{{ url_for('critiquePage', _external = True)}}">
-            <button class = "crit-btn"> CRITIQUE</button>
-        </a>
-        <a href = "{{ url_for('getTracks', _external = True)}}">
-            <button class = "data-btn" > DATA DISTRIBUTION</button>
-        </a>
-        <!--
-        <a href = "{{ url_for('getTracks', _external = True)}}">
-            <button class = "top-btn"> TOP POINTS</button>
-        </a>
-        -->
-        <a href = "{{ url_for('getGenres', _external = True)}}">
-            <button class = "genre-btn"> GENRES</button>
-        </a>
-    </div>
+    
 </body>

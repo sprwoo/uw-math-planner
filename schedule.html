@@ -5,7 +5,7 @@
 
     <title> UW Math Planner </title>
     <link rel="stylesheet" href="schedule.css">
-    <script src = "script.js"></script>
+    <script src = "schedule.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://kit.fontawesome.com/96e88eed38.js" crossorigin="anonymous"></script>
@@ -13,22 +13,128 @@
 
     <!--Box Icons-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 
 <body>
-    <section class = "main">
-        <div class = "tags">
-            <div class="dropdown">
-                <h1>choose a color</h1>
-                <ul>
-                  <li data-value="#5790E6"><b>eyes</b> by kersheys</li>
-                  <li data-value="#8773EB"><b>status</b> by grandiloquent</li>
-                  <li data-value="#B27CD9"><b>costume party</b> by lemonpaste</li>
-                  <li data-value="#E884B0"><b>musk stix</b> by the rusty wench</li>
-                  <li data-value="#EDA180"><b>cymbalic</b> by clairyfairy</li>
-                </ul>
-              </div>
-        </div>
-    </section>
+    <div class="section over-hide z-bigger">
+		<input class="checkbox" type="checkbox" name="general" id="general">
+		<div class="background-color"></div>
+		<div class="section over-hide z-bigger">
+			<div class="container pb-5">
+				<div class="row justify-content-center pb-5">
+					<div class="col-12 pt-5">
+						<p class="mb-4 pb-2">Design Tools</p>
+					</div>
+					<div class="col-12 pb-5">
+						<input class="checkbox-tools" type="radio" name="majors" id="major-1" checked>
+						<label class="for-checkbox-tools" for="major-1">
+							<i class='uil uil-line-alt'></i>
+							line
+						</label><!--
+						--><input class="checkbox-tools" type="radio" name="majors" id="major-2">
+						<label class="for-checkbox-tools" for="major-2">
+							<i class='uil uil-vector-square'></i>
+							square
+						</label><!--
+						--><input class="checkbox-tools" type="radio" name="majors" id="major-3">
+						<label class="for-checkbox-tools" for="major-3">
+							<i class='uil uil-ruler'></i>
+							ruler
+						</label><!--
+						--><input class="checkbox-tools" type="radio" name="majors" id="major-4">
+						<label class="for-checkbox-tools" for="major-4">
+							<i class='uil uil-crop-alt'></i>
+							crop
+						</label>
+						<input class="checkbox-tools" type="radio" name="majors" id="major-5">
+						<label class="for-checkbox-tools" for="major-5">
+							<i class='uil uil-brush-alt'></i>
+							brush
+						</label>-
+						<input class="checkbox-tools" type="radio" name="majors" id="major-6">
+						<label class="for-checkbox-tools" for="major-6">
+							<i class='uil uil-image-resize-landscape'></i>
+							resize
+						</label>
+                        <input class="checkbox-tools" type="radio" name="majors" id="major-8">
+						<label class="for-checkbox-tools" for="major-8">
+							<i class='uil uil-image-resize-landscape'></i>
+							resize
+						</label>
+                        <input class="checkbox-tools" type="radio" name="majors" id="major-9">
+						<label class="for-checkbox-tools" for="major-9">
+							<i class='uil uil-image-resize-landscape'></i>
+							resize
+						</label>
+                        <input class="checkbox-tools" type="radio" name="majors" id="major-10">
+						<label class="for-checkbox-tools" for="major-10">
+							<i class='uil uil-image-resize-landscape'></i>
+							resize
+						</label>
+                        <input class="checkbox-tools" type="radio" name="majors" id="major-11">
+						<label class="for-checkbox-tools" for="major-11">
+							<i class='uil uil-image-resize-landscape'></i>
+							resize
+						</label>
+                        <input class="checkbox-tools" type="radio" name="majors" id="major-12">
+						<label class="for-checkbox-tools" for="major-12">
+							<i class='uil uil-image-resize-landscape'></i>
+							resize
+						</label>
+                        <input class="checkbox-tools" type="radio" name="majors" id="major-13">
+						<label class="for-checkbox-tools" for="major-13">
+							<i class='uil uil-image-resize-landscape'></i>
+							resize
+						</label>
+                        <input class="checkbox-tools" type="radio" name="majors" id="major-14">
+						<label class="for-checkbox-tools" for="major-14">
+							<i class='uil uil-image-resize-landscape'></i>
+							resize
+						</label>
+					</div>
 
+					<div class="col-12 pt-1">
+						<p class="mb-4 pb-2">Client Budget</p>
+					</div>
+					<div class="col-12 pb-5">
+						<input class="checkbox-tools" type="radio" name="minors" id="minor1" checked>
+						<label class="for-checkbox-tools" for="minor7">
+							<i class='uil uil-line-alt'></i>
+							line
+						</label><!--
+						--><input class="checkbox-tools" type="radio" name="minors" id="minor2">
+						<label class="for-checkbox-tools" for="minor8">
+							<i class='uil uil-vector-square'></i>
+							square
+						</label><!--
+						--><input class="checkbox-tools" type="radio" name="minors" id="minor3">
+						<label class="for-checkbox-tools" for="minor9">
+							<i class='uil uil-ruler'></i>
+							ruler
+						</label><!--
+						--><input class="checkbox-tools" type="radio" name="minors" id="minor-4">
+						<label class="for-checkbox-tools" for="minor-10">
+							<i class='uil uil-crop-alt'></i>
+							crop
+						</label><!--
+						--><input class="checkbox-tools" type="radio" name="minors" id="minor-5">
+						<label class="for-checkbox-tools" for="minor-5">
+							<i class='uil uil-brush-alt'></i>
+							brush
+						</label><!--
+						--><input class="checkbox-tools" type="radio" name="minors" id="minor6">
+						<label class="for-checkbox-tools" for="minor6">
+							<i class='uil uil-image-resize-landscape'></i>
+							resize
+						</label>
+				</div>
+			</div>	
+		</div>
+	</div>
+		
+	<!-- Link to page
+	================================================== -->
+
+	<a href="https://front.codes" class="link-to-page" target="_blank"><img src="https://assets.codepen.io/1462889/fcy.png" alt=""></a>
 </body>

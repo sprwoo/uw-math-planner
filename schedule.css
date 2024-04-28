@@ -71,8 +71,8 @@ p{
 	visibility: hidden;
 }
 
-.checkbox-tools:checked + label,
-.checkbox-tools:not(:checked) + label,
+.checkbox-majors:checked + label,
+.checkbox-majors:not(:checked) + label,
 .checkbox-minors:checked + label,
 .checkbox-minors:not(:checked) + label {
     position: relative;
@@ -97,7 +97,7 @@ p{
     color: var(--white);
     transition: all 300ms linear;
 }
-.checkbox-tools:not(:checked) + label{
+.checkbox-majors:not(:checked) + label{
 	background-color: var(--dark-light);
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
@@ -107,8 +107,8 @@ p{
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
-.checkbox-tools:checked + label::before,
-.checkbox-tools:not(:checked) + label::before{
+.checkbox-majors:checked + label::before,
+.checkbox-majors:not(:checked) + label::before{
 	position: absolute;
 	content: '';
 	top: 0;

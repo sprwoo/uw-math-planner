@@ -1,35 +1,43 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var checks = document.querySelectorAll('input[name="majors"]');
     var max = 2;
+    var selectedMajors = [];
+    var selectedMinors = [];
 
-    for (var i = 0; i < checks.length; i++) {
-        checks[i].onclick = selectiveCheck;
-    }
-
+    // Define selectiveCheck function
     function selectiveCheck(event) {
-        var checkedChecks = document.querySelectorAll('input[name="majors"]:checked');
+        var checkboxType = this.getAttribute('name');
+        var checkedChecks = document.querySelectorAll('input[name="' + checkboxType + '"]:checked');
         
-        if (checkedChecks.length >= max + 1) {
-            event.preventDefault(); // Prevent further checks if limit is reached
+        if (checkedChecks.length > max) {
+            event.preventDefault(); 
+            this.checked = false; 
             return false;
         }
-    }
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    var checks = document.querySelectorAll('input[name="minors"]');
-    var max = 2;
-
-    for (var i = 0; i < checks.length; i++) {
-        checks[i].onclick = selectiveCheck;
-    }
-
-    function selectiveCheck(event) {
-        var checkedChecks = document.querySelectorAll('input[name="minors"]:checked');
-        
-        if (checkedChecks.length >= max + 1) {
-            event.preventDefault(); // Prevent further checks if limit is reached
-            return false;
+        if (checkboxType === 'majors') {
+            selectedMajors = Array.from(checkedChecks).map(function(checkbox) {
+                return checkbox.id;
+            });
+            console.log('Selected majors:', selectedMajors);
+        } else if (checkboxType === 'minors') {
+            selectedMinors = Array.from(checkedChecks).map(function(checkbox) {
+                return checkbox.id;
+            });
+            console.log('Selected minors:', selectedMinors);
         }
     }
+
+
+    var majorCheckboxes = document.querySelectorAll('input[name="majors"]');
+    majorCheckboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('click', selectiveCheck);
+    });
+
+
+    var minorCheckboxes = document.querySelectorAll('input[name="minors"]');
+    minorCheckboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('click', selectiveCheck);
+    });
 });
+
+console.log("hello");

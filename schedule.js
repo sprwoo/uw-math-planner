@@ -18,11 +18,15 @@ document.addEventListener('DOMContentLoaded', function() {
             selectedMajors = Array.from(checkedChecks).map(function(checkbox) {
                 return checkbox.id;
             });
+            localStorage.setItem("majorVar", JSON.stringify(selectedMajors)); 
             console.log('Selected majors:', selectedMajors);
+
         } else if (checkboxType === 'minors') {
             selectedMinors = Array.from(checkedChecks).map(function(checkbox) {
                 return checkbox.id;
             });
+            localStorage.setItem("minorVar", JSON.stringify(selectedMinors));
+            //To turn back to array after, use: JSON.parse(localStorage.getItem("majorVar")) || []; // Retrieve from localStorage or initialize as empty array
             console.log('Selected minors:', selectedMinors);
         }
     }
@@ -39,5 +43,3 @@ document.addEventListener('DOMContentLoaded', function() {
         checkbox.addEventListener('click', selectiveCheck);
     });
 });
-
-console.log("hello");

@@ -1,0 +1,243 @@
+Course,Code,Name
+ACTSC, 221, Introductory Financial Mathematics (Non-Specialist Level)
+ACTSC, 231, Introductory Financial Mathematics
+ACTSC, 232, Life Contingencies 1
+ACTSC, 291, Global Capital Markets
+ACTSC, 331, Life Contingencies 2
+ACTSC, 363, Casualty and Health Insurance Mathematics 1
+ACTSC, 371, Introduction to Investments
+ACTSC, 372, Investment Science and Corporate Finance
+ACTSC, 391, Corporate Finance
+ACTSC, 431, Casualty and Health Insurance Mathematics 2
+ACTSC, 432, Property and Casualty Insurance: Pricing
+ACTSC, 445, Quantitative Enterprise Risk Management
+ACTSC, 446, Mathematics of Financial Markets
+ACTSC, 453, Basic Pension Mathematics
+ACTSC, 454, Longevity and Mortality Using Predictive Analytics
+ACTSC, 455, Life Contingencies 3
+ACTSC, 463, Introduction to Property and Casualty Loss Reserving
+ACTSC, 468, Readings in Actuarial Science 1
+ACTSC, 469, Readings in Actuarial Science 2
+ACTSC, 471, Corporate Financial Decision Making
+ACTSC, 489, Advanced Topics in Actuarial Science
+AMATH, 231, Calculus 4
+AMATH, 242, Introduction to Computational Mathematics
+AMATH, 250, Introduction to Differential Equations
+AMATH, 251, Introduction to Differential Equations (Advanced Level)
+AMATH, 271, Introduction to Theoretical Mechanics
+AMATH, 331, Applied Real Analysis
+AMATH, 332, Applied Complex Analysis
+AMATH, 342, Computational Methods for Differential Equations
+AMATH, 343, Discrete Models in Applied Mathematics
+AMATH, 350, Differential Equations for Business and Economics
+AMATH, 351, Ordinary Differential Equations 2
+AMATH, 353, Partial Differential Equations 1
+AMATH, 361, Continuum Mechanics
+AMATH, 373, Quantum Theory 1
+AMATH, 382, Computational Modelling of Cellular Systems
+AMATH, 383, Introduction to Mathematical Biology
+AMATH, 390, Mathematics and Music
+AMATH, 391, From Fourier to Wavelets
+AMATH, 442, Computational Methods for Partial Differential Equations
+AMATH, 451, Introduction to Dynamical Systems
+AMATH, 453, Partial Differential Equations 2
+AMATH, 455, Control Theory
+AMATH, 456, Calculus of Variations
+AMATH, 463, Fluid Mechanics
+AMATH, 473, Quantum Theory 2
+AMATH, 474, Quantum Theory 3: Quantum Information and Foundations
+AMATH, 475, Introduction to General Relativity
+AMATH, 477, Stochastic Processes for Applied Mathematics
+AMATH, 495, Reading Course
+CO, 227, Introduction to Optimization (Non-Specialist Level)
+CO, 250, Introduction to Optimization
+CO, 255, Introduction to Optimization (Advanced Level)
+CO, 327, Deterministic OR Models (Non-Specialist Level)
+CO, 330, Combinatorial Enumeration
+CO, 331, Coding Theory
+CO, 342, Introduction to Graph Theory
+CO, 351, Network Flow Theory
+CO, 353, Computational Discrete Optimization
+CO, 367, Nonlinear Optimization
+CO, 370, Deterministic OR Models
+CO, 372, Portfolio Optimization Models
+CO, 380, Mathematical Discovery and Invention
+CO, 430, Algebraic Enumeration
+CO, 431, Symmetric Functions
+CO, 434, Combinatorial Designs
+CO, 439, Topics in Combinatorics
+CO, 440, Topics in Graph Theory
+CO, 442, Graph Theory
+CO, 444, Algebraic Graph Theory
+CO, 446, Matroid Theory
+CO, 450, Combinatorial Optimization
+CO, 452, Integer Programming
+CO, 454, Scheduling
+CO, 456, Introduction to Game Theory
+CO, 459, Topics in Optimization
+CO, 463, Convex Optimization and Analysis
+CO, 466, Continuous Optimization
+CO, 471, Semidefinite Optimization
+CO, 480, History of Mathematics
+CO, 481, Introduction to Quantum Information Processing
+CO, 485, The Mathematics of Public-Key Cryptography
+CO, 487, Applied Cryptography
+CO, 499, Reading in Combinatorics and Optimization
+CS, 100, Introduction to Computing Through Applications
+CS, 105, Introduction to Computer Programming 1
+CS, 106, Introduction to Computer Programming 2
+CS, 114, Principles of Computing for Science
+CS, 115, Introduction to Computer Science 1
+CS, 116, Introduction to Computer Science 2
+CS, 135, Designing Functional Programs
+CS, 136, Elementary Algorithm Design and Data Abstraction
+CS, 136, Tools and Techniques for Software Development
+CS, 137, Programming Principles
+CS, 138, Introduction to Data Abstraction and Implementation
+CS, 145, Designing Functional Programs (Advanced Level)
+CS, 146, Elementary Algorithm Design and Data Abstraction (Advanced Level)
+CS, 200, Concepts for Advanced Computer Usage
+CS, 230, Introduction to Computers and Computer Systems
+CS, 231, Algorithmic Problem Solving
+CS, 234, Data Types and Structures
+CS, 240, Data Structures and Data Management
+CS, 240, Data Structures and Data Management (Enriched)
+CS, 241, Foundations of Sequential Programs
+CS, 241, Foundations of Sequential Programs (Enriched)
+CS, 245, Logic and Computation
+CS, 245, Logic and Computation (Enriched)
+CS, 246, Object-Oriented Software Development
+CS, 246, Object-Oriented Software Development (Enriched)
+CS, 247, Software Engineering Principles
+CS, 251, Computer Organization and Design
+CS, 251, Computer Organization and Design (Enriched)
+CS, 330, Management Information Systems
+CS, 335, Computational Methods in Business and Finance
+CS, 338, Computer Applications in Business: Databases
+CS, 341, Algorithms
+CS, 343, Concurrent and Parallel Programming
+CS, 346, Application Development
+CS, 348, Introduction to Database Management
+CS, 349, User Interfaces
+CS, 350, Operating Systems
+CS, 360, Introduction to the Theory of Computing
+CS, 365, Models of Computation
+CS, 370, Numerical Computation
+CS, 371, Introduction to Computational Mathematics
+CS, 383, Computational Digital Art Studio
+CS, 398, Topics in Computer Science
+CS, 399, Readings in Computer Science
+CS, 430, Applications Software Engineering
+CS, 431, Data-Intensive Distributed Analytics
+CS, 436, Networks and Distributed Computer Systems
+CS, 442, Principles of Programming Languages
+CS, 444, Compiler Construction
+CS, 445, Software Requirements Specification and Analysis
+CS, 446, Software Design and Architectures
+CS, 447, Software Testing Quality Assurance and Maintenance
+CS, 448, Database Systems Implementation
+CS, 449, Human-Computer Interaction
+CS, 450, Computer Architecture
+CS, 451, Data-Intensive Distributed Computing
+CS, 452, Real-time Programming
+CS, 454, Distributed Systems
+CS, 456, Computer Networks
+CS, 457, System Performance Evaluation
+CS, 458, Computer Security and Privacy
+CS, 462, Formal Languages and Parsing
+CS, 466, Algorithm Design and Analysis
+CS, 467, Introduction to Quantum Information Processing
+CS, 475, Computational Linear Algebra
+CS, 476, Numeric Computation for Financial Modeling
+CS, 479, Neural Networks
+CS, 480, Introduction to Machine Learning
+CS, 482, Computational Techniques in Biological Sequence Analysis
+CS, 484, Computational Vision
+CS, 485, Statistical and Computational Foundations of Machine Learning
+CS, 486, Introduction to Artificial Intelligence
+CS, 487, Introduction to Symbolic Computation
+CS, 488, Introduction to Computer Graphics
+CS, 489, Advanced Topics in Computer Science
+CS, 490, Information Systems Management
+CS, 492, The Social Implications of Computing
+CS, 493, Team Project 1
+CS, 494, Team Project 2
+CS, 497, Multidisciplinary Studies in Computer Science
+CS, 499, Readings in Computer Science
+CS, 499, Honours Thesis
+MATBUS, 371, Introduction to Corporate Finance
+MATBUS, 470, Derivatives
+MATBUS, 471, Fixed Income Securities
+MATBUS, 472, Risk Management
+PMATH, 320, Euclidean Geometry
+PMATH, 321, Non-Euclidean Geometry
+PMATH, 330, Introduction to Mathematical Logic
+PMATH, 331, Applied Real Analysis
+PMATH, 332, Applied Complex Analysis
+PMATH, 333, Introduction to Real Analysis
+PMATH, 334, Introduction to Rings and Fields with Applications
+PMATH, 336, Introduction to Group Theory with Applications
+PMATH, 340, Elementary Number Theory
+PMATH, 343, Introduction to the Mathematics of Quantum Information
+PMATH, 347, Groups and Rings
+PMATH, 348, Fields and Galois Theory
+PMATH, 351, Real Analysis
+PMATH, 352, Complex Analysis
+PMATH, 365, Differential Geometry
+PMATH, 370, Chaos and Fractals
+PMATH, 399, Readings in Pure Mathematics
+PMATH, 432, First Order Logic and Computability
+PMATH, 433, Model Theory and Set Theory
+PMATH, 440, Analytic Number Theory
+PMATH, 441, Algebraic Number Theory
+PMATH, 445, Representations of Finite Groups
+PMATH, 446, Introduction to Commutative Algebra
+PMATH, 450, Lebesgue Integration and Fourier Analysis
+PMATH, 451, Measure and Integration
+PMATH, 453, Functional Analysis
+PMATH, 464, Introduction to Algebraic Geometry
+PMATH, 465, Smooth Manifolds
+PMATH, 467, Algebraic Topology
+PMATH, 499, Readings in Pure Mathematics
+STAT, 202, Introductory Statistics for Scientists
+STAT, 206, Statistics for Software Engineering
+STAT, 211, Introductory Statistics and Sampling for Accounting
+STAT, 220, Probability (Non-Specialist Level)
+STAT, 221, Statistics (Non-Specialist Level)
+STAT, 230, Probability
+STAT, 231, Statistics
+STAT, 240, Probability (Advanced Level)
+STAT, 241, Statistics (Advanced Level)
+STAT, 316, Introduction to Statistical Problem Solving
+STAT, 321, Regression and Forecasting (Non-Specialist Level)
+STAT, 322, Sampling and Experimental Design (Non-Specialist Level)
+STAT, 330, Mathematical Statistics
+STAT, 331, Applied Linear Models
+STAT, 332, Sampling and Experimental Design
+STAT, 333, Stochastic Processes 1
+STAT, 334, Probability Models for Business and Accounting
+STAT, 337, Introduction to Biostatistics
+STAT, 340, Stochastic Simulation Methods
+STAT, 341, Computational Statistics and Data Analysis
+STAT, 371, Applied Linear Models and Process Improvement for Business
+STAT, 372, Survey Sampling and Experimental Design Techniques for Business
+STAT, 373, Regression and Forecasting Methods in Finance
+STAT, 430, Experimental Design
+STAT, 431, Generalized Linear Models and their Applications
+STAT, 433, Stochastic Processes 2
+STAT, 435, Statistical Methods for Process Improvements
+STAT, 436, Introduction to the Analysis of Spatial Data in Health Research
+STAT, 437, Statistical Methods for Life History Analysis
+STAT, 438, Advanced Methods in Biostatistics
+STAT, 440, Computational Inference
+STAT, 441, Statistical Learning - Classification
+STAT, 442, Data Visualization
+STAT, 443, Forecasting
+STAT, 444, Statistical Learning - Advanced Regression
+STAT, 450, Estimation and Hypothesis Testing
+STAT, 454, Sampling Theory and Practice
+STAT, 464, Topics in Probability Theory
+STAT, 466, Topics in Statistics 1
+STAT, 467, Topics in Statistics 2
+STAT, 468, Readings in Statistics 1
+STAT, 469, Readings in Statistics 2

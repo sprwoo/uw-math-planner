@@ -47,8 +47,9 @@ for code in codes:
             if sidebar_li_tag in li_tags:
                 li_tags.remove(sidebar_li_tag)
 
+    #loop through all l<i> tags
     for li_tag in li_tags:
-        # Check if the parent tag of the <li> tag is <ol>
+        # Check if the parent tag is <ol> and skips the rest of the website (AFTER NOTES)
         if li_tag.parent.name == 'ol':
             break  # Break out of the loop
         print(li_tag.text)

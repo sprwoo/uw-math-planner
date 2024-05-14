@@ -1,6 +1,7 @@
 from scraper import *
 
-with open("test.csv", 'w', newline='', encoding='utf-8') as file:
+with open("UW-Undergrad-Calendar/course_requirements.csv", 'w', newline='', encoding='utf-8') as file:
+    file.write("Year,Offered Major,Course Requirements\n")
     for y in range(2019,2024):
         years = str(y) + "-" + str(y + 1)
 
@@ -8,5 +9,7 @@ with open("test.csv", 'w', newline='', encoding='utf-8') as file:
         course_requirement_list = []
         for major in major_list:
             courses = get_courses(major)
-            file.write(years + "," + str(major) + ",\"" + str(courses) + "\"\n")
+            major_name = str(major)
+            major_name = major_name.replace('<br/>\n', '')
+            file.write(years + "," + major_name + ",\"" + str(courses) + "\"\n")
     

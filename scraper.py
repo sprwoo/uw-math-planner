@@ -34,11 +34,11 @@ def get_majors(year):
 
     return major_names
 
-# Returns the course requirements for a specific major
-def get_courses(major):
+# Returns the course requirements for a specific degree
+def get_courses(degree):
     # Set up URL
     link_header = "https://academic-calendar-archive.uwaterloo.ca"
-    choice_url = link_header + major.get('href')
+    choice_url = link_header + degree.get('href')
 
     # Set up BeautifulSoup
     choice_page = requests.get(choice_url)
@@ -65,7 +65,7 @@ def get_minors(year):
 
     # Set up BeautifulSoup
     minor_page = requests.get(minor_url)
-    minor_soup = BeautifulSoup(minor_page.text, 'html')
+    minor_soup = BeautifulSoup(minor_page.text, 'lxml')
     minor_names = minor_soup.find_all('a')
 
     # Get rid of everything before admendments and a few others
@@ -79,3 +79,5 @@ def get_minors(year):
     # Print
     '''for name in minor_names:
     print(name.get_text())'''
+
+    return minor_names

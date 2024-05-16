@@ -21,7 +21,7 @@ def __repr(names: list) -> None:
         print(name.get_text())
         print(name.get('href'))
 
-def print_if_exists(check: str):
+def print_if_exists(check: str) -> None:
     """Prints a string if it is not empty"""
     if check:
         print(check)
@@ -56,17 +56,17 @@ def get_courses(degree: str) -> Dict[str,str]:
     choice_courses = get_bs(choice_url, 'a')
 
     # Filter out invalid courses
-    tmp = {}
+    tmp = []
     for course in choice_courses:
         if is_valid_course(course.get_text()):
-            tmp[course.get_text()] = course.get('href')
+            tmp.append(course.get_text())
     choice_courses = tmp
 
     # __repr(choice_courses)
     return choice_courses
 
 def get_minors(year: int) -> list[str]:
-    """Get Minors/Certifications/Options/Diplomas"""
+    """Returns all availiable Minors/Certifications/Options/Diplomas for a year"""
     # Set up URL
     minor_url = "https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/" + year + "/page/Minors-Options-Diplomas-Certificates.html"
 
@@ -84,34 +84,49 @@ def get_minors(year: int) -> list[str]:
     # __repr(minor_names)
     return minor_names
 
-def get_prereq(req: str) -> Tuple[str, str, str, str, str, str, str]:
+def get_info(req: str) -> Tuple[str, str, str, str, str, str, str]:
+    """Returns a list of all the info of a type of course"""
     code = req.find('a').get('name')
 
     name = req.find_all(class_='divTableCell colspan-2')
     desc = name[1].get_text()
+    desc = desc.replace("\n", "").replace("\r", "").replace("\"", "").replace("\'", "")
+
     name = name[0].get_text()
     
     info = req.find_all('em')
     
-    note = info[0].get_text().strip()
+    note = info[0].get_text().strip().replace("\n", "").replace("\r", "").replace("\"", "").replace("\'", "") # Python is great
+
     prereq = ''
     coreq = ''
     antireq = ''
     for tag in info:
+        text = tag.get_text().strip()
+        tmp = ''
+        for letter in text:
+            if letter == "\n" or letter == "\r" or letter == "\'" or letter == "\"":
+                continue;
+            else:
+                tmp += letter
+        text = tmp.strip()
+        
         if ("Prereq" in tag.get_text()):
-            prereq = tag.get_text().strip()
+            prereq = text
         if ("Coreq" in tag.get_text()):
-            coreq = tag.get_text().strip()
+            coreq = text
         if ("Antireq" in tag.get_text()):
-            antireq = tag.get_text().strip()
+            antireq = text
     
-    """print(name)
-    print(code)
-    print(desc)
-    print_if_exists(note)
-    print_if_exists(prereq)
-    print_if_exists(coreq)
-    print_if_exists(antireq)
-    print("\n")"""
+    """
+    print("N: " + name)
+    print("C: " + code)
+    print("D: " + desc)
+    print_if_exists("Note: " + note)
+    print_if_exists("Pre: " + prereq)
+    print_if_exists("Co: " + coreq)
+    print_if_exists("Anti: " + antireq)
+    print("\n")
+    """
 
     return code, name, desc, note, prereq, coreq, antireq

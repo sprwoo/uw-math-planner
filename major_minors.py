@@ -3,7 +3,11 @@ from typing import Callable
 
 link_header = "https://academic-calendar-archive.uwaterloo.ca"
 
-def scrape(years: int, func: Callable[[int], list[str]]):
+def scrape(years: int, func: Callable[[int], list[str]]) -> None:
+    """
+    Wrapper function for datascraping. Generalized so both majors and minors can use this. 
+    Writes into CSV.
+    """
     years = str(y) + "-" + str(y + 1)
     degree_list = func(years)
     for degree in degree_list:

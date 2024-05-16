@@ -19,12 +19,12 @@ def scrape(years, func):
             courses = "Could not find courses associated with this degree :(. Check the official Undergraduate Calendar."
         file.write(years + "," + name + "," + link_header + link + ",\"" + str(courses) + "\"\n")
 
-with open("UW-Undergrad-Calendar/course_requirements.csv", 'w', newline='', encoding='utf-8') as file:
+'''with open("UW-Undergrad-Calendar/CSVs/course_requirements.csv", 'w', newline='', encoding='utf-8') as file:
     file.write("Year,Offered Major,Link,Course Requirements\n")
     for y in range(2019,2024):
         scrape(y, get_majors)
     
-with open("UW-Undergrad-Calendar/minor_requirements.csv", 'w', newline='', encoding='utf-8') as file:
+with open("UW-Undergrad-Calendar/CSVs/minor_requirements.csv", 'w', newline='', encoding='utf-8') as file:
     file.write("Year,Offered Minor,Link,Course Requirements\n")
     for y in range(2019, 2024):
-        scrape(y, get_minors)
+        scrape(y, get_minors)'''

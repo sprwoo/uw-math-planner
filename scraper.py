@@ -7,18 +7,32 @@ def is_valid_course(course_code):
     pattern = r'^[A-Za-z]{2,}\s\d{3}[A-Za-z]?$'
     return re.match(pattern, course_code, re.IGNORECASE) is not None
 
+# Sets up BeautifulSoup
+# url is the url to scrape for, find is the header we want to look for
+def get_bs(url, find):
+    url_page = requests.get(url)
+    url_soup = BeautifulSoup(url_page.text, 'lxml')
+    url_courses = url_soup.find_all(find)
+    return url_courses
+
+# Prints out the list of majors/minors/courses
+def __repr(names):
+    for name in names:
+        print(name.get_text())
+        print(name.get('href'))
+
+def print_if_exists(check):
+    if check:
+        print(check)
+
 # Returns all the availiable majors for a year
 def get_majors(year):
     # Set up URL
     url_for_list = "https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/" + year + "/page/MATH-List-of-Academic-Programs-or-Plans.html"
     #print(url_for_list)
 
-    # Set up BeautifulSoup
-    listpage = requests.get(url_for_list)
-    listsoup = BeautifulSoup(listpage.text, "lxml")
-
     # Get all the names
-    major_names = listsoup.find_all('a')
+    major_names = get_bs(url_for_list, 'a')
 
     # Remove everything before "Amendments"
     i = 0
@@ -28,9 +42,7 @@ def get_majors(year):
         i += 1
     major_names = major_names[i + 1:]
 
-    # Print
-    '''for name in major_names:
-        print(name.get_text())'''
+    # __repr(major_names)
 
     return major_names
 
@@ -41,9 +53,7 @@ def get_courses(degree):
     choice_url = link_header + degree.get('href')
 
     # Set up BeautifulSoup
-    choice_page = requests.get(choice_url)
-    choice_soup = BeautifulSoup(choice_page.text, 'lxml')
-    choice_courses = choice_soup.find_all('a')
+    choice_courses = get_bs(choice_url, 'a')
 
     # Filter out invalid courses
     tmp = {}
@@ -52,10 +62,7 @@ def get_courses(degree):
             tmp[course.get_text()] = course.get('href')
     choice_courses = tmp
 
-    # Print
-    '''for name in choice_courses:
-        print(name.get_text())
-        print(name.get('href'))'''
+    # __repr(choice_courses)
     return choice_courses
 
 def get_minors(year):
@@ -64,9 +71,7 @@ def get_minors(year):
     minor_url = "https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/" + year + "/page/Minors-Options-Diplomas-Certificates.html"
 
     # Set up BeautifulSoup
-    minor_page = requests.get(minor_url)
-    minor_soup = BeautifulSoup(minor_page.text, 'lxml')
-    minor_names = minor_soup.find_all('a')
+    minor_names = get_bs(minor_url, 'a')
 
     # Get rid of everything before admendments and a few others
     i = 0
@@ -76,8 +81,37 @@ def get_minors(year):
         i += 1
     minor_names = minor_names[i + 5:]
 
-    # Print
-    '''for name in minor_names:
-    print(name.get_text())'''
-
+    # __repr(minor_names)
     return minor_names
+
+def get_prereq(req):
+    code = req.find('a').get('name')
+
+    name = req.find_all(class_='divTableCell colspan-2')
+    desc = name[1].get_text()
+    name = name[0].get_text()
+    
+    info = req.find_all('em')
+    
+    note = info[0].get_text().strip()
+    prereq = ''
+    coreq = ''
+    antireq = ''
+    for tag in info:
+        if ("Prereq" in tag.get_text()):
+            prereq = tag.get_text().strip()
+        if ("Coreq" in tag.get_text()):
+            coreq = tag.get_text().strip()
+        if ("Antireq" in tag.get_text()):
+            antireq = tag.get_text().strip()
+    
+    '''print(name)
+    print(code)
+    print(desc)
+    print_if_exists(note)
+    print_if_exists(prereq)
+    print_if_exists(coreq)
+    print_if_exists(antireq)
+    print("\n")'''
+
+    return name, desc, note, prereq, coreq, antireq

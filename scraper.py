@@ -1,32 +1,33 @@
 from bs4 import BeautifulSoup
 import requests
-import pandas as pd
 import re
+from typing import Dict, Tuple
 
-def is_valid_course(course_code):
+def is_valid_course(course_code: str) -> bool:
+    """Checks if a given string is a valid course code"""
     pattern = r'^[A-Za-z]{2,}\s\d{3}[A-Za-z]?$'
     return re.match(pattern, course_code, re.IGNORECASE) is not None
 
-# Sets up BeautifulSoup
-# url is the url to scrape for, find is the header we want to look for
-def get_bs(url, find):
+def get_bs(url: str, find: str) -> list[str]:
+    """Sets up BeautifulSoup and returns the content we are looking for"""
     url_page = requests.get(url)
     url_soup = BeautifulSoup(url_page.text, 'lxml')
     url_courses = url_soup.find_all(find)
     return url_courses
 
-# Prints out the list of majors/minors/courses
-def __repr(names):
+def __repr(names: list) -> None:
+    """Prints out the list of majors/minors/courses"""
     for name in names:
         print(name.get_text())
         print(name.get('href'))
 
-def print_if_exists(check):
+def print_if_exists(check: str):
+    """Prints a string if it is not empty"""
     if check:
         print(check)
 
-# Returns all the availiable majors for a year
-def get_majors(year):
+def get_majors(year: int) -> list[str]:
+    """Returns all the availiable majors for a year"""
     # Set up URL
     url_for_list = "https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/" + year + "/page/MATH-List-of-Academic-Programs-or-Plans.html"
     #print(url_for_list)
@@ -41,13 +42,12 @@ def get_majors(year):
             break
         i += 1
     major_names = major_names[i + 1:]
-
     # __repr(major_names)
 
     return major_names
 
-# Returns the course requirements for a specific degree
-def get_courses(degree):
+def get_courses(degree: str) -> Dict[str,str]:
+    """Returns the course requirements for a specific degree"""
     # Set up URL
     link_header = "https://academic-calendar-archive.uwaterloo.ca"
     choice_url = link_header + degree.get('href')
@@ -65,8 +65,8 @@ def get_courses(degree):
     # __repr(choice_courses)
     return choice_courses
 
-def get_minors(year):
-    # Get Minors/Certifications/Options/Diplomas
+def get_minors(year: int) -> list[str]:
+    """Get Minors/Certifications/Options/Diplomas"""
     # Set up URL
     minor_url = "https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/" + year + "/page/Minors-Options-Diplomas-Certificates.html"
 
@@ -84,7 +84,7 @@ def get_minors(year):
     # __repr(minor_names)
     return minor_names
 
-def get_prereq(req):
+def get_prereq(req: str) -> Tuple[str, str, str, str, str, str, str]:
     code = req.find('a').get('name')
 
     name = req.find_all(class_='divTableCell colspan-2')
@@ -105,13 +105,13 @@ def get_prereq(req):
         if ("Antireq" in tag.get_text()):
             antireq = tag.get_text().strip()
     
-    '''print(name)
+    """print(name)
     print(code)
     print(desc)
     print_if_exists(note)
     print_if_exists(prereq)
     print_if_exists(coreq)
     print_if_exists(antireq)
-    print("\n")'''
+    print("\n")"""
 
-    return name, desc, note, prereq, coreq, antireq
+    return code, name, desc, note, prereq, coreq, antireq

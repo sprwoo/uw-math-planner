@@ -50,4 +50,4 @@ with open("UW-Undergrad-Calendar/CSVs/course_info.csv", 'w', newline='', encodin
             code, name, desc, note, prereq, coreq, antireq = get_info(req)
             file.write(code + ',"' + name + '","' + desc + '","' + note + '","' + prereq + '","' + coreq + '","' + antireq + '"\n')
 
-            # Fix random newlines
+            # Fix random newlines (FIXED, FUCK CRLF CHARACTERS)

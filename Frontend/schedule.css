@@ -141,6 +141,7 @@ p{
   .wrapper{
 	width: 370px;
 	margin: 85px auto 0;
+	font-family: 'Arial', sans-serif;
   }
   .select-btn, li{
 	display: flex;
@@ -152,9 +153,13 @@ p{
 	padding: 0 20px;
 	font-size: 22px;
 	background: #fff;
-	border-radius: 7px;
+	border-radius: 10px;
 	justify-content: space-between;
 	box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+	transition: all 0.3s ease;
+  }
+  .select-btn:hover{
+	background: #f0f0f0;
   }
   .select-btn i{
 	font-size: 31px;
@@ -168,8 +173,9 @@ p{
 	padding: 20px;
 	margin-top: 15px;
 	background: #fff;
-	border-radius: 7px;
+	border-radius: 10px;
 	box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+	transition: all 0.3s ease;
   }
   .wrapper.active .content{
 	display: block;
@@ -188,12 +194,13 @@ p{
   }
   .search input{
 	height: 50px;
-	width: 100%;
+	width: 75%;
 	outline: none;
 	font-size: 17px;
 	border-radius: 5px;
 	padding: 0 20px 0 43px;
 	border: 1px solid #B3B3B3;
+	transition: all 0.3s ease;
   }
   .search input:focus{
 	padding-left: 42px;
@@ -226,13 +233,13 @@ p{
 	height: 50px;
 	padding: 0 13px;
 	font-size: 21px;
-  }
-  .options li:hover, li.selected{
 	border-radius: 5px;
+	transition: 0.3s ease;
+  }
+  .options li:hover, .options li.selected{
 	background: #f2f2f2;
   }
-
-
+  
 /*************** BUTTON *************/
 .container {
     text-align: center;

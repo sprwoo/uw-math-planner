@@ -1,15 +1,19 @@
 from bs4 import BeautifulSoup
 import requests
 
-url = "https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2023-2024/page/MATH-Computer-Science-Plan-Requirements.html"
+# Setup Beautiful Soup
+url = "https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2023-2024/page/MATH-Combinatorics-and-Optimization2.html"
 url_page = requests.get(url)
 url_soup = BeautifulSoup(url_page.text, 'lxml')
 
+# Gets the span where all the requirements are listed
 sidebar_span = url_soup.find('span', id='ctl00_contentMain_lblContent')
 lines = sidebar_span.find_all('ul', recursive=False)
 
+# Remove all the tags
 lines = lines[0].get_text()
 
+# Get all the requirements into one list
 requirements = []
 string = ""
 for letter in lines:
@@ -20,21 +24,25 @@ for letter in lines:
     else:
         string += letter
 
-# GPT goated ngl
+# Turn the list of requirements into a dictionary 
 organized_data = {}
-key = None
-count = 1
+valid_keys = ["One", "Two", "Three", "Four", "All", "Elective"] # All of the potential headers
+count = 1 # Keep track of the numbers
 
 for item in requirements:
-    if item in ["One of", "All of", "One additional course chosen from", "Elective breadth requirements", "Elective depth requirements"]:
-        key = item if item not in organized_data else f"{item} {count}"
-        if key in organized_data:
-            count += 1
-            key = f"{item} {count}"
+    # If any of the keys in valid_keys are found within an element, we create a new dictionary key
+    if any(valid_key in item for valid_key in valid_keys):
+        key = f"{count}. {item}"
+        count += 1
         organized_data[key] = []
-    else:
+    else: # If a key is not found, just append it into the dictionary as a value
         if key:
             organized_data[key].append(item)
 
-for k, v in organized_data.items():
-    print(f"{k}: {v}")
+# Print
+for key, value in organized_data.items():
+    if value:
+        print(f"{key}: {value}")
+    else:
+        print(f"{key}")
+    print(">>>")

@@ -4,25 +4,43 @@
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    scroll-behavior: smooth;
     box-sizing: border-box;
 }
 
 body, html {
     height: 100%;
     overflow: hidden;
+    background-color: #1f2029;
 }
 
 .main {
     position: relative;
     width: 100%;
     height: 100vh;
-    background-color: #1f2029;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     text-align: center;
+}
+
+.blob {
+    border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
+    position: absolute;
+    width: 540px;
+    height: 540px;
+    background: rgb(0, 255, 98);
+    background-image: linear-gradient(45deg, #836083 0%, rgb(41, 38, 41) 100%);
+    animation: animateBlob 10s linear infinite alternate;
+
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.content {
+    position: relative;
+    z-index: 1;
 }
 
 .title {
@@ -47,19 +65,19 @@ body, html {
     color: white;
     width: 200px;
     height: 50px;
-    box-shadow: 0 3px 6px rgba(255, 105, 180, 0.6);
-    cursor: pointer;
-    border-radius: 5px;
+    background: #201416;
     border: none;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 1rem;
     letter-spacing: 1px;
     transition: all 0.3s ease;
-    background: #201416;
+    box-shadow: #1f2029;
 }
 
 .button:hover {
-    transform: translateY(-5px);
     background: #ff69b4;
+    transform: translateY(-5px);
 }
 
 .button:active {

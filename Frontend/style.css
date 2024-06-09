@@ -10,7 +10,7 @@
 body, html {
     height: 100%;
     overflow: hidden;
-    background-color: #1f2029;
+    background-color: white;
 }
 
 .main {
@@ -29,7 +29,7 @@ body, html {
     width: 540px;
     height: 540px;
     background: rgb(0, 255, 98);
-    background-image: linear-gradient(45deg, #836083 0%, rgb(41, 38, 41) 100%);
+    background-image: linear-gradient(45deg, #e5b9e5 0%, rgb(245, 235, 245) 100%);
     animation: animateBlob 10s linear infinite alternate;
 
     z-index: 1;
@@ -44,7 +44,7 @@ body, html {
 }
 
 .title {
-    color: #fff;
+    color: #1f2029;
     font-size: 4rem;
     margin-bottom: 20px;
 }
@@ -54,7 +54,7 @@ body, html {
 }
 
 .desc {
-    color: #ccc;
+    color: #444449;
     font-size: 1.2rem;
     margin-bottom: 30px;
     max-width: 600px;

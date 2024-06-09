@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&subset=latin-ext');
 
 :root {
     --white: #ffffff;
     --dark-blue: #1f2029;
     --dark-light: #353746;
-    --pink: #ffb6c1; /* Lighter pink */
+    --pink: #ffb6c1;
     --light-pink: #ffe4e1;
     --grey: #8c8c8c;
-    --darker-grey: #222222;
+    --darker-grey: #222222; /* Adjusted even darker grey */
     --shadow: rgba(0, 0, 0, 0.2);
     --transition-speed: 0.3s;
 }
@@ -28,6 +28,7 @@ body {
     max-width: 1200px;
     padding: 20px;
 }
+
 
 .header {
     text-align: center;
@@ -89,7 +90,7 @@ body {
 .course-list li {
     margin-bottom: 10px;
     font-weight: 500;
-    color: var(--light-pink); /* Lighter pink */
+    color: var(--light-pink);
 }
 
 .course-list li ul {
@@ -103,6 +104,17 @@ body {
     color: var(--grey);
 }
 
+.course-item {
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+.course-item.selected {
+    background-color: var(--pink);
+    color: var(--dark-blue);
+}
+
 .matched-course {
     background-color: green;
 }
+

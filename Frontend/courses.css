@@ -2,20 +2,18 @@
 
 :root {
     --white: #ffffff;
+    --light-grey: #f5f5f5;
+    --dark-grey: #333333;
+    --light-blue: #e6f0ff;
     --dark-blue: #1f2029;
-    --dark-light: #353746;
-    --pink: #ffb6c1;
-    --light-pink: #ffe4e1;
-    --grey: #8c8c8c;
-    --darker-grey: #222222; /* Adjusted even darker grey */
-    --shadow: rgba(0, 0, 0, 0.2);
+    --pink: #ff7eb9;
     --transition-speed: 0.3s;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--dark-blue);
-    color: var(--white);
+    background-color: var(--light-grey);
+    color: var(--dark-grey);
     margin: 0;
     padding: 0;
     display: flex;
@@ -28,7 +26,6 @@ body {
     max-width: 1200px;
     padding: 20px;
 }
-
 
 .header {
     text-align: center;
@@ -43,7 +40,7 @@ body {
 
 .description {
     font-size: 1.1rem;
-    color: var(--grey);
+    color: var(--dark-grey);
 }
 
 .course-planner {
@@ -56,21 +53,20 @@ body {
 }
 
 .major {
-    background-color: var(--dark-light);
+    background-color: var(--white);
     border-radius: 8px;
     padding: 20px;
     margin: 10px;
-    box-shadow: 0 4px 6px var(--shadow);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     min-width: 300px;
     flex-grow: 1;
-    color: var(--white);
+    color: var(--dark-grey);
     transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
 }
 
 .major:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 12px var(--shadow);
-    background-color: var(--darker-grey);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .major h2 {
@@ -90,7 +86,7 @@ body {
 .course-list li {
     margin-bottom: 10px;
     font-weight: 500;
-    color: var(--light-pink);
+    color: var(--dark-grey);
 }
 
 .course-list li ul {
@@ -111,10 +107,24 @@ body {
 
 .course-item.selected {
     background-color: var(--pink);
-    color: var(--dark-blue);
+    color: var(--white);
 }
 
 .matched-course {
     background-color: green;
 }
 
+.selected-courses-container {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.selected-course {
+    background-color: var(--light-blue);
+    color: var(--dark-blue);
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}

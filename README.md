@@ -1,5 +1,7 @@
+University of Waterloo Undegraduate Calendar for Math students.
+
+A data scraping project by Ajai Chandi and Daniel Yang.
+
 TODO:
- - [X] Generalize for other math majors
- - [ ] Develop frontend
- - [X] Make connected database with all majors requirements and connected large liste + all courses (ie. Stat4XX...)
- - [X] Play league of legends
+- Make JS script to make the CSVs usable
+- Redo the scraping for minors

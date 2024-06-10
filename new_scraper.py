@@ -79,7 +79,7 @@ def get_majors(year: int) -> list[str]:
     return major_names
 
 if __name__ == "__main__":
-    soup = setup_bs("https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2022-2023/page/ENG-Software-Engineering.html")
+    soup = setup_bs("https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2022-2023/page/MATH-Actuarial-Science-Mathematical-Finance1.html")
     lines = get_section(soup)
     #print(lines)
     if lines:

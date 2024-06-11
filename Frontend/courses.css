@@ -8,6 +8,11 @@
     --dark-blue: #1f2029;
     --pink: #ff7eb9;
     --transition-speed: 0.3s;
+    --transition-speed-fast: 0.2s;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
@@ -20,6 +25,14 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    opacity: 0;
+    animation: fadeIn var(--transition-speed) ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
 .container {
@@ -36,6 +49,11 @@ body {
     font-size: 3rem;
     margin-bottom: 10px;
     color: var(--pink);
+    transition: color var(--transition-speed-fast);
+}
+
+.title:hover {
+    color: var(--dark-grey);
 }
 
 .description {
@@ -102,7 +120,12 @@ body {
 
 .course-item {
     cursor: pointer;
-    transition: background-color var(--transition-speed);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.course-item:hover {
+    background-color: var(--light-blue);
+    color: var(--dark-grey);
 }
 
 .course-item.selected {
@@ -119,6 +142,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    transition: opacity var(--transition-speed);
 }
 
 .selected-course {
@@ -127,4 +151,9 @@ body {
     padding: 8px 12px;
     border-radius: 5px;
     font-size: 1.1rem;
+    transition: transform var(--transition-speed);
+}
+
+.selected-course:hover {
+    transform: scale(1.05);
 }

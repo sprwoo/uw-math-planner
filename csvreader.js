@@ -15,16 +15,23 @@ function get_requirements(lookforyear, lookformajor) {
                         return;
                     }
                 }
-                reject('No matching requirements found');
+                reject('No matching requirements found.');
             })
             .on('error', (error) => reject(error));
     });
 }
 
 async function main() {
+    // Replace these with getElementById or something of the sort to grab the user inputs
+    const year = "2023-2024"
+    const name1 = "Joint Pure Mathematics"
+    const name2 = "Joint Combinatorics and Optimization"; 
+
     try {
-        const course = await get_requirements("2022-2023", "Mathematical Finance");
-        console.log(course);
+        const major1 = await get_requirements(year, name1);
+        const major2 = await get_requirements(year, name2);
+        console.log(req1);
+        console.log(req2)
     } catch (error) {
         console.error(error);
     }

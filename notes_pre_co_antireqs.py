@@ -1,4 +1,4 @@
-from scraper import *
+from old_scraper import *
 import csv
 from typing import IO
 

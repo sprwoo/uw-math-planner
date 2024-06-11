@@ -2,11 +2,14 @@
 
 :root {
     --white: #ffffff;
-    --light-grey: #f5f5f5;
-    --dark-grey: #333333;
-    --light-blue: #e6f0ff;
     --dark-blue: #1f2029;
+    --dark-light: #353746;
     --pink: #ff7eb9;
+    --light-pink: #f1aadc;
+    --grey: #8c8c8c;
+    --darker-grey: #222222;
+    --dark-grey-hover: #2b2b2b;
+    --shadow: rgba(0, 0, 0, 0.2);
     --transition-speed: 0.3s;
     --transition-speed-fast: 0.2s;
 }
@@ -17,8 +20,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--light-grey);
-    color: var(--dark-grey);
+    background-color: var(--dark-blue);
+    color: var(--white);
     margin: 0;
     padding: 0;
     display: flex;
@@ -53,12 +56,12 @@ body {
 }
 
 .title:hover {
-    color: var(--dark-grey);
+    color: var(--light-pink);
 }
 
 .description {
     font-size: 1.1rem;
-    color: var(--dark-grey);
+    color: var(--grey);
 }
 
 .course-planner {
@@ -71,26 +74,27 @@ body {
 }
 
 .major {
-    background-color: var(--white);
+    background-color: var(--dark-light);
     border-radius: 8px;
     padding: 20px;
     margin: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px var(--shadow);
     min-width: 300px;
     flex-grow: 1;
-    color: var(--dark-grey);
+    color: var(--white);
     transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
 }
 
 .major:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 12px var(--shadow);
+    background-color: var(--darker-grey);
 }
 
 .major h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
-    color: var(--pink);
+    color: var(--light-pink);
     border-bottom: 2px solid var(--pink);
     padding-bottom: 10px;
     transition: border-bottom-color var(--transition-speed);
@@ -104,7 +108,7 @@ body {
 .course-list li {
     margin-bottom: 10px;
     font-weight: 500;
-    color: var(--dark-grey);
+    color: var(--light-pink);
 }
 
 .course-list li ul {
@@ -124,8 +128,8 @@ body {
 }
 
 .course-item:hover {
-    background-color: var(--light-blue);
-    color: var(--dark-grey);
+    background-color: var(--dark-grey-hover);
+    color: var(--white);
 }
 
 .course-item.selected {
@@ -146,8 +150,8 @@ body {
 }
 
 .selected-course {
-    background-color: var(--light-blue);
-    color: var(--dark-blue);
+    background-color: var(--dark-light);
+    color: var(--white);
     padding: 8px 12px;
     border-radius: 5px;
     font-size: 1.1rem;

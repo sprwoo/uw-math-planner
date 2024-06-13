@@ -101,6 +101,7 @@ body {
     transition: border-bottom-color var(--transition-speed);
 }
 
+/*************** DYNAMICALLY INSERTED INFO ****************/
 .course-list {
     list-style-type: none;
     padding: 0;
@@ -132,8 +133,8 @@ body {
 
 .course-item:hover {
     background-color: var(--dark-grey-hover);
-    color: var(--white); /* Ensure text color remains readable */
-    z-index: 2; /* Ensure hovered item is above others */
+    color: var(--white); 
+    z-index: 2; 
 }
 
 .course-item.selected {
@@ -145,27 +146,7 @@ body {
     background-color: green;
 }
 
-.selected-courses-container {
-    margin-top: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    transition: opacity var(--transition-speed);
-}
-
-.selected-course {
-    background-color: var(--dark-light);
-    color: var(--white);
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    transition: transform var(--transition-speed);
-}
-
-.selected-course:hover {
-    transform: scale(1.05);
-}
-
+/*************** POP UPS ******************/
 .course-popup {
     display: none;
     position: absolute;
@@ -189,9 +170,7 @@ body {
 .course-popup p {
     margin: 0;
     font-size: 0.9rem;
-    color: var(--darker-grey); /* Ensure text color remains readable */
+    color: var(--darker-grey); 
 }
 
-.course-item.selected .course-popup p {
-    color: var(--darker-grey); /* Ensure text color remains readable */
-}
+

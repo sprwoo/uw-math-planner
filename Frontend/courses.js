@@ -1,4 +1,5 @@
-// courses.js
+
+//Light and Dark Mode
 document.addEventListener('DOMContentLoaded', () => {
     const majorsContainer = document.getElementById('majors-container');
     const themeToggle = document.createElement('button');
@@ -6,13 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggle.classList.add('theme-toggle');
     document.body.appendChild(themeToggle);
 
-    //Light and Dark Mode
+    
     themeToggle.addEventListener('click', () => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', newTheme);
     });
 
+    //Pop-up temporary info
     const courseDetails = {
         "MATH 137": { prereqs: "None", description: "Calculus 1" },
         "MATH 147": { prereqs: "None", description: "Calculus 1" },
@@ -35,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "STAT 444": { prereqs: "None", description: "Calculus 1" }
     };
 
+    //Major temporary info
     const majorsData = [
         {
             name: "STATISTICS",
@@ -63,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+    //Creates the courses using the array of major objects
     function createCourseItem(course) {
         const courseItem = document.createElement('li');
         courseItem.className = 'course-item';

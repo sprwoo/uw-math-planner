@@ -1,5 +1,3 @@
-
-//Light and Dark Mode
 document.addEventListener('DOMContentLoaded', () => {
     const majorsContainer = document.getElementById('majors-container');
     const themeToggle = document.createElement('button');
@@ -7,14 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggle.classList.add('theme-toggle');
     document.body.appendChild(themeToggle);
 
-    
     themeToggle.addEventListener('click', () => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', newTheme);
     });
 
-    //Pop-up temporary info
+    // Temporary course details
     const courseDetails = {
         "MATH 137": { prereqs: "None", description: "Calculus 1" },
         "MATH 147": { prereqs: "None", description: "Calculus 1" },
@@ -37,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "STAT 444": { prereqs: "None", description: "Calculus 1" }
     };
 
-    //Major temporary info
+    // Temporary majors data
     const majorsData = [
         {
             name: "STATISTICS",
@@ -53,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ["One of the following:", ["CS 115", "CS 135"]],
                 ["Two of:", ["CS 136"]],
                 ["All of:", ["MATH 137", "MATH 138", "CM 481"]],
-                ["Choose 3 of:", ["CS 240", "CS 245", "CS 341"]]
+                ["Choose Three of:", ["CS 240", "CS 245", "CS 341"]]
             ]
         },
         {
@@ -66,49 +63,112 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
-    //Creates the courses using the array of major objects
-    function createCourseItem(course) {
-        const courseItem = document.createElement('li');
-        courseItem.className = 'course-item';
-        courseItem.textContent = course;
-
-        const popup = document.createElement('div');
-        popup.className = 'course-popup';
-        popup.innerHTML = `<strong>${course}</strong><br>Pre-reqs: ${courseDetails[course].prereqs}<br>Description: ${courseDetails[course].description}`;
-        courseItem.appendChild(popup);
-
-        courseItem.addEventListener('click', () => {
-            courseItem.classList.toggle('selected');
-        });
-
-        return courseItem;
-    }
-
+    const courseCount = {};
     majorsData.forEach(major => {
-        const majorContainer = document.createElement('div');
-        majorContainer.className = 'major';
+        major.courses.forEach(([category, courses]) => {
+            courses.forEach(course => {
+                courseCount[course] = (courseCount[course] || 0) + 1;
+            });
+        });
+    });
+
+    // Render majors and courses
+    majorsData.forEach(major => {
+        const majorDiv = document.createElement('div');
+        majorDiv.classList.add('major');
 
         const majorTitle = document.createElement('h2');
         majorTitle.textContent = major.name;
-        majorContainer.appendChild(majorTitle);
+        majorDiv.appendChild(majorTitle);
 
         const courseList = document.createElement('ul');
-        courseList.className = 'course-list';
+        courseList.classList.add('course-list');
 
-        major.courses.forEach(courseGroup => {
-            const courseGroupItem = document.createElement('li');
-            courseGroupItem.textContent = courseGroup[0];
+        major.courses.forEach(([category, courses]) => {
+            const categoryItem = document.createElement('li');
+            categoryItem.textContent = category;
 
-            const subCourseList = document.createElement('ul');
-            courseGroup[1].forEach(course => {
-                subCourseList.appendChild(createCourseItem(course));
+            const subList = document.createElement('ul');
+
+            courses.forEach(course => {
+                const listItem = document.createElement('li');
+                listItem.textContent = course;
+                listItem.classList.add('course-item');
+
+                if (courseCount[course] > 1) {
+                    listItem.classList.add('matched-course');
+                }
+
+                if (courseDetails[course]) {
+                    const coursePopup = document.createElement('div');
+                    coursePopup.classList.add('course-popup');
+                    coursePopup.innerHTML = `
+                        <p><strong>Description:</strong> ${courseDetails[course].description}</p>
+                        <p><strong>Prerequisites:</strong> ${courseDetails[course].prereqs}</p>
+                    `;
+                    listItem.appendChild(coursePopup);
+                }
+
+                // Add event listener for pop-up display on hover
+                listItem.addEventListener('mouseenter', () => {
+                    const coursePopup = listItem.querySelector('.course-popup');
+                    if (coursePopup) {
+                        coursePopup.style.display = 'block';
+                    }
+                });
+
+                listItem.addEventListener('mouseleave', () => {
+                    const coursePopup = listItem.querySelector('.course-popup');
+                    if (coursePopup) {
+                        coursePopup.style.display = 'none';
+                    }
+                });
+
+                // Add event listener for selection
+                listItem.addEventListener('click', () => {
+                    handleCourseSelection(listItem, category, courses);
+                });
+
+                subList.appendChild(listItem);
             });
 
-            courseGroupItem.appendChild(subCourseList);
-            courseList.appendChild(courseGroupItem);
+            categoryItem.appendChild(subList);
+            courseList.appendChild(categoryItem);
         });
 
-        majorContainer.appendChild(courseList);
-        majorsContainer.appendChild(majorContainer);
+        majorDiv.appendChild(courseList);
+        majorsContainer.appendChild(majorDiv);
     });
+
+    // Function to handle course selection
+    function handleCourseSelection(listItem, category, courses) {
+        const maxSelections = getMaxSelections(category);
+        const selectedItems = listItem.parentNode.querySelectorAll('.selected');
+
+        if (listItem.classList.contains('selected')) {
+            listItem.classList.remove('selected');
+            delete selectionState[listItem.textContent];
+        } else {
+            if (selectedItems.length < maxSelections) {
+                listItem.classList.add('selected');
+                selectionState[listItem.textContent] = true;
+            }
+        }
+    }
+
+    // Function to determine maximum selections allowed based on category
+    function getMaxSelections(category) {
+        if (category.includes('One')) {
+            return 1;
+        } else if (category.includes('Two')) {
+            return 2;
+        } else if (category.includes('Three')) {
+            return 3;
+        } else if (category.includes('Four')) {
+            return 4;
+        } else if (category.includes('All')) {
+            return Number.MAX_SAFE_INTEGER;
+        }
+        return 0;
+    }
 });

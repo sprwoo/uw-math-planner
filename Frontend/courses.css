@@ -89,6 +89,7 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 8px 12px var(--shadow);
     background-color: var(--darker-grey);
+    z-index: 1; /* Ensure the hovered major is above others */
 }
 
 .major h2 {
@@ -109,6 +110,7 @@ body {
     margin-bottom: 10px;
     font-weight: 500;
     color: var(--light-pink);
+    position: relative;
 }
 
 .course-list li ul {
@@ -125,11 +127,13 @@ body {
 .course-item {
     cursor: pointer;
     transition: background-color var(--transition-speed), color var(--transition-speed);
+    position: relative;
 }
 
 .course-item:hover {
     background-color: var(--dark-grey-hover);
-    color: var(--white);
+    color: var(--white); /* Ensure text color remains readable */
+    z-index: 2; /* Ensure hovered item is above others */
 }
 
 .course-item.selected {
@@ -160,4 +164,34 @@ body {
 
 .selected-course:hover {
     transform: scale(1.05);
+}
+
+.course-popup {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(100%, -100%);
+    background-color: var(--white);
+    color: var(--darker-grey);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 250px;
+}
+
+.course-item:hover .course-popup {
+    display: block;
+    z-index: 1000;
+}
+
+.course-popup p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--darker-grey); /* Ensure text color remains readable */
+}
+
+.course-item.selected .course-popup p {
+    color: var(--darker-grey); /* Ensure text color remains readable */
 }

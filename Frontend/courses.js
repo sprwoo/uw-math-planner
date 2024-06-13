@@ -1,5 +1,39 @@
+// courses.js
 document.addEventListener('DOMContentLoaded', () => {
     const majorsContainer = document.getElementById('majors-container');
+    const themeToggle = document.createElement('button');
+    themeToggle.textContent = 'Toggle Dark Mode';
+    themeToggle.classList.add('theme-toggle');
+    document.body.appendChild(themeToggle);
+
+    //Light and Dark Mode
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+    });
+
+    const courseDetails = {
+        "MATH 137": { prereqs: "None", description: "Calculus 1" },
+        "MATH 147": { prereqs: "None", description: "Calculus 1" },
+        "STAT 230": { prereqs: "None", description: "Calculus 1" },
+        "STAT 231": { prereqs: "None", description: "Calculus 1" },
+        "STAT 333": { prereqs: "None", description: "Calculus 1" },
+        "CS 340": { prereqs: "None", description: "Calculus 1" },
+        "PMATH 333": { prereqs: "None", description: "Calculus 1" },
+        "CS 115": { prereqs: "None", description: "Calculus 1" },
+        "CS 135": { prereqs: "None", description: "Calculus 1" },
+        "CS 136": { prereqs: "None", description: "Calculus 1" },
+        "MATH 138": { prereqs: "None", description: "Calculus 1" },
+        "CM 481": { prereqs: "None", description: "Calculus 1" },
+        "CS 240": { prereqs: "None", description: "Calculus 1" },
+        "CS 245": { prereqs: "None", description: "Calculus 1" },
+        "CS 341": { prereqs: "None", description: "Calculus 1" },
+        "AMATH 250": { prereqs: "None", description: "Calculus 1" },
+        "CO 250": { prereqs: "None", description: "Calculus 1" },
+        "CO 390": { prereqs: "None", description: "Calculus 1" },
+        "STAT 444": { prereqs: "None", description: "Calculus 1" }
+    };
 
     const majorsData = [
         {
@@ -14,104 +48,63 @@ document.addEventListener('DOMContentLoaded', () => {
             name: "COMPUTER SCIENCE",
             courses: [
                 ["One of the following:", ["CS 115", "CS 135"]],
-                ["Two of:", ["CS 136", "MATH 138", "CM 481"]],
-                ["All of:", ["CS 240", "MATH 137"]]
+                ["Two of:", ["CS 136"]],
+                ["All of:", ["MATH 137", "MATH 138", "CM 481"]],
+                ["Choose 3 of:", ["CS 240", "CS 245", "CS 341"]]
             ]
         },
         {
-            name: "COMPUTER SCIENCE",
+            name: "APPLIED MATH",
             courses: [
-                ["One of the following:", ["CS 245", "CS 341"]],
-                ["Two of:", ["MATH 147", "AMATH 250", "STAT 231"]],
-                ["All of:", ["STAT 333", "CO 250", "CO 390", "STAT 444"]]
+                ["One of the following:", ["MATH 137", "MATH 147"]],
+                ["Two of:", ["AMATH 250"]],
+                ["All of:", ["CO 250", "CO 390", "STAT 444"]]
             ]
         }
-        // Add more major/minor objects as needed
     ];
 
-    // Count occurrences of courses
-    const courseCount = {};
-    majorsData.forEach(major => {
-        major.courses.forEach(([category, courses]) => {
-            courses.forEach(course => {
-                courseCount[course] = (courseCount[course] || 0) + 1;
-            });
+    function createCourseItem(course) {
+        const courseItem = document.createElement('li');
+        courseItem.className = 'course-item';
+        courseItem.textContent = course;
+
+        const popup = document.createElement('div');
+        popup.className = 'course-popup';
+        popup.innerHTML = `<strong>${course}</strong><br>Pre-reqs: ${courseDetails[course].prereqs}<br>Description: ${courseDetails[course].description}`;
+        courseItem.appendChild(popup);
+
+        courseItem.addEventListener('click', () => {
+            courseItem.classList.toggle('selected');
         });
-    });
 
-    // Selection state
-    const selectionState = {};
+        return courseItem;
+    }
 
-    // Render majors
     majorsData.forEach(major => {
-        const majorDiv = document.createElement('div');
-        majorDiv.classList.add('major');
-        
+        const majorContainer = document.createElement('div');
+        majorContainer.className = 'major';
+
         const majorTitle = document.createElement('h2');
         majorTitle.textContent = major.name;
-        majorDiv.appendChild(majorTitle);
-        
-        const courseList = document.createElement('ul');
-        courseList.classList.add('course-list');
-        
-        major.courses.forEach(([category, courses]) => {
-            const categoryItem = document.createElement('li');
-            categoryItem.textContent = category;
-            
-            const subList = document.createElement('ul');
-            
-            courses.forEach(course => {
-                const listItem = document.createElement('li');
-                listItem.textContent = course;
-                listItem.classList.add('course-item');
-                
-                if (courseCount[course] > 1) {
-                    listItem.classList.add('matched-course');
-                }
-                
-                // Add event listener for selection
-                listItem.addEventListener('click', () => {
-                    handleCourseSelection(listItem, category, courses);
-                });
+        majorContainer.appendChild(majorTitle);
 
-                subList.appendChild(listItem);
+        const courseList = document.createElement('ul');
+        courseList.className = 'course-list';
+
+        major.courses.forEach(courseGroup => {
+            const courseGroupItem = document.createElement('li');
+            courseGroupItem.textContent = courseGroup[0];
+
+            const subCourseList = document.createElement('ul');
+            courseGroup[1].forEach(course => {
+                subCourseList.appendChild(createCourseItem(course));
             });
 
-            categoryItem.appendChild(subList);
-            courseList.appendChild(categoryItem);
+            courseGroupItem.appendChild(subCourseList);
+            courseList.appendChild(courseGroupItem);
         });
-        
-        majorDiv.appendChild(courseList);
-        majorsContainer.appendChild(majorDiv);
+
+        majorContainer.appendChild(courseList);
+        majorsContainer.appendChild(majorContainer);
     });
-
-    function handleCourseSelection(listItem, category, courses) {
-        const maxSelections = getMaxSelections(category);
-        const selectedItems = listItem.parentNode.querySelectorAll('.selected');
-        
-        if (listItem.classList.contains('selected')) {
-            listItem.classList.remove('selected');
-            delete selectionState[listItem.textContent];
-        } else {
-            if (selectedItems.length < maxSelections) {
-                listItem.classList.add('selected');
-                selectionState[listItem.textContent] = true;
-            }
-        }
-    }
-
-    function getMaxSelections(category) {
-        if (category.includes('One')) {
-            return 1;
-        } else if (category.includes('Two')) {
-            return 2;
-        } else if (category.includes('Three')) {
-            return 3;
-        } else if (category.includes('Four')) {
-            return 4;
-        }else if (category.includes('All')) {
-            return Number.MAX_SAFE_INTEGER; 
-        }
-        return 0;
-    }
 });

@@ -111,13 +111,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Add event listener for pop-up display on hover
                 listItem.addEventListener('mouseenter', () => {
-                    const coursePopup = listItem.querySelector('.course-popup');
-                    if (coursePopup) {
-                        coursePopup.style.display = 'block';
-                    }
+                    hoverTimeout = setTimeout(() =>{ 
+                        const coursePopup = listItem.querySelector('.course-popup');
+                        if (coursePopup) {
+                            coursePopup.style.display = 'block';
+                        }
+                    }, 500) // User needs to hover for 500 milliseconds for the pop up to appear
                 });
 
                 listItem.addEventListener('mouseleave', () => {
+                    clearTimeout(hoverTimeout)
                     const coursePopup = listItem.querySelector('.course-popup');
                     if (coursePopup) {
                         coursePopup.style.display = 'none';

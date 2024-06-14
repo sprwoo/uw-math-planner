@@ -8,6 +8,7 @@ TODO:
 - Maybe use AWS database backend instead of CSVs
 - Customizable schedule to export (Notion API? Sheets?)
 - Pop-up with description of course and pre-reqs
+- Drag-and-drop customaizable schedule
 
   
 Nice to have features:

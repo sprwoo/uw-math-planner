@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var max = 2;
-    var selectedMajors = [];
-    var selectedMinors = [];
+    var majors = [];
+    var minors = [];
 
     // Define selectiveCheck function
     function selectiveCheck(event) {
@@ -15,19 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (checkboxType === 'majors') {
-            selectedMajors = Array.from(checkedChecks).map(function(checkbox) {
+            majors = Array.from(checkedChecks).map(function(checkbox) {
                 return checkbox.id;
             });
-            localStorage.setItem("majorVar", JSON.stringify(selectedMajors)); 
-            console.log('Selected majors:', selectedMajors);
+            localStorage.setItem("majorVar", JSON.stringify(majors)); 
+            console.log('Selected majors:', majors);
 
         } else if (checkboxType === 'minors') {
-            selectedMinors = Array.from(checkedChecks).map(function(checkbox) {
+            minors = Array.from(checkedChecks).map(function(checkbox) {
                 return checkbox.id;
             });
-            localStorage.setItem("minorVar", JSON.stringify(selectedMinors));
+            localStorage.setItem("minorVar", JSON.stringify(minors));
             //To turn back to array after, use: JSON.parse(localStorage.getItem("majorVar")) || []; // Retrieve from localStorage or initialize as empty array
-            console.log('Selected minors:', selectedMinors);
+            console.log('Selected minors:', minors);
         }
     }
 

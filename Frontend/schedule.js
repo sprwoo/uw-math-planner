@@ -18,14 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
             majors = Array.from(checkedChecks).map(function(checkbox) {
                 return checkbox.id;
             });
-            localStorage.setItem("majorVar", JSON.stringify(majors)); 
+            localStorage.setItem("majors", JSON.stringify(majors)); 
             console.log('Selected majors:', majors);
 
         } else if (checkboxType === 'minors') {
             minors = Array.from(checkedChecks).map(function(checkbox) {
                 return checkbox.id;
             });
-            localStorage.setItem("minorVar", JSON.stringify(minors));
+            localStorage.setItem("minors", JSON.stringify(minors));
             //To turn back to array after, use: JSON.parse(localStorage.getItem("majorVar")) || []; // Retrieve from localStorage or initialize as empty array
             console.log('Selected minors:', minors);
         }

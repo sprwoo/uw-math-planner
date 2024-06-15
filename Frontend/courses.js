@@ -174,4 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return 0;
     }
+
+    console.log(JSON.parse(localStorage.getItem("majors")));
+    console.log(JSON.parse(localStorage.getItem("minors")));
 });

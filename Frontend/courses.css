@@ -66,10 +66,9 @@ body {
 
 .course-planner {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: flex-start; /* Start align items from the left */
+    gap: 20px; /* Adjust as needed */
     padding: 20px;
 }
 
@@ -77,12 +76,19 @@ body {
     background-color: var(--dark-light);
     border-radius: 8px;
     padding: 20px;
-    margin: 10px;
     box-shadow: 0 4px 6px var(--shadow);
-    min-width: 300px;
-    flex-grow: 1;
+    min-width: 300px; /* Ensure a minimum width */
+    flex: 1 1 300px; /* Flex-grow, flex-shrink, flex-basis */
     color: var(--white);
+    max-width: 700px; /* Optional: Limit maximum width */
     transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
+    margin-bottom: 20px; /* Space between majors */
+}
+
+@media (max-width: 1000px) {
+    .major {
+        max-width: 100%; /* Full width on smaller screens */
+    }
 }
 
 .major:hover {
@@ -130,6 +136,17 @@ body {
     transition: background-color var(--transition-speed), color var(--transition-speed);
     position: relative;
 }
+
+.course-item.selected {
+    background-color: var(--pink);
+    color: var(--white);
+}
+
+.course-sub-item {
+    margin-left: 20px; /* Extra indent for sub-items */
+}
+
+
 
 .course-item:hover {
     background-color: var(--dark-grey-hover);

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const majorsContainer = document.getElementById('majors-container');
     // Temporary course details
     const courseDetails = {
-        "MATH 137": { prereqs: "None", description: "Calculus 1" },
+        "MATH 237 Calculus 3 for Honours Mathematics": { prereqs: "None", description: "Calculus 1" },
         "MATH 147": { prereqs: "None", description: "Calculus 1" },
         "STAT 230": { prereqs: "None", description: "Calculus 1" },
         "STAT 231": { prereqs: "None", description: "Calculus 1" },
@@ -103,66 +103,75 @@ document.addEventListener('DOMContentLoaded', async () => {
             const courseList = document.createElement('ul');
             courseList.classList.add('course-list');
     
-            if (Array.isArray(major.courses)) {
-                major.courses.forEach(([category, courses]) => {
-                    const categoryItem = document.createElement('li');
-                    categoryItem.textContent = category;
+            major.courses.forEach(([category, courses]) => {
+                const categoryItem = document.createElement('li');
+                categoryItem.textContent = category;
     
-                    const subList = document.createElement('ul');
+                const subList = document.createElement('ul');
     
-                    courses.forEach(course => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = course;
-                        listItem.classList.add('course-item');
+                courses.forEach(course => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = course;
+                    listItem.classList.add('course-item');
+
+                    if (courseCount[course] > 1) {
+                        listItem.classList.add('matched-course');
+                    }
+
+                    if (courseDetails[course]) {
+                        const coursePopup = document.createElement('div');
+                        coursePopup.classList.add('course-popup');
+                        coursePopup.innerHTML = `
+                            <p><strong>Description:</strong> ${courseDetails[course].description}</p>
+                            <p><strong>Prerequisites:</strong> ${courseDetails[course].prereqs}</p>
+                        `;
+                        listItem.appendChild(coursePopup);
+                    }
     
-                        if (courseCount[course] > 1) {
-                            listItem.classList.add('matched-course');
-                        }
+                    // Check for "or" in course string
+                    if (course.includes(" or ")) {
+                        const orCourses = course.split(" or ");
+                        const mainCourse = orCourses.shift(); // First course in the list
     
-                        if (courseDetails[course]) {
-                            const coursePopup = document.createElement('div');
-                            coursePopup.classList.add('course-popup');
-                            coursePopup.innerHTML = `
-                                <p><strong>Description:</strong> ${courseDetails[course].description}</p>
-                                <p><strong>Prerequisites:</strong> ${courseDetails[course].prereqs}</p>
-                            `;
-                            listItem.appendChild(coursePopup);
-                        }
-    
-                        // Add event listener for pop-up display on hover
-                        listItem.addEventListener('mouseenter', () => {
-                            const coursePopup = listItem.querySelector('.course-popup');
-                            if (coursePopup) {
-                                coursePopup.style.display = 'block';
-                            }
+                        // Add the main course as a list item
+                        const mainListItem = document.createElement('li');
+                        mainListItem.textContent = mainCourse;
+                        mainListItem.classList.add('course-item');
+                        mainListItem.addEventListener('click', () => {
+                            handleCourseSelection(mainListItem, category, courses);
                         });
+                        subList.appendChild(mainListItem);
     
-                        listItem.addEventListener('mouseleave', () => {
-                            const coursePopup = listItem.querySelector('.course-popup');
-                            if (coursePopup) {
-                                coursePopup.style.display = 'none';
-                            }
+                        // Add sub-items for each "or" course
+                        orCourses.forEach(orCourse => {
+                            const subListItem = document.createElement('li');
+                            subListItem.textContent = orCourse;
+                            subListItem.classList.add('course-sub-item');
+                            subListItem.addEventListener('click', () => {
+                                handleCourseSelection(subListItem, category, courses);
+                            });
+                            subList.appendChild(subListItem);
                         });
-    
-                        // Add event listener for selection
+                    } else {
                         listItem.addEventListener('click', () => {
                             handleCourseSelection(listItem, category, courses);
                         });
-    
                         subList.appendChild(listItem);
-                    });
-    
-                    categoryItem.appendChild(subList);
-                    courseList.appendChild(categoryItem);
+                    }
+
+                    
                 });
-            } else {
-                console.error(`Courses data for major "${major.name}" is not in the expected array format.`);
-            }
+    
+                categoryItem.appendChild(subList);
+                courseList.appendChild(categoryItem);
+            });
     
             majorDiv.appendChild(courseList);
             majorsContainer.appendChild(majorDiv);
         });
     }
+    
+    
     
     
 

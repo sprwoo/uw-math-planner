@@ -1,18 +1,13 @@
 import { lookup_major, majors_csv, lookup_courses, courses_csv } from '../csvreader2.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+let globalMajorsData = []
+let majorsFromStorage = JSON.parse(localStorage.getItem("majors"));
+let minorsFromStorage = JSON.parse(localStorage.getItem("minors"));
+let majors = majorsFromStorage ? majorsFromStorage : [];
+let minors = minorsFromStorage ? minorsFromStorage : [];
+
+document.addEventListener('DOMContentLoaded', async () => {
     const majorsContainer = document.getElementById('majors-container');
-    const themeToggle = document.createElement('button');
-    themeToggle.textContent = 'Toggle Dark Mode';
-    themeToggle.classList.add('theme-toggle');
-    document.body.appendChild(themeToggle);
-
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-    });
-
     // Temporary course details
     const courseDetails = {
         "MATH 137": { prereqs: "None", description: "Calculus 1" },
@@ -36,7 +31,27 @@ document.addEventListener('DOMContentLoaded', () => {
         "STAT 444": { prereqs: "None", description: "Calculus 1" }
     };
 
+    console.log("TEST1");
     // Temporary majors data
+    try {
+        console.log("TEST2");
+        const year = "2023-2024";
+        
+        // Process majors data asynchronously
+        console.log(majors);
+        const majorsData = await processMajors(year, majors);
+
+        // Log or use majorsData as needed
+        console.log("Processed Majors Data:");
+        console.log(majorsData);
+
+        // Example usage: Render majors data in the DOM
+        renderMajors(majorsData); // Replace with your actual rendering function
+    } catch (error) {
+        console.error("Error in main application:", error);
+    }
+    /*
+    
     const majorsData = [
         {
             name: "STATISTICS",
@@ -64,84 +79,92 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         }
     ];
-
-    const courseCount = {};
-    majorsData.forEach(major => {
-        major.courses.forEach(([category, courses]) => {
-            courses.forEach(course => {
-                courseCount[course] = (courseCount[course] || 0) + 1;
-            });
-        });
-    });
+    */
 
     // Render majors and courses
-    majorsData.forEach(major => {
-        const majorDiv = document.createElement('div');
-        majorDiv.classList.add('major');
-
-        const majorTitle = document.createElement('h2');
-        majorTitle.textContent = major.name;
-        majorDiv.appendChild(majorTitle);
-
-        const courseList = document.createElement('ul');
-        courseList.classList.add('course-list');
-
-        major.courses.forEach(([category, courses]) => {
-            const categoryItem = document.createElement('li');
-            categoryItem.textContent = category;
-
-            const subList = document.createElement('ul');
-
-            courses.forEach(course => {
-                const listItem = document.createElement('li');
-                listItem.textContent = course;
-                listItem.classList.add('course-item');
-
-                if (courseCount[course] > 1) {
-                    listItem.classList.add('matched-course');
-                }
-
-                if (courseDetails[course]) {
-                    const coursePopup = document.createElement('div');
-                    coursePopup.classList.add('course-popup');
-                    coursePopup.innerHTML = `
-                        <p><strong>Description:</strong> ${courseDetails[course].description}</p>
-                        <p><strong>Prerequisites:</strong> ${courseDetails[course].prereqs}</p>
-                    `;
-                    listItem.appendChild(coursePopup);
-                }
-
-                // Add event listener for pop-up display on hover
-                listItem.addEventListener('mouseenter', () => {
-                    const coursePopup = listItem.querySelector('.course-popup');
-                    if (coursePopup) {
-                        coursePopup.style.display = 'block';
-                    }
+    function renderMajors(majorsData) {
+        const courseCount = {};
+        majorsData.forEach(major => {
+            major.courses.forEach(([category, courses]) => {
+                courses.forEach(course => {
+                    courseCount[course] = (courseCount[course] || 0) + 1;
                 });
-
-                listItem.addEventListener('mouseleave', () => {
-                    
-                    const coursePopup = listItem.querySelector('.course-popup');
-                    if (coursePopup) {
-                        coursePopup.style.display = 'none';
-                    }
-                });
-
-                // Add event listener for selection
-                listItem.addEventListener('click', () => {
-                    handleCourseSelection(listItem, category, courses);
-                });
-
-                subList.appendChild(listItem);
             });
-
-            categoryItem.appendChild(subList);
-            courseList.appendChild(categoryItem);
         });
 
-        majorDiv.appendChild(courseList);
-        majorsContainer.appendChild(majorDiv);
-    });
+        majorsData.forEach(major => {
+            const majorDiv = document.createElement('div');
+            majorDiv.classList.add('major');
+    
+            const majorTitle = document.createElement('h2');
+            majorTitle.textContent = major.name;
+            majorDiv.appendChild(majorTitle);
+    
+            const courseList = document.createElement('ul');
+            courseList.classList.add('course-list');
+    
+            if (Array.isArray(major.courses)) {
+                major.courses.forEach(([category, courses]) => {
+                    const categoryItem = document.createElement('li');
+                    categoryItem.textContent = category;
+    
+                    const subList = document.createElement('ul');
+    
+                    courses.forEach(course => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = course;
+                        listItem.classList.add('course-item');
+    
+                        if (courseCount[course] > 1) {
+                            listItem.classList.add('matched-course');
+                        }
+    
+                        if (courseDetails[course]) {
+                            const coursePopup = document.createElement('div');
+                            coursePopup.classList.add('course-popup');
+                            coursePopup.innerHTML = `
+                                <p><strong>Description:</strong> ${courseDetails[course].description}</p>
+                                <p><strong>Prerequisites:</strong> ${courseDetails[course].prereqs}</p>
+                            `;
+                            listItem.appendChild(coursePopup);
+                        }
+    
+                        // Add event listener for pop-up display on hover
+                        listItem.addEventListener('mouseenter', () => {
+                            const coursePopup = listItem.querySelector('.course-popup');
+                            if (coursePopup) {
+                                coursePopup.style.display = 'block';
+                            }
+                        });
+    
+                        listItem.addEventListener('mouseleave', () => {
+                            const coursePopup = listItem.querySelector('.course-popup');
+                            if (coursePopup) {
+                                coursePopup.style.display = 'none';
+                            }
+                        });
+    
+                        // Add event listener for selection
+                        listItem.addEventListener('click', () => {
+                            handleCourseSelection(listItem, category, courses);
+                        });
+    
+                        subList.appendChild(listItem);
+                    });
+    
+                    categoryItem.appendChild(subList);
+                    courseList.appendChild(categoryItem);
+                });
+            } else {
+                console.error(`Courses data for major "${major.name}" is not in the expected array format.`);
+            }
+    
+            majorDiv.appendChild(courseList);
+            majorsContainer.appendChild(majorDiv);
+        });
+    }
+    
+    
 
     // Function to handle course selection
     function handleCourseSelection(listItem, category, courses) {
@@ -176,10 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* PARSING TEST */
-    let majorsFromStorage = JSON.parse(localStorage.getItem("majors"));
-    let minorsFromStorage = JSON.parse(localStorage.getItem("minors"));
-    let majors = majorsFromStorage ? majorsFromStorage : [];
-    let minors = minorsFromStorage ? minorsFromStorage : [];
+    
 
     async function processMajors(year, majors) {
         const majorsData = [];
@@ -188,15 +208,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const promises = majors.map(major => {
             return majors_csv(year, major)
                 .then(majorData => {
-                    if (majorData) {
-                        // Assuming majorData.Requirements is already in the required format
+                    if (majorData && majorData.Requirements) {
+                        // Parse majorData.Requirements if it's a JSON string
+                        let requirements;
+                        if (typeof majorData.Requirements === 'string') {
+                            try {
+                                requirements = JSON.parse(majorData.Requirements.replace(/'/g, '"'));
+                            } catch (error) {
+                                console.error(`Error parsing Requirements for major ${major}:`, error);
+                                return null;
+                            }
+                        } else {
+                            requirements = majorData.Requirements;
+                        }
+    
+                        // Ensure requirements is an array of arrays
                         const formattedMajorData = {
                             name: majorData.Major,
-                            courses: majorData.Requirements
+                            courses: Object.entries(requirements).map(([category, courses]) => [category, courses])
                         };
                         return formattedMajorData;
                     } else {
-                        console.log(`No requirements found for major: ${major}`);
+                        console.log(`No or invalid Requirements found for major: ${major}`);
                         return null;
                     }
                 })
@@ -216,18 +249,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     
-        console.log(majorsData);
+        // Set globalMajorsData if needed
+        globalMajorsData = majorsData;
+    
         return majorsData;
     }
     
+    
     // Example usage
-    processMajors("2023-2024", ["Joint Pure Mathematics", "Joint Combinatorics and Optimization"])
-        .then(majorsData => {
-            console.log("Final majors data:");
-            console.log(majorsData);
-        })
-        .catch(error => {
-            console.error("Error processing majors:", error);
-        });
+    
     
 });

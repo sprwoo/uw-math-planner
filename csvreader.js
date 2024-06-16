@@ -7,7 +7,7 @@ const fs = require('fs')
  * @param {String} major_name   The name of the major we are looking for
  * @returns {Promise}           Promise with an object representing the major
  */
-function lookup_major(year, major_name) {
+export function lookup_major(year, major_name) {
     return new Promise((resolve, reject) => {
         // Parse through the csv
         fs.createReadStream('C:\\Users\\verys\\Documents\\Undergrad Calendar\\UW-Undergrad-Calendar\\CSVs\\course_requirements.csv')
@@ -35,7 +35,7 @@ function lookup_major(year, major_name) {
  * @param {*} name2     The name of the second major we are looking for
  * @returns {void}      Void for printing for now, change to object for frontend
  */
-async function majors_csv(year, name1, name2) {
+export async function majors_csv(year, name1, name2) {
     // Replace these with getElementById or something of the sort to grab the user inputs
     year = "2023-2024"
     name1 = "Joint Pure Mathematics"
@@ -61,7 +61,7 @@ async function majors_csv(year, name1, name2) {
  * @param {String} course_code      The code of the course we are looking for
  * @returns {Promise}               Promise with an object of the course 
  */
-function lookup_courses(course_code) {
+export function lookup_courses(course_code) {
     return new Promise((resolve, reject) => {
         // Parse through csv
         fs.createReadStream('C:\\Users\\verys\\Documents\\Undergrad Calendar\\UW-Undergrad-Calendar\\CSVs\\course_info.csv')
@@ -87,7 +87,7 @@ function lookup_courses(course_code) {
  * @param {String} course_code      The code of the course we are looking for
  * @returns {void}                  Print for testing 
  */
-async function courses_csv(course_code) {
+export async function courses_csv(course_code) {
     course_code = "CO250"
 
     try {
@@ -96,7 +96,10 @@ async function courses_csv(course_code) {
     } catch (error) {
         console.error(error);
     }
+
+    console.log("TEST");
 }
 
-majors_csv();
-courses_csv();
+
+//majors_csv();
+//courses_csv();

@@ -1,3 +1,5 @@
+//import { lookup_major, majors_csv, lookup_courses, courses_csv } from '../csvreader.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const majorsContainer = document.getElementById('majors-container');
     const themeToggle = document.createElement('button');
@@ -111,16 +113,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Add event listener for pop-up display on hover
                 listItem.addEventListener('mouseenter', () => {
-                    hoverTimeout = setTimeout(() =>{ 
-                        const coursePopup = listItem.querySelector('.course-popup');
-                        if (coursePopup) {
-                            coursePopup.style.display = 'block';
-                        }
-                    }, 500) // User needs to hover for 500 milliseconds for the pop up to appear
+                    const coursePopup = listItem.querySelector('.course-popup');
+                    if (coursePopup) {
+                        coursePopup.style.display = 'block';
+                    }
                 });
 
                 listItem.addEventListener('mouseleave', () => {
-                    clearTimeout(hoverTimeout)
+                    
                     const coursePopup = listItem.querySelector('.course-popup');
                     if (coursePopup) {
                         coursePopup.style.display = 'none';
@@ -175,6 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return 0;
     }
 
-    console.log(JSON.parse(localStorage.getItem("majors")));
-    console.log(JSON.parse(localStorage.getItem("minors")));
+
+    
 });

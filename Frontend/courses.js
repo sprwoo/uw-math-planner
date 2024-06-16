@@ -1,4 +1,4 @@
-//import { lookup_major, majors_csv, lookup_courses, courses_csv } from '../csvreader.js';
+import { lookup_major, majors_csv, lookup_courses, courses_csv } from '../csvreader2.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const majorsContainer = document.getElementById('majors-container');
@@ -175,6 +175,59 @@ document.addEventListener('DOMContentLoaded', () => {
         return 0;
     }
 
+    /* PARSING TEST */
+    let majorsFromStorage = JSON.parse(localStorage.getItem("majors"));
+    let minorsFromStorage = JSON.parse(localStorage.getItem("minors"));
+    let majors = majorsFromStorage ? majorsFromStorage : [];
+    let minors = minorsFromStorage ? minorsFromStorage : [];
 
+    async function processMajors(year, majors) {
+        const majorsData = [];
+    
+        // Map each major to a promise returned by majors_csv
+        const promises = majors.map(major => {
+            return majors_csv(year, major)
+                .then(majorData => {
+                    if (majorData) {
+                        // Assuming majorData.Requirements is already in the required format
+                        const formattedMajorData = {
+                            name: majorData.Major,
+                            courses: majorData.Requirements
+                        };
+                        return formattedMajorData;
+                    } else {
+                        console.log(`No requirements found for major: ${major}`);
+                        return null;
+                    }
+                })
+                .catch(error => {
+                    console.error(`Error fetching major: ${major}`, error);
+                    return null;
+                });
+        });
+    
+        // Wait for all promises to resolve
+        const results = await Promise.all(promises);
+    
+        // Filter out null results (if any major fetching failed)
+        results.forEach(result => {
+            if (result) {
+                majorsData.push(result);
+            }
+        });
+    
+        console.log(majorsData);
+        return majorsData;
+    }
+    
+    // Example usage
+    processMajors("2023-2024", ["Joint Pure Mathematics", "Joint Combinatorics and Optimization"])
+        .then(majorsData => {
+            console.log("Final majors data:");
+            console.log(majorsData);
+        })
+        .catch(error => {
+            console.error("Error processing majors:", error);
+        });
     
 });

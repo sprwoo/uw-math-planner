@@ -5,6 +5,8 @@ let majorsFromStorage = JSON.parse(localStorage.getItem("majors"));
 let minorsFromStorage = JSON.parse(localStorage.getItem("minors"));
 let majors = majorsFromStorage ? majorsFromStorage : [];
 let minors = minorsFromStorage ? minorsFromStorage : [];
+let selectedCourses = [];
+let selectionState = {}; 
 
 document.addEventListener('DOMContentLoaded', async () => {
     const majorsContainer = document.getElementById('majors-container');
@@ -183,12 +185,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (listItem.classList.contains('selected')) {
             listItem.classList.remove('selected');
             delete selectionState[listItem.textContent];
+            // Remove course from selectedCourses
+            const index = selectedCourses.indexOf(listItem.textContent);
+            if (index > -1) {
+                selectedCourses.splice(index, 1);
+            }
         } else {
             if (selectedItems.length < maxSelections) {
                 listItem.classList.add('selected');
                 selectionState[listItem.textContent] = true;
+                // Add course to selectedCourses
+                selectedCourses.push(listItem.textContent);
             }
         }
+        console.log('Selected Courses:', selectedCourses); // Log selected courses for debugging
     }
 
     // Function to determine maximum selections allowed based on category

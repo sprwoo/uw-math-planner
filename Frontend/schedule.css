@@ -12,12 +12,61 @@ body {
 }
 
 .course-card {
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    border-radius: 8px;
+    background-color: grey;
+    position: relative;
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px;
+    width: 200px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    margin: 0 auto;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: white;
+    transition: all 300ms linear;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.schedule-table th, .schedule-table td {
+    border: 1px solid #ddd;
     padding: 10px;
-    margin: 10px;
-    width: 150px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: grab;
+    text-align: center;
+    vertical-align: middle;
+    height: 60px;
+    position: relative; /* Added to make the input field fill the cell */
+}
+
+.droppable {
+    background-color: #f9f9f9;
+}
+
+.droppable:hover {
+    background-color: #f1f1f1;
+}
+
+.cell-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    background-color: transparent;
+    outline: none;
+    font-size: 16px;
+}
+
+.dragging {
+    opacity: 0.5;
 }

@@ -10,7 +10,7 @@ const fs = require('fs')
 export function lookup_major(year, major_name) {
     return new Promise((resolve, reject) => {
         // Parse through the csv
-        fs.createReadStream('C:\\Users\\verys\\Documents\\Undergrad Calendar\\UW-Undergrad-Calendar\\CSVs\\course_requirements.csv')
+        fs.createReadStream('..\\CSVs\\course_requirements.csv')
             .pipe(csv())
             .on('data', (data) => {
                 // If a match is found, return the object
@@ -64,7 +64,7 @@ export async function majors_csv(year, name1, name2) {
 export function lookup_courses(course_code) {
     return new Promise((resolve, reject) => {
         // Parse through csv
-        fs.createReadStream('C:\\Users\\verys\\Documents\\Undergrad Calendar\\UW-Undergrad-Calendar\\CSVs\\course_info.csv')
+        fs.createReadStream('..\\CSVs\\course_info.csv')
             .pipe(csv())
             .on('data', (data) => {
                 // If match is found, return the object

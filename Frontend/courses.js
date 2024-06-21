@@ -1,11 +1,11 @@
 import { lookup_major, majors_csv, lookup_courses, courses_csv } from '../csvreader2.js';
 
-let globalMajorsData = []
+let globalMajorsData = [];
 let majorsFromStorage = JSON.parse(localStorage.getItem("majors"));
 let minorsFromStorage = JSON.parse(localStorage.getItem("minors"));
 let majors = majorsFromStorage ? majorsFromStorage : [];
 let minors = minorsFromStorage ? minorsFromStorage : [];
-let selectedCourses = [];
+let selectedCourses = JSON.parse(localStorage.getItem("selectedCourses")) || [];
 let selectionState = {}; 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -52,36 +52,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error("Error in main application:", error);
     }
-    /*
-    
-    const majorsData = [
-        {
-            name: "STATISTICS",
-            courses: [
-                ["One of the following:", ["MATH 137", "MATH 147"]],
-                ["Two of:", ["STAT 230"]],
-                ["All of:", ["STAT 231", "STAT 333", "CS 340", "PMATH 333"]]
-            ]
-        },
-        {
-            name: "COMPUTER SCIENCE",
-            courses: [
-                ["One of the following:", ["CS 115", "CS 135"]],
-                ["Two of:", ["CS 136"]],
-                ["All of:", ["MATH 137", "MATH 138", "CM 481"]],
-                ["Choose Three of:", ["CS 240", "CS 245", "CS 341"]]
-            ]
-        },
-        {
-            name: "APPLIED MATH",
-            courses: [
-                ["One of the following:", ["MATH 137", "MATH 147"]],
-                ["Two of:", ["AMATH 250"]],
-                ["All of:", ["CO 250", "CO 390", "STAT 444"]]
-            ]
-        }
-    ];
-    */
 
     // Render majors and courses
     function renderMajors(majorsData) {
@@ -129,6 +99,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         `;
                         listItem.appendChild(coursePopup);
                     }
+
+                    if (selectedCourses.includes(course)) {
+                        listItem.classList.add('selected');
+                    }
     
                     // Check for "or" in course string
                     if (course.includes(" or ")) {
@@ -160,8 +134,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         });
                         subList.appendChild(listItem);
                     }
-
-                    
                 });
     
                 categoryItem.appendChild(subList);
@@ -172,10 +144,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             majorsContainer.appendChild(majorDiv);
         });
     }
-    
-    
-    
-    
 
     // Function to handle course selection
     function handleCourseSelection(listItem, category, courses) {
@@ -198,6 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 selectedCourses.push(listItem.textContent);
             }
         }
+        localStorage.setItem('selectedCourses', JSON.stringify(selectedCourses)); // Update local storage
         console.log('Selected Courses:', selectedCourses); // Log selected courses for debugging
     }
 
@@ -216,9 +185,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         return 0;
     }
-
-    /* PARSING TEST */
-    
 
     async function processMajors(year, majors) {
         const majorsData = [];
@@ -273,9 +239,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     
         return majorsData;
     }
-    
-    
-    // Example usage
-    
-    
 });

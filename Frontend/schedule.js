@@ -6,22 +6,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const coursesContainer = document.getElementById('courses-container');
     const scheduleCells = document.querySelectorAll('.droppable');
 
+    // Function to extract course code from full course name
+    function extractCourseCode(courseName) {
+        // Regular expression to find the first alphanumeric sequence with spaces and digits
+        const match = courseName.match(/\b[A-Za-z]+\s\d+\b/);
+        return match ? match[0].trim() : ''; // Return the matched string or an empty string if no match
+    }
+
     // Function to create course cards
     function createCourseCard(courseName) {
+        const courseCode = extractCourseCode(courseName);
         const card = document.createElement('div');
         card.classList.add('course-card');
-        card.textContent = courseName;
+        card.textContent = courseCode; // Display only the course code
         card.draggable = true;
         coursesContainer.appendChild(card);
 
         // Add drag event listeners
         card.addEventListener('dragstart', (event) => {
             event.target.classList.add('dragging');
-            event.dataTransfer.setData('text/plain', courseName);
+            event.dataTransfer.setData('text/plain', courseCode);
         });
 
         card.addEventListener('dragend', (event) => {
             event.target.classList.remove('dragging');
+        });
+
+        // Add click event listener to drag the card back out of the table
+        card.addEventListener('click', (event) => {
+            const clonedCard = event.target.cloneNode(true); // Clone the card
+            event.target.remove(); // Remove the original card from the table
+            coursesContainer.appendChild(clonedCard); // Append the cloned card back to the courses container
         });
     }
 
@@ -52,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cell.addEventListener('drop', (event) => {
             event.preventDefault();
             if (dragged && dragged.classList.contains('course-card')) {
-                if (cell.childNodes.length === 1 && cell.firstChild.tagName === 'INPUT') { 
+                if (cell.childNodes.length === 1 && cell.firstChild.tagName === 'INPUT') {
                     cell.appendChild(dragged.cloneNode(true)); // Clone the card
                     dragged.remove(); // Remove the original card from the container
                     cell.removeChild(cell.firstChild); // Remove the input field
@@ -85,6 +100,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.value = span.textContent;
                 span.replaceWith(input);
                 input.focus();
+            }
+        });
+
+        // Add click event listener to return the card back to coursesContainer
+        cell.addEventListener('click', (event) => {
+            if (event.target.classList.contains('course-card')) {
+                const clonedCard = event.target.cloneNode(true); // Clone the card
+                event.target.remove(); // Remove the original card from the table
+                coursesContainer.appendChild(clonedCard); // Append the cloned card back to the courses container
             }
         });
     });

@@ -38,10 +38,20 @@ try :
         password = rds_password,
         port = 5432,
     )
-    cursor = connect.cursor
+    connect.autocommit=True
+
+    cursor = connect.cursor()
     print("Connected!")
 
+    table_create = """ create table customerInfo(id SERIAL PRIMARY KEY, name text, age float )   """
+    cursor.execute(table_create)
+
+    insert_query = """insert into customerInfo (name, age) values ('abc', 22)  """
+    cursor.execute(insert_query)
+    print("DONE!")
+
     connect.close()
+
 except Exception as e:
     print(f"Failed! {e}")
 

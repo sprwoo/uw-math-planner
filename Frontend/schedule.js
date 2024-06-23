@@ -106,6 +106,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Handle Enter key press to create course card from input
+        cell.addEventListener('keypress', (event) => {
+            if (event.target.tagName === 'INPUT' && event.key === 'Enter') {
+                const input = event.target;
+                const value = input.value.trim();
+                if (value !== '') {
+                    const card = document.createElement('div');
+                    card.classList.add('course-card');
+                    card.textContent = value;
+                    card.draggable = true;
+                    cell.innerHTML = ''; // Clear existing content
+                    cell.appendChild(card);
+
+                    // Update arrays
+                    draggedCourses.push(value);
+                    scheduleCourses.push(value);
+
+                    // Clear input field
+                    input.value = '';
+                }
+            }
+        });
+
         // Allow clicking the span to edit the cell content again
         cell.addEventListener('click', (event) => {
             if (event.target.tagName === 'SPAN') {

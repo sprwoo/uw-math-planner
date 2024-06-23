@@ -30,7 +30,7 @@ h1 {
     background-color: white;
     text-align: left;
     overflow: hidden;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Apply shadow to entire table */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .schedule-table {
@@ -45,19 +45,20 @@ thead th {
     font-size: 0.7rem;
     font-weight: 900;
     background-color: #eff1f3;
-    position: relative; /* Ensure relative positioning for stacking */
-    transition: box-shadow 0.3s ease; /* Smooth transition for box-shadow */
+    position: relative;
+    transition: box-shadow 0.3s ease;
 }
 
 /* Hover effect for th elements */
 .schedule-table th:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow on hover */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .schedule-table td {
-    padding: 1rem 2rem;
+    padding: 0.7rem 1.4rem;
     background-color: #eceef1;
-    position: relative; /* Ensure relative positioning for stacking */
+    position: relative;
+    text-align: center; /* Center text content horizontally */
 }
 
 /* Shadow effect on td elements */
@@ -66,10 +67,10 @@ thead th {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -8px; /* Adjust this value to control shadow distance */
-    height: 8px; /* Adjust this value to control shadow size */
-    background: rgba(0, 0, 0, 0.1); /* Shadow color and transparency */
-    z-index: -1; /* Ensure the shadow is behind the td content */
+    bottom: -10px;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: -1;
 }
 
 .schedule-table td.droppable:hover {
@@ -95,9 +96,10 @@ thead th {
     opacity: 0.5;
 }
 
-.droppable.drag-over {
-    background-color: #ffc9e1;
-    border: 2px dashed #e83e8c;
+.droppable {
+    position: relative;
+    overflow: hidden;
+    min-height: 50px; /* Adjust the minimum height as needed */
 }
 
 /* Course Card Styles */
@@ -107,9 +109,9 @@ thead th {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 15px; /* Reduce padding */
+    padding: 15px;
     width: 100px;
-    height: 12px;
+    height: 50px; /* Ensure a sufficient height for content */
     font-size: 16px;
     line-height: 1.5;
     letter-spacing: 1px;
@@ -123,7 +125,6 @@ thead th {
     transition: all 200ms linear;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: 1px solid #ced4da;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .course-card:hover {

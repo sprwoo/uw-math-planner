@@ -5,12 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const coursesContainer = document.getElementById('courses-container');
     const scheduleCells = document.querySelectorAll('.droppable');
+    let draggedCourses = [];
+    let scheduleCourses = [];
 
     // Function to extract course code from full course name
     function extractCourseCode(courseName) {
-        // Regular expression to find the first alphanumeric sequence with spaces and digits
         const match = courseName.match(/\b[A-Za-z]+\s\d+\b/);
-        return match ? match[0].trim() : ''; // Return the matched string or an empty string if no match
+        return match ? match[0].trim() : ''; 
     }
 
     // Function to create course cards
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const courseCode = extractCourseCode(courseName);
         const card = document.createElement('div');
         card.classList.add('course-card');
-        card.textContent = courseCode; // Display only the course code
+        card.textContent = courseCode; 
         card.draggable = true;
         coursesContainer.appendChild(card);
 
@@ -34,9 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add click event listener to drag the card back out of the table
         card.addEventListener('click', (event) => {
-            const clonedCard = event.target.cloneNode(true); // Clone the card
-            event.target.remove(); // Remove the original card from the table
-            coursesContainer.appendChild(clonedCard); // Append the cloned card back to the courses container
+            const courseCode = event.target.textContent;
+            draggedCourses = draggedCourses.filter(code => code !== courseCode); 
+            scheduleCourses = scheduleCourses.filter(code => code !== courseCode);
+            coursesContainer.appendChild(event.target); 
         });
     }
 
@@ -67,11 +69,25 @@ document.addEventListener('DOMContentLoaded', () => {
         cell.addEventListener('drop', (event) => {
             event.preventDefault();
             if (dragged && dragged.classList.contains('course-card')) {
-                if (cell.childNodes.length === 1 && cell.firstChild.tagName === 'INPUT') {
-                    cell.appendChild(dragged.cloneNode(true)); // Clone the card
-                    dragged.remove(); // Remove the original card from the container
-                    cell.removeChild(cell.firstChild); // Remove the input field
+                const courseCode = dragged.textContent;
+
+                // Check if the course is already in scheduleCourses array
+                if (scheduleCourses.includes(courseCode)) {
+                    return; // Prevent adding the same course to multiple cells
                 }
+
+                // Check if the cell already contains a card
+                if (cell.childNodes.length > 0 && cell.firstChild.classList.contains('course-card')) {
+                    const existingCourseCode = cell.firstChild.textContent;
+                    draggedCourses = draggedCourses.filter(code => code !== existingCourseCode);
+                    scheduleCourses = scheduleCourses.filter(code => code !== existingCourseCode);
+                    coursesContainer.appendChild(cell.firstChild);
+                }
+
+                cell.innerHTML = ''; 
+                cell.appendChild(dragged); 
+                draggedCourses.push(courseCode); 
+                scheduleCourses.push(courseCode); 
             }
         });
 
@@ -102,14 +118,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.focus();
             }
         });
+    });
 
-        // Add click event listener to return the card back to coursesContainer
-        cell.addEventListener('click', (event) => {
-            if (event.target.classList.contains('course-card')) {
-                const clonedCard = event.target.cloneNode(true); // Clone the card
-                event.target.remove(); // Remove the original card from the table
-                coursesContainer.appendChild(clonedCard); // Append the cloned card back to the courses container
+    // Export to Google Sheets
+    document.getElementById('export').addEventListener('click', () => {
+        const tableData = [];
+
+        scheduleCells.forEach(cell => {
+            if (cell.firstChild && cell.firstChild.classList && cell.firstChild.classList.contains('course-card')) {
+                tableData.push(cell.firstChild.textContent);
+            } else {
+                tableData.push('');
             }
+        });
+
+        fetch('/export', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ data: tableData }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
         });
     });
 });

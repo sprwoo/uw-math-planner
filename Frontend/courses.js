@@ -1,12 +1,14 @@
 import { lookup_major, majors_csv, lookup_courses, courses_csv } from '../csvreader2.js';
 
+localStorage.removeItem('selectedCourses');
+
 let globalMajorsData = [];
 let majorsFromStorage = JSON.parse(localStorage.getItem("majors"));
 let minorsFromStorage = JSON.parse(localStorage.getItem("minors"));
 let majors = majorsFromStorage ? majorsFromStorage : [];
 let minors = minorsFromStorage ? minorsFromStorage : [];
-let selectedCourses = JSON.parse(localStorage.getItem("selectedCourses")) || [];
-let selectionState = {}; 
+let selectedCourses = [];
+let selectionState = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
     const majorsContainer = document.getElementById('majors-container');
@@ -38,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         console.log("TEST2");
         const year = "2023-2024";
-        
+
         // Process majors data asynchronously
         console.log(majors);
         const majorsData = await processMajors(year, majors);
@@ -46,6 +48,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Log or use majorsData as needed
         console.log("Processed Majors Data:");
         console.log(majorsData);
+
+        // Clear existing content in majorsContainer
+        majorsContainer.innerHTML = "";
 
         // Example usage: Render majors data in the DOM
         renderMajors(majorsData); // Replace with your actual rendering function
@@ -56,38 +61,53 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Render majors and courses
     function renderMajors(majorsData) {
         const courseCount = {};
+        const courseInAllMajors = {}; // Track courses that appear in all majors
+
+        // Initialize course count and track courses appearing in all majors
         majorsData.forEach(major => {
             major.courses.forEach(([category, courses]) => {
                 courses.forEach(course => {
                     courseCount[course] = (courseCount[course] || 0) + 1;
+                    if (!courseInAllMajors[course]) {
+                        courseInAllMajors[course] = new Set();
+                    }
+                    courseInAllMajors[course].add(major.name);
                 });
             });
+        });
+
+        // Identify courses that appear in both majors and more than once
+        const matchedCourses = Object.keys(courseCount).filter(course => {
+            return courseCount[course] > 1 && courseInAllMajors[course].size === 2;
         });
 
         majorsData.forEach(major => {
             const majorDiv = document.createElement('div');
             majorDiv.classList.add('major');
-    
+
             const majorTitle = document.createElement('h2');
             majorTitle.textContent = major.name;
             majorDiv.appendChild(majorTitle);
-    
+
             const courseList = document.createElement('ul');
             courseList.classList.add('course-list');
-    
+
             major.courses.forEach(([category, courses]) => {
                 const categoryItem = document.createElement('li');
                 categoryItem.textContent = category;
-    
+
                 const subList = document.createElement('ul');
-    
+
                 courses.forEach(course => {
                     const listItem = document.createElement('li');
                     listItem.textContent = course;
                     listItem.classList.add('course-item');
 
-                    if (courseCount[course] > 1) {
+                    // Check if the course should be marked as matched-course
+                    if (matchedCourses.includes(course)) {
                         listItem.classList.add('matched-course');
+                    } else {
+                        listItem.classList.remove('matched-course');
                     }
 
                     if (courseDetails[course]) {
@@ -103,12 +123,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if (selectedCourses.includes(course)) {
                         listItem.classList.add('selected');
                     }
-    
+
                     // Check for "or" in course string
                     if (course.includes(" or ")) {
                         const orCourses = course.split(" or ");
                         const mainCourse = orCourses.shift(); // First course in the list
-    
+
                         // Add the main course as a list item
                         const mainListItem = document.createElement('li');
                         mainListItem.textContent = mainCourse;
@@ -117,7 +137,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             handleCourseSelection(mainListItem, category, courses);
                         });
                         subList.appendChild(mainListItem);
-    
+
                         // Add sub-items for each "or" course
                         orCourses.forEach(orCourse => {
                             const subListItem = document.createElement('li');
@@ -135,11 +155,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                         subList.appendChild(listItem);
                     }
                 });
-    
+
                 categoryItem.appendChild(subList);
                 courseList.appendChild(categoryItem);
             });
-    
+
             majorDiv.appendChild(courseList);
             majorsContainer.appendChild(majorDiv);
         });
@@ -188,7 +208,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function processMajors(year, majors) {
         const majorsData = [];
-    
+
         // Map each major to a promise returned by majors_csv
         const promises = majors.map(major => {
             return majors_csv(year, major)
@@ -206,7 +226,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         } else {
                             requirements = majorData.Requirements;
                         }
-    
+
                         // Ensure requirements is an array of arrays
                         const formattedMajorData = {
                             name: majorData.Major,
@@ -223,20 +243,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                     return null;
                 });
         });
-    
+
         // Wait for all promises to resolve
         const results = await Promise.all(promises);
-    
+
         // Filter out null results (if any major fetching failed)
         results.forEach(result => {
             if (result) {
                 majorsData.push(result);
             }
         });
-    
+
         // Set globalMajorsData if needed
         globalMajorsData = majorsData;
-    
+
         return majorsData;
     }
 });

@@ -7,21 +7,23 @@ const fs = require('fs')
  * @param {String} major_name   The name of the major we are looking for
  * @returns {Promise}           Promise with an object representing the major
  */
-export function lookup_major(year, major_name) {
+function lookup_requirements(year, degree_name, degree_type) {
     return new Promise((resolve, reject) => {
         // Parse through the csv
-        fs.createReadStream('..\\CSVs\\course_requirements.csv')
+        csv_name = "./UW-Undergrad-Calendar/CSVs/" + degree_type + "_requirements.csv";
+        console.log(csv_name)
+        fs.createReadStream(csv_name)
             .pipe(csv())
             .on('data', (data) => {
                 // If a match is found, return the object
-                if (data.Year == year && data.Major == major_name) { 
+                if (data['Year'] == year && data[degree_type] == degree_name) { 
                     resolve(data);
                     return;
                 }
             }) 
 
             // If it reaches the end of the csv, return an error
-            .on('end', () => reject(new Error(`No majors found with the name \"${major_name}\".`)))
+            .on('end', () => reject(new Error(`No ${degree_type} found with the name \"${degree_name}\".`)))
 
             // Error if there was an issue reading csv
             .on('error', (error) => reject(error));
@@ -35,22 +37,11 @@ export function lookup_major(year, major_name) {
  * @param {*} name2     The name of the second major we are looking for
  * @returns {void}      Void for printing for now, change to object for frontend
  */
-export async function majors_csv(year, name1, name2) {
+async function requirements_csv(year, degree_name, degree_type) {
     // Replace these with getElementById or something of the sort to grab the user inputs
-    year = "2023-2024"
-    name1 = "Joint Pure Mathematics"
-    name2 = "Joint Combinatorics and Optimization"; 
-
     try {
-        const major1 = await lookup_major(year, name1);
-        console.log(major1);
-    } catch (error) {
-        console.error(error);
-    }
-
-    try {
-        const major2 = await lookup_major(year, name2);
-        console.log(major2);
+        const degree = await lookup_requirements(year, degree_name, degree_type);
+        console.log(degree);
     } catch (error) {
         console.error(error);
     }
@@ -61,10 +52,10 @@ export async function majors_csv(year, name1, name2) {
  * @param {String} course_code      The code of the course we are looking for
  * @returns {Promise}               Promise with an object of the course 
  */
-export function lookup_courses(course_code) {
+function lookup_courses(course_code) {
     return new Promise((resolve, reject) => {
         // Parse through csv
-        fs.createReadStream('..\\CSVs\\course_info.csv')
+        fs.createReadStream('./UW-Undergrad-Calendar/CSVs/course_info.csv')
             .pipe(csv())
             .on('data', (data) => {
                 // If match is found, return the object
@@ -87,19 +78,16 @@ export function lookup_courses(course_code) {
  * @param {String} course_code      The code of the course we are looking for
  * @returns {void}                  Print for testing 
  */
-export async function courses_csv(course_code) {
-    course_code = "CO250"
-
+async function courses_csv(course_code) {
     try {
         const course_info = await lookup_courses(course_code);
         console.log(course_info);
     } catch (error) {
         console.error(error);
     }
-
-    console.log("TEST");
 }
 
-
-//majors_csv();
-//courses_csv();
+requirements_csv("2023-2024", "Joint Pure Mathematics", "Major");
+requirements_csv("2023-2024", "Joint Combinatorics & Optimization", "Major");
+courses_csv("CO250");
+requirements_csv("2022-2023", "Computer Science Minor", "Minor");

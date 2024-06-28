@@ -1,4 +1,3 @@
-//import { majors_csv } from '../csvreader(OLD).js';
 import { requirements_csv, courses_csv } from '../csvreader2.js';
 localStorage.removeItem('selectedCourses');
 
@@ -43,8 +42,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Process majors data asynchronously
         console.log(majors);
-        const type = "Major";
-        const majorsData = await processMajors(year, majors, type);
+
+        const majorsData = await processMajors(year, majors, "Major");
+        const minorsData = await processMajors(year, minors, "Minor");
 
         // Log or use majorsData as needed
         console.log("Processed Majors Data:");
@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Example usage: Render majors data in the DOM
         renderMajors(majorsData); // Replace with your actual rendering function
+        renderMajors(minorsData);
     } catch (error) {
         console.error("Error in main application:", error);
     }
@@ -135,23 +136,24 @@ document.addEventListener('DOMContentLoaded', async () => {
                         mainListItem.textContent = mainCourse;
                         mainListItem.classList.add('course-item');
                         mainListItem.addEventListener('click', () => {
-                            handleCourseSelection(mainListItem, category, courses);
+                            handleCourseSelection(mainListItem, orCourses);
                         });
                         subList.appendChild(mainListItem);
 
-                        // Add sub-items for each "or" course
                         orCourses.forEach(orCourse => {
                             const subListItem = document.createElement('li');
                             subListItem.textContent = orCourse;
                             subListItem.classList.add('course-sub-item');
                             subListItem.addEventListener('click', () => {
-                                handleCourseSelection(subListItem, category, courses);
+                                handleCourseSelection(subListItem, [mainCourse]);
                             });
+                        
+                            // Append each subListItem to subList
                             subList.appendChild(subListItem);
                         });
                     } else {
                         listItem.addEventListener('click', () => {
-                            handleCourseSelection(listItem, category, courses);
+                            handleCourseSelection(listItem);
                         });
                         subList.appendChild(listItem);
                     }
@@ -167,8 +169,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Function to handle course selection
-    function handleCourseSelection(listItem, category, courses) {
-        const maxSelections = getMaxSelections(category);
+    function handleCourseSelection(listItem, relatedCourses = []) {
+        const maxSelections = getMaxSelections(listItem.parentNode.parentNode.textContent);
         const selectedItems = listItem.parentNode.querySelectorAll('.selected');
 
         if (listItem.classList.contains('selected')) {
@@ -185,6 +187,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                 selectionState[listItem.textContent] = true;
                 // Add course to selectedCourses
                 selectedCourses.push(listItem.textContent);
+
+                // Deselect related courses
+                relatedCourses.forEach(course => {
+                    const relatedItem = Array.from(listItem.parentNode.children).find(item => item.textContent === course);
+                    if (relatedItem) {
+                        relatedItem.classList.remove('selected');
+                        const index = selectedCourses.indexOf(relatedItem.textContent);
+                        if (index > -1) {
+                            selectedCourses.splice(index, 1);
+                        }
+                    }
+                });
             }
         }
         localStorage.setItem('selectedCourses', JSON.stringify(selectedCourses)); // Update local storage

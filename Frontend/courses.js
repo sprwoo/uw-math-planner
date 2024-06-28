@@ -1,5 +1,5 @@
-import { lookup_major, majors_csv, lookup_courses, courses_csv } from '../csvreader2.js';
-
+//import { majors_csv } from '../csvreader(OLD).js';
+import { requirements_csv, courses_csv } from '../csvreader2.js';
 localStorage.removeItem('selectedCourses');
 
 let globalMajorsData = [];
@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Process majors data asynchronously
         console.log(majors);
-        const majorsData = await processMajors(year, majors);
+        const type = "major";
+        const majorsData = await processMajors(year, majors, type);
 
         // Log or use majorsData as needed
         console.log("Processed Majors Data:");
@@ -206,12 +207,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         return 0;
     }
 
-    async function processMajors(year, majors) {
+    async function processMajors(year, majors, type) {
         const majorsData = [];
 
         // Map each major to a promise returned by majors_csv
         const promises = majors.map(major => {
-            return majors_csv(year, major)
+            return requirements_csv(year, major, type)
                 .then(majorData => {
                     if (majorData && majorData.Requirements) {
                         // Parse majorData.Requirements if it's a JSON string

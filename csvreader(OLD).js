@@ -1,7 +1,4 @@
 // Function to fetch and parse CSV file
-
-//console.log('Current working directory:', process.cwd());
-
 function fetchAndParseCSV(url) {
     return fetch(url)
         .then(response => response.text())
@@ -18,13 +15,13 @@ function fetchAndParseCSV(url) {
 }
 
 // Function to lookup major
-export async function lookup_requirements(year, degree_name, degree_type) {
-    const data = await fetchAndParseCSV(`../CSVs/${degree_type}_requirements.csv`);
-    const degree = data.find(row => row['Year'] == year && row[degree_type] == degree_name);
-    if (degree) {
-        return degree;
+export async function lookup_major(year, major_name) {
+    const data = await fetchAndParseCSV('../CSVs/course_requirements.csv');
+    const major = data.find(row => row.Year == year && row.Major == major_name);
+    if (major) {
+        return major;
     } else {
-        throw new Error(`No ${degree_type} found with the name "${degree_name}".`);
+        throw new Error(`No majors found with the name "${major_name}".`);
     }
 }
 
@@ -40,11 +37,11 @@ export async function lookup_courses(course_code) {
 }
 
 // Function to get and print major information
-export async function requirements_csv(year, degree_name, degree_type) {
+export async function majors_csv(year, name1) {
     try {
-        const degree = await lookup_requirements(year, degree_name, degree_type);
-        console.log(degree);
-        return degree;
+        const major1 = await lookup_major(year, name1);
+        console.log(major1);
+        return major1;
     } catch (error) {
         console.error(error);
     }
@@ -61,8 +58,6 @@ export async function courses_csv(course_code) {
     }
 }
 
-
 // Uncomment these lines to test
-requirements_csv("2023-2024", "Joint Pure Mathematics", "major");
-//requirements_csv("2023-2024", "Joint Combinatorics & Optimization", "major")
-//courses_csv("CO250");
+// majors_csv("2023-2024", "Joint Pure Mathematics", "Joint Combinatorics and Optimization");
+// courses_csv("CO250");

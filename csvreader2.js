@@ -63,6 +63,6 @@ export async function courses_csv(course_code) {
 
 
 // Uncomment these lines to test
-requirements_csv("2023-2024", "Joint Pure Mathematics", "major");
+requirements_csv("2023-2024", "Joint Pure Mathematics", "Major");
 //requirements_csv("2023-2024", "Joint Combinatorics & Optimization", "major")
 //courses_csv("CO250");

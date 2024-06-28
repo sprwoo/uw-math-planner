@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Process majors data asynchronously
         console.log(majors);
-        const type = "major";
+        const type = "Major";
         const majorsData = await processMajors(year, majors, type);
 
         // Log or use majorsData as needed
@@ -209,17 +209,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function processMajors(year, majors, type) {
         const majorsData = [];
-
-        // Map each major to a promise returned by majors_csv
+    
+        // Map each major to a promise returned by requirements_csv
         const promises = majors.map(major => {
             return requirements_csv(year, major, type)
                 .then(majorData => {
                     if (majorData && majorData.Requirements) {
-                        // Parse majorData.Requirements if it's a JSON string
                         let requirements;
                         if (typeof majorData.Requirements === 'string') {
                             try {
-                                requirements = JSON.parse(majorData.Requirements.replace(/'/g, '"'));
+                                // Debugging log to check the raw JSON string
+                                console.log(`Raw Requirements for ${major}: ${majorData.Requirements}`);
+                                
+                                // Attempt to fix common JSON issues
+                                const fixedJsonString = majorData.Requirements
+                                    .replace(/'/g, '"')  // Replace single quotes with double quotes
+                                    .replace(/\\'/g, "'") // Fix escaped single quotes
+                                    .replace(/\\"/g, '"'); // Fix escaped double quotes
+    
+                                // Parse the cleaned JSON string
+                                requirements = JSON.parse(fixedJsonString);
                             } catch (error) {
                                 console.error(`Error parsing Requirements for major ${major}:`, error);
                                 return null;
@@ -227,7 +236,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         } else {
                             requirements = majorData.Requirements;
                         }
-
+    
                         // Ensure requirements is an array of arrays
                         const formattedMajorData = {
                             name: majorData.Major,
@@ -244,20 +253,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                     return null;
                 });
         });
-
+    
         // Wait for all promises to resolve
         const results = await Promise.all(promises);
-
+    
         // Filter out null results (if any major fetching failed)
         results.forEach(result => {
             if (result) {
                 majorsData.push(result);
             }
         });
-
+    
         // Set globalMajorsData if needed
         globalMajorsData = majorsData;
-
+    
         return majorsData;
     }
+    
 });

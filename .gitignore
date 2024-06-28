@@ -1,1 +1,6 @@
 .env
+__pycache__
+package-lock
+package
+includes
+node_modules

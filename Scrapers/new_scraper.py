@@ -45,12 +45,17 @@ def requirement_dict(lines: str) -> dict:
             string = string.strip()
             if string:
                 if any(valid_key in string for valid_key in valid_keys):
-                    key = f"{count}. {string}"
+                    key = f'{count}. {string}'
                     count += 1
                     organized_data[key] = []
-                else: # If a key is not found, just append it into the dictionary as a value
+                elif (key): # If a key is not found, just append it into the dictionary as a value
                     organized_data[key].append(string)
+                else:
+                    organized_data[f"{count}."] = string
+                    count += 1
             string = ""
+        elif(letter == "\'"):
+            continue
         else:
             string += letter
     
@@ -78,14 +83,36 @@ def get_majors(year: int) -> list[str]:
     
     return major_names
 
+def get_minors(year: int) -> list[str]:
+    """Returns all availiable Minors/Certifications/Options/Diplomas for a year"""
+    # Set up URL
+    url_for_list = "https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/" + year + "/page/Minors-Options-Diplomas-Certificates.html"
+
+    # Set up BeautifulSoup
+    minor_names = setup_bs(url_for_list)
+    minor_names = minor_names.find_all('a')
+
+    # Get rid of everything before admendments and a few others
+    i = 0
+    for name in minor_names:
+        if "Amendments" in name.get_text():
+            break
+        i += 1
+    minor_names = minor_names[i + 5:]
+
+    # __repr(minor_names)
+    return minor_names
+
 if __name__ == "__main__":
-    soup = setup_bs("https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2022-2023/page/MATH-Actuarial-Science-Mathematical-Finance1.html")
+    soup = setup_bs("https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2022-2023/page/ARTS-Applied-Language-Studies-Minor.html")
     lines = get_section(soup)
-    #print(lines)
+    # print(lines)
     if lines:
         organized_data = requirement_dict(lines)
     else:
         organized_data = "No courses"
     #print(organized_data)
-    for k, v in organized_data.items():
-        print(f"{k}: {v}")
+    # for k, v in organized_data.items():
+    #     print(f"{k} {v}")
+    #     print(type(k))
+    print(str(organized_data))

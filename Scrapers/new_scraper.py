@@ -45,7 +45,7 @@ def requirement_dict(lines: str) -> dict:
             string = string.strip()
             if string:
                 if any(valid_key in string for valid_key in valid_keys):
-                    key = f"{count}. {string}"
+                    key = f'{count}. {string}'
                     count += 1
                     organized_data[key] = []
                 elif (key): # If a key is not found, just append it into the dictionary as a value
@@ -54,6 +54,8 @@ def requirement_dict(lines: str) -> dict:
                     organized_data[f"{count}."] = string
                     count += 1
             string = ""
+        elif(letter == "\'"):
+            continue
         else:
             string += letter
     
@@ -110,5 +112,7 @@ if __name__ == "__main__":
     else:
         organized_data = "No courses"
     #print(organized_data)
-    for k, v in organized_data.items():
-        print(f"{k} {v}")
+    # for k, v in organized_data.items():
+    #     print(f"{k} {v}")
+    #     print(type(k))
+    print(str(organized_data))

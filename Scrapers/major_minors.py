@@ -40,7 +40,7 @@ def scrape(years: int, func: Callable[[int], list[str]]) -> None:
 
         if not organized_data:
             organized_data = "Could not find courses associated with this degree :(. Check the official Undergraduate Calendar."
-        file.write(years + "," + name + "," + link_header + link + ",\"" + str(organized_data) + "\"\n")
+        file.write(name + "," + years + "," + link_header + link + ",\"" + str(organized_data) + "\"\n")
 
 # with open("UW-Undergrad-Calendar/CSVs/course_requirements.csv", 'w', newline='', encoding='utf-8') as file:
 #     file.write("Year,Major,Link,Requirements\n")
@@ -49,6 +49,6 @@ def scrape(years: int, func: Callable[[int], list[str]]) -> None:
 # scrape -> [get_majors -> [setup_bs], setup_bs, get_section, requirement_dict]
 
 with open("UW-Undergrad-Calendar/CSVs/minor_requirements.csv", 'w', newline='', encoding='utf-8') as file:
-    file.write("Year,Offered Minor,Link,Course Requirements\n")
+    file.write("Minor,Year,Link,Requirements\n")
     for y in range(2022, 2024):
         scrape(y, get_minors)

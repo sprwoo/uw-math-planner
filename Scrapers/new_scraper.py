@@ -51,7 +51,8 @@ def requirement_dict(lines: str) -> dict:
                 elif (key): # If a key is not found, just append it into the dictionary as a value
                     organized_data[key].append(string)
                 else:
-                    organized_data[f"{count}. "] = string
+                    organized_data[f"{count}."] = string
+                    count += 1
             string = ""
         else:
             string += letter
@@ -101,7 +102,7 @@ def get_minors(year: int) -> list[str]:
     return minor_names
 
 if __name__ == "__main__":
-    soup = setup_bs("https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2021-2022/page/ARTS-Church-Music-and-Worship-Minor.html")
+    soup = setup_bs("https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2022-2023/page/ARTS-Applied-Language-Studies-Minor.html")
     lines = get_section(soup)
     # print(lines)
     if lines:

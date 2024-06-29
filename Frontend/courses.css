@@ -144,9 +144,20 @@ body {
 
 .course-sub-item {
     margin-left: 20px; /* Extra indent for sub-items */
+    transition: background-color var(--transition-speed), color var(--transition-speed)
 }
 
+.course-sub-item.selected {
+    background-color: var(--pink);
+    color: var(--white);
+}
 
+.course-sub-item:hover {
+    background-color: var(--dark-grey-hover);
+    color: var(--white); 
+    z-index: 2; 
+    cursor: pointer;
+}
 
 .course-item:hover {
     background-color: var(--dark-grey-hover);

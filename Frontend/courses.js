@@ -64,73 +64,50 @@ document.addEventListener('DOMContentLoaded', async () => {
     function renderMajors(majorsData) {
         const courseCount = {};
         const courseInAllMajors = {}; // Track courses that appear in all majors
-
+    
         // Initialize course count and track courses appearing in all majors
         majorsData.forEach(major => {
             major.courses.forEach(([category, courses]) => {
                 courses.forEach(course => {
-                    courseCount[course] = (courseCount[course] || 0) + 1;
-                    if (!courseInAllMajors[course]) {
-                        courseInAllMajors[course] = new Set();
-                    }
-                    courseInAllMajors[course].add(major.name);
+                    const individualCourses = course.split(" or ");
+                    individualCourses.forEach(singleCourse => {
+                        courseCount[singleCourse] = (courseCount[singleCourse] || 0) + 1;
+                        if (!courseInAllMajors[singleCourse]) {
+                            courseInAllMajors[singleCourse] = new Set();
+                        }
+                        courseInAllMajors[singleCourse].add(major.name);
+                    });
                 });
             });
         });
-
+    
         // Identify courses that appear in both majors and more than once
         const matchedCourses = Object.keys(courseCount).filter(course => {
             return courseCount[course] > 1 && courseInAllMajors[course].size === 2;
         });
-
+    
         majorsData.forEach(major => {
             const majorDiv = document.createElement('div');
             majorDiv.classList.add('major');
-
+    
             const majorTitle = document.createElement('h2');
             majorTitle.textContent = major.name;
             majorDiv.appendChild(majorTitle);
-
+    
             const courseList = document.createElement('ul');
             courseList.classList.add('course-list');
-
+    
             major.courses.forEach(([category, courses]) => {
                 const categoryItem = document.createElement('li');
                 categoryItem.textContent = category;
-
+    
                 const subList = document.createElement('ul');
-
+    
                 courses.forEach(course => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = course;
-                    listItem.classList.add('course-item');
-
-                    // Check if the course should be marked as matched-course
-                    if (matchedCourses.includes(course)) {
-                        listItem.classList.add('matched-course');
-                    } else {
-                        listItem.classList.remove('matched-course');
-                    }
-
-                    if (courseDetails[course]) {
-                        const coursePopup = document.createElement('div');
-                        coursePopup.classList.add('course-popup');
-                        coursePopup.innerHTML = `
-                            <p><strong>Description:</strong> ${courseDetails[course].description}</p>
-                            <p><strong>Prerequisites:</strong> ${courseDetails[course].prereqs}</p>
-                        `;
-                        listItem.appendChild(coursePopup);
-                    }
-
-                    if (selectedCourses.includes(course)) {
-                        listItem.classList.add('selected');
-                    }
-
-                    // Check for "or" in course string
                     if (course.includes(" or ")) {
                         const orCourses = course.split(" or ");
                         const mainCourse = orCourses.shift(); // First course in the list
-
+    
                         // Add the main course as a list item
                         const mainListItem = document.createElement('li');
                         mainListItem.textContent = mainCourse;
@@ -139,7 +116,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                             handleCourseSelection(mainListItem, orCourses);
                         });
                         subList.appendChild(mainListItem);
-
+    
+                        // Highlight the main course if it's a matched course
+                        if (matchedCourses.includes(mainCourse)) {
+                            mainListItem.classList.add('matched-course');
+                        }
+    
                         orCourses.forEach(orCourse => {
                             const subListItem = document.createElement('li');
                             subListItem.textContent = orCourse;
@@ -147,26 +129,56 @@ document.addEventListener('DOMContentLoaded', async () => {
                             subListItem.addEventListener('click', () => {
                                 handleCourseSelection(subListItem, [mainCourse]);
                             });
-                        
+    
+                            // Highlight the orCourse if it's a matched course
+                            if (matchedCourses.includes(orCourse)) {
+                                subListItem.classList.add('matched-course');
+                            }
+    
                             // Append each subListItem to subList
                             subList.appendChild(subListItem);
                         });
                     } else {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = course;
+                        listItem.classList.add('course-item');
+    
+                        // Check if the course should be marked as matched-course
+                        if (matchedCourses.includes(course)) {
+                            listItem.classList.add('matched-course');
+                        }
+    
+                        if (courseDetails[course]) {
+                            const coursePopup = document.createElement('div');
+                            coursePopup.classList.add('course-popup');
+                            coursePopup.innerHTML = `
+                                <p><strong>Description:</strong> ${courseDetails[course].description}</p>
+                                <p><strong>Prerequisites:</strong> ${courseDetails[course].prereqs}</p>
+                            `;
+                            listItem.appendChild(coursePopup);
+                        }
+    
+                        if (selectedCourses.includes(course)) {
+                            listItem.classList.add('selected');
+                        }
+    
                         listItem.addEventListener('click', () => {
                             handleCourseSelection(listItem);
                         });
                         subList.appendChild(listItem);
                     }
                 });
-
+    
                 categoryItem.appendChild(subList);
                 courseList.appendChild(categoryItem);
             });
-
+    
             majorDiv.appendChild(courseList);
             majorsContainer.appendChild(majorDiv);
         });
     }
+    
+    
 
     // Function to handle course selection
     function handleCourseSelection(listItem, relatedCourses = []) {
@@ -234,7 +246,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             try {
                                 // Debugging log to check the raw JSON string
                                 console.log(`Raw Requirements for ${major}: ${majorData.Requirements}`);
-                                
+    
                                 // Attempt to fix common JSON issues
                                 const fixedJsonString = majorData.Requirements
                                     .replace(/'/g, '"')  // Replace single quotes with double quotes
@@ -251,10 +263,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                             requirements = majorData.Requirements;
                         }
     
-                        // Ensure requirements is an array of arrays
+                        // Validate and format the requirements data
                         const formattedMajorData = {
                             name: majorData.Major,
-                            courses: Object.entries(requirements).map(([category, courses]) => [category, courses])
+                            courses: Object.entries(requirements).map(([category, courses]) => {
+                                if (!Array.isArray(courses)) {
+                                    console.error(`Invalid courses format for category ${category} in major ${major}`);
+                                    return [category, []]; // Return empty array for invalid courses
+                                }
+                                return [category, courses];
+                            })
                         };
                         return formattedMajorData;
                     } else {
@@ -283,5 +301,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     
         return majorsData;
     }
+    
     
 });

@@ -16,7 +16,11 @@ def scrape(years: int, func: Callable[[int], list[str]]) -> None:
     degree_list = func(years)
 
     for degree in degree_list:
+        print(degree)
+        print(degree.get_text())
+        print(degree.get('a'))
         if degree.get('href') is None:
+            print("error")
             continue
         
         # Get the name of the degree for the CSV
@@ -48,7 +52,12 @@ def scrape(years: int, func: Callable[[int], list[str]]) -> None:
 #         scrape(y, get_majors)
 # scrape -> [get_majors -> [setup_bs], setup_bs, get_section, requirement_dict]
 
+# with open("UW-Undergrad-Calendar/CSVs/other_minors.csv", 'w', newline='', encoding='utf-8') as file:
+#     file.write("Minor,Year,Link,Requirements\n")
+#     for y in range(2022, 2024):
+#         scrape(y, get_minors)
+
 with open("UW-Undergrad-Calendar/CSVs/minor_requirements.csv", 'w', newline='', encoding='utf-8') as file:
     file.write("Minor,Year,Link,Requirements\n")
     for y in range(2022, 2024):
-        scrape(y, get_minors)
+        scrape(y, get_math_minors)

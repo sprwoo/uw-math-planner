@@ -35,7 +35,7 @@ def get_section(soup: BeautifulSoup) -> str:
 def requirement_dict(lines: str) -> dict:
     '''Takes the string of requirements and turns it into a dictionary with the headers as keys and courses as values'''
     organized_data = {}
-    valid_keys = ["One", "Two", "Three", "Four", "All", "Elective", "Any", "following", 
+    valid_keys = ["One", "Two", "Three", "Four ", "Five", "Six", "All", "Elective", "Any", "following", 
                   "minimum", "academic standing", "courses", "offers", "ACTSC 231"] # All of the potential headers (Don't mind that last one, CPA wants to be special)
     count = 1 # Keep track of the numbers
     key = None
@@ -103,16 +103,37 @@ def get_minors(year: int) -> list[str]:
     # __repr(minor_names)
     return minor_names
 
+def get_math_minors(year: str) -> list[str]:
+    url_for_list = "https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/" + year + "/page/Minors-Options-Diplomas-Certificates.html"
+
+    minor_names = setup_bs(url_for_list)
+    minor_names = minor_names.find_all('a')
+
+    # Remove everything other than the math minors
+    i = 0
+    for name in minor_names:
+        if ("Actuarial Science" in name.get_text()):
+            break
+        i += 1
+    
+    # Nine math minors
+    minor_names = minor_names[i : i + 9]
+
+    return minor_names
+
 if __name__ == "__main__":
-    soup = setup_bs("https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2022-2023/page/ARTS-Applied-Language-Studies-Minor.html")
-    lines = get_section(soup)
-    # print(lines)
-    if lines:
-        organized_data = requirement_dict(lines)
-    else:
-        organized_data = "No courses"
-    #print(organized_data)
-    # for k, v in organized_data.items():
-    #     print(f"{k} {v}")
-    #     print(type(k))
-    print(str(organized_data))
+
+    # soup = setup_bs("https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2022-2023/page/ARTS-Applied-Language-Studies-Minor.html")
+    # lines = get_section(soup)
+    # # print(lines)
+    # if lines:
+    #     organized_data = requirement_dict(lines)
+    # else:
+    #     organized_data = "No courses"
+    # #print(organized_data)
+    # # for k, v in organized_data.items():
+    # #     print(f"{k} {v}")
+    # #     print(type(k))
+    # print(str(organized_data))
+    minors = get_math_minors("2022-2023")
+    print(minors)

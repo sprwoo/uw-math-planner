@@ -40,11 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("TEST2");
         const year = "2023-2024";
 
-        // Process majors data asynchronously
-        console.log(majors);
-
-        const majorsData = await processMajors(year, majors, "Major");
-        const minorsData = await processMajors(year, minors, "Minor");
+        const courses = [...majors, ...minors];
+        const majorsData = await processMajors(year, courses, "Major");
 
         // Log or use majorsData as needed
         console.log("Processed Majors Data:");
@@ -55,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Example usage: Render majors data in the DOM
         renderMajors(majorsData); // Replace with your actual rendering function
-        renderMajors(minorsData);
+  
     } catch (error) {
         console.error("Error in main application:", error);
     }
@@ -233,19 +230,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         return 0;
     }
 
-    async function processMajors(year, majors, type) {
+    async function processMajors(year, majors) {
         const majorsData = [];
+    
+        // Adjust type for majors ending with "Minor"
+        majors = majors.map(major => {
+            if (major.endsWith("Minor")) {
+                return { name: major, type: "Minor" };
+            } else {
+                return { name: major, type: "Major" };
+            }
+        });
     
         // Map each major to a promise returned by requirements_csv
         const promises = majors.map(major => {
-            return requirements_csv(year, major, type)
+            return requirements_csv(year, major.name, major.type)
                 .then(majorData => {
                     if (majorData && majorData.Requirements) {
                         let requirements;
                         if (typeof majorData.Requirements === 'string') {
                             try {
                                 // Debugging log to check the raw JSON string
-                                console.log(`Raw Requirements for ${major}: ${majorData.Requirements}`);
+                                console.log(`Raw Requirements for ${major.name}: ${majorData.Requirements}`);
     
                                 // Attempt to fix common JSON issues
                                 const fixedJsonString = majorData.Requirements
@@ -256,7 +262,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 // Parse the cleaned JSON string
                                 requirements = JSON.parse(fixedJsonString);
                             } catch (error) {
-                                console.error(`Error parsing Requirements for major ${major}:`, error);
+                                console.error(`Error parsing Requirements for major ${major.name}:`, error);
                                 return null;
                             }
                         } else {
@@ -265,10 +271,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     
                         // Validate and format the requirements data
                         const formattedMajorData = {
-                            name: majorData.Major,
+                            name: major.name,
+                            type: major.type,
                             courses: Object.entries(requirements).map(([category, courses]) => {
                                 if (!Array.isArray(courses)) {
-                                    console.error(`Invalid courses format for category ${category} in major ${major}`);
+                                    console.error(`Invalid courses format for category ${category} in major ${major.name}`);
                                     return [category, []]; // Return empty array for invalid courses
                                 }
                                 return [category, courses];
@@ -276,12 +283,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                         };
                         return formattedMajorData;
                     } else {
-                        console.log(`No or invalid Requirements found for major: ${major}`);
+                        console.log(`No or invalid Requirements found for major: ${major.name}`);
                         return null;
                     }
                 })
                 .catch(error => {
-                    console.error(`Error fetching major: ${major}`, error);
+                    console.error(`Error fetching major: ${major.name}`, error);
                     return null;
                 });
         });

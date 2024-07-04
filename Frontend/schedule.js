@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to extract course code from full course name
     function extractCourseCode(courseName) {
-        const match = courseName.match(/\b[A-Za-z]+\s\d+\b/);
-        return match ? match[0].trim() : ''; 
+        const match = courseName.match(/^[^\s]+\s[^\s]+/);
+        return match ? match[0] : '';
     }
 
     // Function to create course cards
@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    /*
     // Export to Google Sheets
     document.getElementById('export').addEventListener('click', () => {
         const tableData = [];
@@ -170,4 +171,5 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error:', error);
         });
     });
+    */
 });

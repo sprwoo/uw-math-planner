@@ -30,6 +30,7 @@ body {
     min-height: 100vh;
     opacity: 0;
     animation: fadeIn var(--transition-speed) ease-in-out forwards;
+    text-align: center; /* Center text content */
 }
 
 @keyframes fadeIn {
@@ -41,6 +42,9 @@ body {
 .container {
     max-width: 1200px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align items */
 }
 
 .header {
@@ -67,7 +71,7 @@ body {
 .course-planner {
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap */
-    justify-content: flex-start; /* Start align items from the left */
+    justify-content: center; /* Center align items */
     gap: 20px; /* Adjust as needed */
     padding: 20px;
 }
@@ -83,6 +87,7 @@ body {
     max-width: 700px; /* Optional: Limit maximum width */
     transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
     margin-bottom: 20px; /* Space between majors */
+    text-align: left; /* Ensure left alignment for major content */
 }
 
 @media (max-width: 1000px) {
@@ -144,7 +149,7 @@ body {
 
 .course-sub-item {
     margin-left: 20px; /* Extra indent for sub-items */
-    transition: background-color var(--transition-speed), color var(--transition-speed)
+    transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 .course-sub-item.selected {
@@ -200,5 +205,3 @@ body {
     font-size: 0.9rem;
     color: var(--darker-grey); 
 }
-
-

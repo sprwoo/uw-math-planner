@@ -176,7 +176,7 @@ body {
 }
 
 .matched-course {
-    background-color: green;
+    background-color: rgba(3, 177, 3, 0.226);
 }
 
 /*************** POP UPS ******************/

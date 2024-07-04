@@ -1,4 +1,4 @@
-import { requirements_csv, courses_csv } from '../csvreader2.js';
+import { requirements_csv, courses_csv } from '../csvreader.js';
 localStorage.removeItem('selectedCourses');
 
 let globalMajorsData = [];
@@ -257,7 +257,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 const fixedJsonString = majorData.Requirements
                                     .replace(/'/g, '"')  // Replace single quotes with double quotes
                                     .replace(/\\'/g, "'") // Fix escaped single quotes
-                                    .replace(/\\"/g, '"'); // Fix escaped double quotes
+                                    .replace(/\\"/g, '"') // Fix escaped double quotes
+                                    .replace(/\\/g, ' ')
+                                    .replace(/xa0/g, ' ');
     
                                 // Parse the cleaned JSON string
                                 requirements = JSON.parse(fixedJsonString);

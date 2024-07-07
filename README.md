@@ -2,15 +2,21 @@ University of Waterloo Undegraduate Calendar for Math students.
 
 A data scraping project by Ajai Chandi and Daniel Yang.
 
-TODO:
+FRONT END - TODO:
+- [ ] FIX DESCRIPTION BUG (when the "addCourseDetailsPopup" function is uncommented, some majors can't select multiple courses and idk why)
+- [ ] Finish export function for schedule
+- [ ] Fix up duplication bugs with schedule
+- [ ] Add back buttons to all pages
+- [ ] Add a toggle for "joint majors" in the Select Page
+- [ ] Improve overall UI to look more professional
+- [ ] Dark/Light Toggle
+
+BACK END - TODO:
 - [X] Make JS script to make the CSVs usable
 - [X] Redo the scraping for minors
 - [X] Maybe use AWS database backend instead of CSVs (Post and fetch done, deleted AWS RDS instance because im unemployed)
-- [ ] Customizable schedule to export (Notion API? Sheets?)
-- [ ] Pop-up with description of course and pre-reqs
-- [ ] Drag-and-drop customaizable schedule
+- [ ] Be able to list courses for "One of CS 300-400" etc
 
-  
 Nice to have features:
 - AI chatbot?
 - Recommendation features

@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const majorsContainer = document.getElementById('majors-container');
     // Temporary course details
     const courseDetails = {
-        "MATH 237 Calculus 3 for Honours Mathematics": { prereqs: "None", description: "Calculus 1" },
+        
     };
 
     console.log("TEST1");
@@ -41,149 +41,120 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Render majors and courses
     async function renderMajors(majorsData) {
+        majorsContainer.innerHTML = "";
+    
         const courseCount = {};
-        const courseInAllMajors = {}; // Track courses that appear in all majors
+        const courseInAllMajors = {};
     
         // Initialize course count and track courses appearing in all majors
-    majorsData.forEach(major => {
-        major.courses.forEach(([category, courses]) => {
-            courses.forEach(course => {
-                const individualCourses = course.split(" or ");
-                individualCourses.forEach(singleCourse => {
-                    courseCount[singleCourse] = (courseCount[singleCourse] || 0) + 1;
-                    if (!courseInAllMajors[singleCourse]) {
-                        courseInAllMajors[singleCourse] = new Set();
-                    }
-                    courseInAllMajors[singleCourse].add(major.name);
+        majorsData.forEach(major => {
+            major.courses.forEach(([category, courses]) => {
+                courses.forEach(course => {
+                    const individualCourses = course.split(" or ");
+                    individualCourses.forEach(singleCourse => {
+                        courseCount[singleCourse] = (courseCount[singleCourse] || 0) + 1;
+                        if (!courseInAllMajors[singleCourse]) {
+                            courseInAllMajors[singleCourse] = new Set();
+                        }
+                        courseInAllMajors[singleCourse].add(major.name);
+                    });
                 });
             });
         });
-    });
-
-    // Identify courses that appear in both majors and more than once
-    const matchedCourses = Object.keys(courseCount).filter(course => {
-        return courseCount[course] > 1 && courseInAllMajors[course].size === 2;
-    });
-
-    for (const major of majorsData) {
-        const majorDiv = document.createElement('div');
-        majorDiv.classList.add('major');
-
-        const majorTitle = document.createElement('h2');
-        majorTitle.textContent = major.name;
-        majorDiv.appendChild(majorTitle);
-
-        const courseList = document.createElement('ul');
-        courseList.classList.add('course-list');
-
-        for (const [category, courses] of major.courses) {
-            const categoryItem = document.createElement('li');
-            categoryItem.textContent = category;
-
-            const subList = document.createElement('ul');
-
-            for (const course of courses) {
-                if (course.includes(" or ")) {
-                    const orCourses = course.split(" or ");
-                    const mainCourse = orCourses.shift(); // First course in the list
-
-                    // Add the main course as a list item
-                    const mainListItem = document.createElement('li');
-                    mainListItem.textContent = mainCourse;
-                    mainListItem.classList.add('course-item');
-                    mainListItem.addEventListener('click', () => {
-                        handleCourseSelection(mainListItem, orCourses);
-                    });
-                    subList.appendChild(mainListItem);
-
-                    // Highlight the main course if it's a matched course
-                    if (matchedCourses.includes(mainCourse)) {
-                        mainListItem.classList.add('matched-course');
-                    }
-
-                    orCourses.forEach(orCourse => {
-                        const subListItem = document.createElement('li');
-                        subListItem.textContent = orCourse;
-                        subListItem.classList.add('course-sub-item');
-                        subListItem.addEventListener('click', () => {
-                            handleCourseSelection(subListItem, [mainCourse]);
-                        });
-
-                        // Highlight the orCourse if it's a matched course
-                        if (matchedCourses.includes(orCourse)) {
-                            subListItem.classList.add('matched-course');
+    
+        // Identify courses that appear in both majors and more than once
+        const matchedCourses = Object.keys(courseCount).filter(course => {
+            return courseCount[course] > 1 && courseInAllMajors[course].size === 2;
+        });
+    
+        for (const major of majorsData) {
+            const majorDiv = document.createElement('div');
+            majorDiv.classList.add('major');
+    
+            const majorTitle = document.createElement('h2');
+            majorTitle.textContent = major.name;
+            majorDiv.appendChild(majorTitle);
+    
+            const courseList = document.createElement('ul');
+            courseList.classList.add('course-list');
+    
+            for (const [category, courses] of major.courses) {
+                const categoryItem = document.createElement('li');
+                categoryItem.textContent = category;
+    
+                const subList = document.createElement('ul');
+    
+                for (const course of courses) {
+                    if (course.includes(" or ")) {
+                        const orCourses = course.split(" or ");
+                        const mainCourse = orCourses.shift(); // First course in the list
+    
+                        const mainListItem = document.createElement('li');
+                        mainListItem.textContent = mainCourse;
+                        mainListItem.classList.add('course-item');
+                        subList.appendChild(mainListItem);
+    
+                        // Highlight the main course if it's a matched course
+                        if (matchedCourses.includes(mainCourse)) {
+                            mainListItem.classList.add('matched-course');
                         }
-
-                        // Append each subListItem to subList
-                        subList.appendChild(subListItem);
-                    });
-                } else {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = course;
-                    listItem.classList.add('course-item');
-
-                    // Check if the course should be marked as matched-course
-                    if (matchedCourses.includes(course)) {
-                        listItem.classList.add('matched-course');
-                    }
-
-                    // Extract course code and populate course details
-                    const courseCodeMatch = course.match(/([A-Z]+)\s?(\d+)/);
-                    if (courseCodeMatch) {
-                        const courseCode = courseCodeMatch[1] + courseCodeMatch[2];
-                        if (!courseDetails[course] && courseCode) {
-                            try {
-                                const courseData = await lookup_courses(courseCode);
-                                courseDetails[course] = {
-                                    description: (courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.',
-                                    prereqs: courseData.Prerequisites || 'None'
-                                };
-                            } catch (error) {
-                                console.error(error);
+    
+                        orCourses.forEach(orCourse => {
+                            const subListItem = document.createElement('li');
+                            subListItem.textContent = orCourse;
+                            subListItem.classList.add('course-sub-item');
+                            subList.appendChild(subListItem);
+    
+                            // Highlight the orCourse if it's a matched course
+                            if (matchedCourses.includes(orCourse)) {
+                                subListItem.classList.add('matched-course');
                             }
+                        });
+    
+                        // Event delegation for course selection
+                        mainListItem.addEventListener('click', () => {
+                            handleCourseSelection(mainListItem, orCourses);
+                        });
+    
+                        // Add course details as pop-up
+                        addCourseDetailsPopup(mainListItem, mainCourse);
+                    } else {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = course;
+                        listItem.classList.add('course-item');
+                        subList.appendChild(listItem);
+    
+                        // Highlight the course if it's a matched course
+                        if (matchedCourses.includes(course)) {
+                            listItem.classList.add('matched-course');
                         }
-
-                        if (courseDetails[course]) {
-                            const coursePopup = document.createElement('div');
-                            coursePopup.classList.add('course-popup');
-                            coursePopup.innerHTML = `
-                                <p><strong>Description:</strong> ${courseDetails[course].description}</p>
-                                <p><strong>Prerequisites:</strong> ${courseDetails[course].prereqs}</p>
-                            `;
-                            listItem.appendChild(coursePopup);
-                        }
+    
+                        // Event delegation for course selection
+                        listItem.addEventListener('click', () => {
+                            handleCourseSelection(listItem);
+                        });
+    
+                        // Add course details as pop-up
+                        addCourseDetailsPopup(listItem, course);
                     }
-
-                    if (selectedCourses.includes(course)) {
-                        listItem.classList.add('selected');
-                    }
-
-                    listItem.addEventListener('click', () => {
-                        handleCourseSelection(listItem);
-                    });
-                    subList.appendChild(listItem);
                 }
+    
+                categoryItem.appendChild(subList);
+                courseList.appendChild(categoryItem);
             }
-
-            categoryItem.appendChild(subList);
-            courseList.appendChild(categoryItem);
+    
+            majorDiv.appendChild(courseList);
+            majorsContainer.appendChild(majorDiv);
         }
-
-        majorDiv.appendChild(courseList);
-        majorsContainer.appendChild(majorDiv);
     }
-}
     
-    
-
     // Function to handle course selection
     function handleCourseSelection(listItem, relatedCourses = []) {
         const maxSelections = getMaxSelections(listItem.parentNode.parentNode.textContent);
         const selectedItems = listItem.parentNode.querySelectorAll('.selected');
-
+    
         if (listItem.classList.contains('selected')) {
             listItem.classList.remove('selected');
-            delete selectionState[listItem.textContent];
             // Remove course from selectedCourses
             const index = selectedCourses.indexOf(listItem.textContent);
             if (index > -1) {
@@ -192,10 +163,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             if (selectedItems.length < maxSelections) {
                 listItem.classList.add('selected');
-                selectionState[listItem.textContent] = true;
                 // Add course to selectedCourses
                 selectedCourses.push(listItem.textContent);
-
+    
                 // Deselect related courses
                 relatedCourses.forEach(course => {
                     const relatedItem = Array.from(listItem.parentNode.children).find(item => item.textContent === course);
@@ -212,7 +182,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         localStorage.setItem('selectedCourses', JSON.stringify(selectedCourses)); // Update local storage
         console.log('Selected Courses:', selectedCourses); // Log selected courses for debugging
     }
-
+    
+    // Function to add course details as pop-up
+    async function addCourseDetailsPopup(listItem, course) {
+        /*
+        const courseCodeMatch = course.match(/([A-Z]+)\s?(\d+)/);
+        if (courseCodeMatch) {
+            const courseCode = courseCodeMatch[1] + courseCodeMatch[2];
+            try {
+                const courseData = await lookup_courses(courseCode);
+                const coursePopup = document.createElement('div');
+                coursePopup.classList.add('course-popup');
+                coursePopup.innerHTML = `
+                    <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
+                    <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
+                `;
+                listItem.appendChild(coursePopup);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+            */
+    }
+    
     // Function to determine maximum selections allowed based on category
     function getMaxSelections(category) {
         if (category.includes('One')) {
@@ -228,6 +220,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         return 0;
     }
+    
+    
 
     async function processMajors(year, majors) {
         const majorsData = [];
@@ -310,5 +304,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         return majorsData;
     }
     console.log("COURSE LOOKUP");
-    console.log(lookup_courses("MATH137"));
+    console.log(courseDetails);
 });

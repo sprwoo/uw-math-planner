@@ -3,11 +3,12 @@ University of Waterloo Undegraduate Calendar for Math students.
 A data scraping project by Ajai Chandi and Daniel Yang.
 
 FRONT END - TODO:
-- [ ] FIX DESCRIPTION BUG (when the "addCourseDetailsPopup" function is uncommented, some majors can't select multiple courses and idk why)
-- [ ] Finish export function for schedule
-- [ ] Fix up duplication bugs with schedule
+- [ ] FIX DESCRIPTION BUG (when the "addCourseDetailsPopup" function is uncommented, some majors can't select multiple courses and idk why) [courses.js]
+- [ ] Finish export function for schedule [schedule.js]
+- [ ] Fix up duplication bugs with schedule [schedule.js]
 - [ ] Add back buttons to all pages
-- [ ] Add a toggle for "joint majors" in the Select Page
+- [ ] Add a toggle for "joint majors" in the Select Page [select.js]
+- [ ] Make the schedule look more sleek, unique and better [schedule.css]
 - [ ] Improve overall UI to look more professional
 - [ ] Dark/Light Toggle
 

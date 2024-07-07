@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const courseCode = extractCourseCode(courseName);
         const card = document.createElement('div');
         card.classList.add('course-card');
-        card.textContent = courseCode; 
+        card.textContent = courseCode;
         card.draggable = true;
         coursesContainer.appendChild(card);
 
@@ -52,6 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
         createCourseCard(course);
     });
 
+    // Create empty course cards to ensure there are always 40 cards
+    /*
+    const totalCards = 40;
+    const emptyCardsToCreate = totalCards - newCourses.length;
+
+    for (let i = 0; i < emptyCardsToCreate; i++) {
+        createCourseCard('');
+    }
+    */
     // Handle drag and drop
     let dragged;
 
@@ -76,11 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (dragged && dragged.classList.contains('course-card')) {
                 const courseCode = dragged.textContent;
 
-                // Check if the course is already in scheduleCourses array
-                if (scheduleCourses.includes(courseCode)) {
-                    return; // Prevent adding the same course to multiple cells
-                }
-
                 // Check if the cell already contains a card
                 if (cell.childNodes.length > 0 && cell.firstChild.classList.contains('course-card')) {
                     const existingCourseCode = cell.firstChild.textContent;
@@ -89,61 +93,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     coursesContainer.appendChild(cell.firstChild);
                 }
 
-                cell.innerHTML = ''; 
-                cell.appendChild(dragged); 
-                draggedCourses.push(courseCode); 
-                scheduleCourses.push(courseCode); 
-            }
-        });
-
-        // Add focus event listener to the input field
-        cell.querySelector('.cell-input').addEventListener('focus', (event) => {
-            event.target.select();
-        });
-
-        // Add blur event listener to the input field to update cell text
-        cell.querySelector('.cell-input').addEventListener('blur', (event) => {
-            const input = event.target;
-            if (input.value.trim() !== '') {
-                const span = document.createElement('span');
-                span.textContent = input.value.trim();
-                input.replaceWith(span);
-            }
-        });
-
-        // Handle Enter key press to create course card from input
-        cell.addEventListener('keypress', (event) => {
-            if (event.target.tagName === 'INPUT' && event.key === 'Enter') {
-                const input = event.target;
-                const value = input.value.trim();
-                if (value !== '') {
-                    const card = document.createElement('div');
-                    card.classList.add('course-card');
-                    card.textContent = value;
-                    card.draggable = true;
-                    cell.innerHTML = ''; // Clear existing content
-                    cell.appendChild(card);
-
-                    // Update arrays
-                    draggedCourses.push(value);
-                    scheduleCourses.push(value);
-
-                    // Clear input field
-                    input.value = '';
+                // Allow duplicates if the dragged card is empty ("" content)
+                if (courseCode === '') {
+                    cell.innerHTML = '';
+                    cell.appendChild(dragged);
+                } else {
+                    // Check if the course is already in scheduleCourses array
+                    if (scheduleCourses.includes(courseCode)) {
+                        return; // Prevent adding the same course to multiple cells
+                    }
+                    cell.innerHTML = '';
+                    cell.appendChild(dragged);
+                    draggedCourses.push(courseCode);
+                    scheduleCourses.push(courseCode);
                 }
-            }
-        });
-
-        // Allow clicking the span to edit the cell content again
-        cell.addEventListener('click', (event) => {
-            if (event.target.tagName === 'SPAN') {
-                const span = event.target;
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.className = 'cell-input';
-                input.value = span.textContent;
-                span.replaceWith(input);
-                input.focus();
             }
         });
     });

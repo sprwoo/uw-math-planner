@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let courses = selectedCourses ? selectedCourses : [];
     console.log(courses);
 
+    const newCourses = removeDuplicates(courses);
     const coursesContainer = document.getElementById('courses-container');
     const scheduleCells = document.querySelectorAll('.droppable');
     let draggedCourses = [];
@@ -12,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function extractCourseCode(courseName) {
         const match = courseName.match(/^[^\s]+\s[^\s]+/);
         return match ? match[0] : '';
+    }
+
+    function removeDuplicates(arr) {
+        return [...new Set(arr)];
     }
 
     // Function to create course cards
@@ -43,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Create course cards for each course in selectedCourses
-    courses.forEach(course => {
+    newCourses.forEach(course => {
         createCourseCard(course);
     });
 

@@ -180,6 +180,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
         localStorage.setItem('selectedCourses', JSON.stringify(selectedCourses)); // Update local storage
+        // console.log(`Category Received: ${listItem.parentNode.parentNode.textContent}`);
+        console.log('Max Selections:', maxSelections);
         console.log('Selected Courses:', selectedCourses); // Log selected courses for debugging
     }
     
@@ -194,8 +196,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 coursePopup.classList.add('course-popup');
                 coursePopup.innerHTML = `
                     <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
-                    <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
-                `;
+                    <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
+                    <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
+                    `;
+                /*
+                <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
+                <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
+                <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
+                <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
+                */
                 listItem.appendChild(coursePopup);
             } catch (error) {
                 console.error(error);
@@ -205,22 +214,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Function to determine maximum selections allowed based on category
     function getMaxSelections(category) {
-        if (category.includes('One')) {
+        if (category.includes('One ')) {
+            console.log(1);
             return 1;
-        } else if (category.includes('Two')) {
+        } else if (category.includes('Two ')) {
+            console.log(2);
             return 2;
-        } else if (category.includes('Three')) {
+        } else if (category.includes('Three ')) {
+            console.log(3);
             return 3;
-        } else if (category.includes('Four')) {
+        } else if (category.includes('Four ')) {
+            console.log(4);
             return 4;
+        } else if (category.includes('Five ')) {
+            console.log(5); 
+            return 5;
+        } else if (category.includes('Six ')) {
+            return 6;
         } else if (category.includes('All')) {
             return Number.MAX_SAFE_INTEGER;
         }
+
         return 0;
     }
     
-    
-
     async function processMajors(year, majors) {
         const majorsData = [];
     

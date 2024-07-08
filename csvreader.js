@@ -34,22 +34,7 @@ export async function lookup_requirements(year, degree_name, degree_type) {
 }
 
 /**
- * Parses through course_info.csv to find and return an object representing the course
- * @param {String} course_code      The code of the course we are looking for
- * @returns {Promise}               Promise with an object of the course 
- */
-export async function lookup_courses(course_code) {
-    const data = await fetchAndParseCSV('../CSVs/course_info.csv');
-    const course = data.find(row => row.Code == course_code);
-    if (course) {
-        return course;
-    } else {
-        throw new Error(`No courses found with the course code "${course_code}".`);
-    }
-}
-
-/**
- * Uses lookup_major/minor to get an object of a majors/minors
+ * Uses lookup_requirements to get an object of a majors/minors
  * @param {*} year            The year of the offerings we are looking for
  * @param {*} degree_name     The name of the first major we are looking for
  * @param {*} degree_type     The type of degree
@@ -63,7 +48,21 @@ export async function requirements_csv(year, degree_name, degree_type) {
     } catch (error) {
         console.error(error);
     }
-    
+}
+
+/**
+ * Parses through course_info.csv to find and return an object representing the course
+ * @param {String} course_code      The code of the course we are looking for
+ * @returns {Promise}               Promise with an object of the course 
+ */
+export async function lookup_courses(course_code) {
+    const data = await fetchAndParseCSV('../CSVs/course_info.csv');
+    const course = data.find(row => row.Course == course_code);
+    if (course) {
+        return course;
+    } else {
+        throw new Error(`No courses found with the course code "${course_code}".`);
+    }
 }
 
 /**
@@ -82,6 +81,6 @@ export async function courses_csv(course_code) {
 
 
 // Uncomment these lines to test
-requirements_csv("2023-2024", "Mathematical Finance", "Major");
+//requirements_csv("2023-2024", "Mathematical Finance", "Major");
 //requirements_csv("2023-2024", "Joint Combinatorics & Optimization", "major")
-//courses_csv("CO250");
+courses_csv("CO250");

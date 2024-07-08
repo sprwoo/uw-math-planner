@@ -5,6 +5,7 @@ let globalMajorsData = [];
 let majorsFromStorage = JSON.parse(localStorage.getItem("majors"));
 let minorsFromStorage = JSON.parse(localStorage.getItem("minors"));
 let majorType = localStorage.getItem('toggleSetting');
+let year = localStorage.getItem('year');
 let majors = majorsFromStorage ? majorsFromStorage : [];
 let minors = minorsFromStorage ? minorsFromStorage : [];
 let selectedCourses = [];
@@ -18,12 +19,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         
     };
 
-    console.log("TEST1");
-    // Temporary majors data
     try {
-        console.log("TEST2");
-        const year = "2023-2024";
 
+        if (year === null || year === undefined || year === "") {
+            year = "No Year Selected"; // Update the global variable if year is empty
+        }
         const courses = [...majors, ...minors];
         const majorsData = await processMajors(year, courses, majorType);
 
@@ -315,10 +315,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         };
                         return formattedMajorData;
                     } else {
-                        console.log(`No or invalid Requirements found for major: ${major.name}`);
+                        console.log(`No or invalid Requirements found for major: ${major.name}, Year: ${year}`);
                         // Display error message on the screen
                         const errorMessage = document.createElement('p');
-                        errorMessage.textContent = `No or invalid Requirements found for major: ${major.name}`;
+                        errorMessage.textContent = `No or invalid Requirements found for major: ${major.name}, Year: ${year}`;
                         errorContainer.appendChild(errorMessage);
                         errorContainer.style.display = 'block'; // Show error container
                         return null;

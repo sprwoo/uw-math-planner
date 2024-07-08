@@ -7,7 +7,7 @@ FRONT END - TODO:
 - [ ] Finish export function for schedule [schedule.js]
 - [X] Fix up duplication bugs with schedule [schedule.js]
 - [ ] Add back buttons to all pages
-- [ ] Add a toggle for "joint majors" in the Select Page [select.js]
+- [X] Add a toggle for "joint majors" in the Select Page [select.js]
 - [ ] Make the schedule look more sleek, unique and better [schedule.css]
 - [ ] Improve overall UI to look more professional
 - [ ] Dark/Light Toggle

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 from bs4 import BeautifulSoup
 import requests
 
@@ -120,6 +120,51 @@ def get_math_minors(year: str) -> list[str]:
     minor_names = minor_names[i : i + 9]
 
     return minor_names
+
+def get_info(req: str) -> Tuple[str, str, str, str, str, str, str]:
+    """Returns a list of all the info of a type of course"""
+    code = req.find('a').get('name')
+
+    name = req.find_all(class_='divTableCell colspan-2')
+    desc = name[1].get_text()
+    desc = desc.replace("\n", "").replace("\r", "").replace("\"", "").replace("\'", "")
+
+    name = name[0].get_text()
+    
+    info = req.find_all('em')
+    
+    note = info[0].get_text().strip().replace("\n", "").replace("\r", "").replace("\"", "").replace("\'", "") # Python is great
+
+    prereq = ''
+    coreq = ''
+    antireq = ''
+    for tag in info:
+        text = tag.get_text().strip()
+        tmp = ''
+        for letter in text:
+            if letter == "\n" or letter == "\r" or letter == "\'" or letter == "\"":
+                continue;
+            else:
+                tmp += letter
+        text = tmp.strip()
+        
+        if ("Prereq" in tag.get_text()):
+            prereq = text
+        if ("Coreq" in tag.get_text()):
+            coreq = text
+        if ("Antireq" in tag.get_text()):
+            antireq = text
+    
+    print("N: " + name)
+    print("C: " + code)
+    print("D: " + desc)
+    print("Note: " + note)
+    print("Pre: " + prereq)
+    print("Co: " + coreq)
+    print("Anti: " + antireq)
+    print("\n")
+
+    return code, name, desc, note, prereq, coreq, antireq
 
 if __name__ == "__main__":
     soup = setup_bs("https://academic-calendar-archive.uwaterloo.ca/undergraduate-studies/2023-2024/page/MATH-Chart-Prof-Accounting-Finance-Spec-Coop.html")

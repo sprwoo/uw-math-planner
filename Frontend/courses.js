@@ -185,7 +185,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Function to add course details as pop-up
     async function addCourseDetailsPopup(listItem, course) {
-        /*
         const courseCodeMatch = course.match(/([A-Z]+)\s?(\d+)/);
         if (courseCodeMatch) {
             const courseCode = courseCodeMatch[1] + courseCodeMatch[2];
@@ -202,7 +201,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error(error);
             }
         }
-            */
     }
     
     // Function to determine maximum selections allowed based on category

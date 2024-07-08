@@ -1,4 +1,4 @@
-from Scrapers.old_scraper import *
+from old_scraper import *
 import csv
 from typing import IO
 
@@ -32,17 +32,17 @@ def get_sections(file: IO, fieldnames: list[str]) -> None:
             sections.add(course)
 
 sections = set()
-with open("UW-Undergrad-Calendar/CSVs/course_requirements.csv", 'r', newline='', encoding='utf-8') as file:
+with open("course_requirements.csv", 'r', newline='', encoding='utf-8') as file:
     fieldnames = ["Year","Offered Major","Link","Course Requirements"]
     get_sections(file, fieldnames)
     
 
-with open("UW-Undergrad-Calendar/CSVs/minor_requirements.csv", 'r', newline='', encoding='utf-8') as file:
+with open("minor_requirements.csv", 'r', newline='', encoding='utf-8') as file:
     fieldnames = ["Year","Offered Minor","Link","Course Requirements"]
     get_sections(file, fieldnames)
 
 print(sections)
-with open("UW-Undergrad-Calendar/CSVs/course_info.csv", 'w', newline='', encoding='utf-8') as file:
+with open("course_info.csv", 'w', newline='', encoding='utf-8') as file:
     file.write("Course Code,Name,Description,Notes,Prerequisites,Corequisites,Antirequisites\n")
     for section in sections:
         soup = get_bs("https://ucalendar.uwaterloo.ca/2324/COURSE/course-" + section + ".html", 'center')

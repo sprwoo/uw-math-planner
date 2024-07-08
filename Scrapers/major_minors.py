@@ -1,4 +1,4 @@
-from new_scraper import *
+from Scrapers.mainscraper import *
 from typing import Callable
 
 link_header = "https://academic-calendar-archive.uwaterloo.ca"

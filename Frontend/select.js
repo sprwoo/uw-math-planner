@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function selectiveCheck(event) {
         var checkboxType = this.getAttribute('name');
         var checkedChecks = document.querySelectorAll('input[name="' + checkboxType + '"]:checked');
-        
+
         if (checkedChecks.length > max) {
-            event.preventDefault(); 
-            this.checked = false; 
+            event.preventDefault();
+            this.checked = false;
             return false;
         }
 
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             majors = Array.from(checkedChecks).map(function(checkbox) {
                 return checkbox.id;
             });
-            localStorage.setItem("majors", JSON.stringify(majors)); 
+            localStorage.setItem("majors", JSON.stringify(majors));
             console.log('Selected majors:', majors);
 
         } else if (checkboxType === 'minors') {
@@ -26,32 +26,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 return checkbox.id;
             });
             localStorage.setItem("minors", JSON.stringify(minors));
-            //To turn back to array after, use: JSON.parse(localStorage.getItem("majorVar")) || []; // Retrieve from localStorage or initialize as empty array
             console.log('Selected minors:', minors);
         }
     }
-
 
     var majorCheckboxes = document.querySelectorAll('input[name="majors"]');
     majorCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
     });
 
-
     var minorCheckboxes = document.querySelectorAll('input[name="minors"]');
     minorCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
     });
-});
 
-document.addEventListener("DOMContentLoaded", function() {
+    // Toggle Switch Functionality
+    var toggleSwitch = document.getElementById('majorToggle');
+    if (toggleSwitch) {
+        toggleSwitch.addEventListener('change', function() {
+            if (toggleSwitch.checked) {
+                localStorage.setItem('toggleSetting', 'DOUBLE');
+            } else {
+                localStorage.setItem('toggleSetting', 'JOINT');
+            }
+            console.log('Toggle setting:', localStorage.getItem('toggleSetting'));
+        });
+    } else {
+        console.error('Toggle switch element not found');
+    }
+
+    // Dropdown Functionality
     const wrapper = document.querySelector(".wrapper"),
           selectBtn = wrapper.querySelector(".select-btn"),
           searchInp = wrapper.querySelector("input"),
           options = wrapper.querySelector(".options");
-  
+
     let countries = ["Placeholder", "TEST"];
-  
+
     function addCountry(selectedCountry) {
         options.innerHTML = "";
         countries.forEach(country => {
@@ -60,16 +71,16 @@ document.addEventListener("DOMContentLoaded", function() {
             options.insertAdjacentHTML("beforeend", li);
         });
     }
-  
+
     function updateName(selectedLi) {
         searchInp.value = "";
         addCountry(selectedLi.innerText);
         wrapper.classList.remove("active");
         selectBtn.firstElementChild.innerText = selectedLi.innerText;
     }
-  
+
     addCountry();
-  
+
     searchInp.addEventListener("keyup", () => {
         let arr = [];
         let searchWord = searchInp.value.toLowerCase();
@@ -81,9 +92,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }).join("");
         options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! Country not found</p>`;
     });
-  
+
     selectBtn.addEventListener("click", () => wrapper.classList.toggle("active"));
-  
+
     // Ensure updateName is globally accessible
     window.updateName = updateName;
-  });
+});

@@ -4,6 +4,7 @@ localStorage.removeItem('selectedCourses');
 let globalMajorsData = [];
 let majorsFromStorage = JSON.parse(localStorage.getItem("majors"));
 let minorsFromStorage = JSON.parse(localStorage.getItem("minors"));
+let majorType = localStorage.getItem('toggleSetting');
 let majors = majorsFromStorage ? majorsFromStorage : [];
 let minors = minorsFromStorage ? minorsFromStorage : [];
 let selectedCourses = [];
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const year = "2023-2024";
 
         const courses = [...majors, ...minors];
-        const majorsData = await processMajors(year, courses, "Major");
+        const majorsData = await processMajors(year, courses, majorType);
 
         // Log or use majorsData as needed
         console.log("Processed Majors Data:");
@@ -238,15 +239,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         return 0;
     }
     
-    async function processMajors(year, majors) {
+    async function processMajors(year, majors, type) {
         const majorsData = [];
     
         // Adjust type for majors ending with "Minor"
+        const majorCount = majors.filter(major => !major.endsWith("Minor")).length;
+
         majors = majors.map(major => {
             if (major.endsWith("Minor")) {
                 return { name: major, type: "Minor" };
             } else {
-                return { name: major, type: "Major" };
+                if (localStorage.getItem('toggleSetting') === 'JOINT' && majorCount > 1) {
+                    return { name: `Joint ${major}`, type: "Major" };
+                } else {
+                    return { name: major, type: "Major" };
+                }
             }
         });
     

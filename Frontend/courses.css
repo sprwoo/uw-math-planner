@@ -230,3 +230,23 @@ button:hover{
     background: pink ;
 
 }
+
+/********** ERRORS ***********/
+.errors {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid red;
+    background-color: #ffe6e6;
+    color: red;
+    font-size: 15px;
+    border-radius: 5px;
+    z-index: 10000;
+    box-shadow: 0 2px 4px rgb(211, 133, 133)
+}
+
+.errors p {
+    margin: 0;
+    padding: 5px 0;
+    line-height: 1.5;
+}
+

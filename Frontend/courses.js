@@ -12,6 +12,7 @@ let selectionState = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
     const majorsContainer = document.getElementById('majors-container');
+    const errorContainer = document.getElementById('error-container');
     // Temporary course details
     const courseDetails = {
         
@@ -238,13 +239,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         return 0;
     }
-    
+
     async function processMajors(year, majors, type) {
         const majorsData = [];
+        const errorContainer = document.getElementById('error-container');
+    
+        // Clear previous errors
+        errorContainer.innerHTML = '';
     
         // Adjust type for majors ending with "Minor"
         const majorCount = majors.filter(major => !major.endsWith("Minor")).length;
-
+    
         majors = majors.map(major => {
             if (major.endsWith("Minor")) {
                 return { name: major, type: "Minor" };
@@ -280,6 +285,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 requirements = JSON.parse(fixedJsonString);
                             } catch (error) {
                                 console.error(`Error parsing Requirements for major ${major.name}:`, error);
+                                // Display error message on the screen
+                                const errorMessage = document.createElement('p');
+                                errorMessage.textContent = `Error parsing Requirements for major ${major.name}: ${error.message}`;
+                                errorContainer.appendChild(errorMessage);
+                                errorContainer.style.display = 'block'; // Show error container
                                 return null;
                             }
                         } else {
@@ -293,6 +303,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                             courses: Object.entries(requirements).map(([category, courses]) => {
                                 if (!Array.isArray(courses)) {
                                     console.error(`Invalid courses format for category ${category} in major ${major.name}`);
+                                    // Display error message on the screen
+                                    const errorMessage = document.createElement('p');
+                                    errorMessage.textContent = `Invalid courses format for category ${category} in major ${major.name}`;
+                                    errorContainer.appendChild(errorMessage);
+                                    errorContainer.style.display = 'block'; // Show error container
                                     return [category, []]; // Return empty array for invalid courses
                                 }
                                 return [category, courses];
@@ -301,11 +316,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                         return formattedMajorData;
                     } else {
                         console.log(`No or invalid Requirements found for major: ${major.name}`);
+                        // Display error message on the screen
+                        const errorMessage = document.createElement('p');
+                        errorMessage.textContent = `No or invalid Requirements found for major: ${major.name}`;
+                        errorContainer.appendChild(errorMessage);
+                        errorContainer.style.display = 'block'; // Show error container
                         return null;
                     }
                 })
                 .catch(error => {
                     console.error(`Error fetching major: ${major.name}`, error);
+                    // Display error message on the screen
+                    const errorMessage = document.createElement('p');
+                    errorMessage.textContent = `Error fetching major: ${major.name}: ${error.message}`;
+                    errorContainer.appendChild(errorMessage);
+                    errorContainer.style.display = 'block'; // Show error container
                     return null;
                 });
         });
@@ -323,8 +348,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Set globalMajorsData if needed
         globalMajorsData = majorsData;
     
+        // Show or hide error container based on content
+        if (errorContainer.children.length > 0) {
+            errorContainer.style.display = 'block';
+        } else {
+            errorContainer.style.display = 'none';
+        }
+    
         return majorsData;
     }
+    
+    
+    
+
     console.log("COURSE LOOKUP");
     console.log(courseDetails);
 });

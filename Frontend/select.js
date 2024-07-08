@@ -1,19 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var max = 3;
+    var max = 3; // Maximum number of checkboxes allowed to be checked for years
     var majors = [];
     var minors = [];
+    var year = ""; // Variable to store selected year
 
     // Define selectiveCheck function
     function selectiveCheck(event) {
         var checkboxType = this.getAttribute('name');
         var checkedChecks = document.querySelectorAll('input[name="' + checkboxType + '"]:checked');
 
-        if (checkedChecks.length > max) {
+        // Handle maximum selection logic
+        if (checkedChecks.length > max && checkboxType !== 'years') {
+            event.preventDefault();
+            this.checked = false;
+            return false;
+        } else if (checkboxType === 'years' && checkedChecks.length > 1) {
+            console.log("YEAR TEST");
             event.preventDefault();
             this.checked = false;
             return false;
         }
 
+        // Store selected checkboxes in respective arrays and localStorage
         if (checkboxType === 'majors') {
             majors = Array.from(checkedChecks).map(function(checkbox) {
                 return checkbox.id;
@@ -27,9 +35,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             localStorage.setItem("minors", JSON.stringify(minors));
             console.log('Selected minors:', minors);
+
+        } else if (checkboxType === 'years') {
+            year = checkedChecks.length > 0 ? checkedChecks[0].id : '';
+            localStorage.setItem("year", year);
+            console.log('Selected year:', year);
         }
     }
 
+    // Add event listeners to checkboxes
     var majorCheckboxes = document.querySelectorAll('input[name="majors"]');
     majorCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
@@ -37,6 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var minorCheckboxes = document.querySelectorAll('input[name="minors"]');
     minorCheckboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('click', selectiveCheck);
+    });
+
+    var yearCheckboxes = document.querySelectorAll('input[name="years"]');
+    yearCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
     });
 
@@ -55,46 +74,4 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Toggle switch element not found');
     }
 
-    // Dropdown Functionality
-    const wrapper = document.querySelector(".wrapper"),
-          selectBtn = wrapper.querySelector(".select-btn"),
-          searchInp = wrapper.querySelector("input"),
-          options = wrapper.querySelector(".options");
-
-    let countries = ["Placeholder", "TEST"];
-
-    function addCountry(selectedCountry) {
-        options.innerHTML = "";
-        countries.forEach(country => {
-            let isSelected = country == selectedCountry ? "selected" : "";
-            let li = `<li onclick="updateName(this)" class="${isSelected}">${country}</li>`;
-            options.insertAdjacentHTML("beforeend", li);
-        });
-    }
-
-    function updateName(selectedLi) {
-        searchInp.value = "";
-        addCountry(selectedLi.innerText);
-        wrapper.classList.remove("active");
-        selectBtn.firstElementChild.innerText = selectedLi.innerText;
-    }
-
-    addCountry();
-
-    searchInp.addEventListener("keyup", () => {
-        let arr = [];
-        let searchWord = searchInp.value.toLowerCase();
-        arr = countries.filter(data => {
-            return data.toLowerCase().startsWith(searchWord);
-        }).map(data => {
-            let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
-            return `<li onclick="updateName(this)" class="${isSelected}">${data}</li>`;
-        }).join("");
-        options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! Country not found</p>`;
-    });
-
-    selectBtn.addEventListener("click", () => wrapper.classList.toggle("active"));
-
-    // Ensure updateName is globally accessible
-    window.updateName = updateName;
 });

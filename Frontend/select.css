@@ -74,7 +74,9 @@ p{
 .checkbox-majors:checked + label,
 .checkbox-majors:not(:checked) + label,
 .checkbox-minors:checked + label,
-.checkbox-minors:not(:checked) + label {
+.checkbox-minors:not(:checked) + label,
+.checkbox-years:checked + label,
+.checkbox-years:not(:checked) + label {
     position: relative;
     display: inline-flex; /* Use inline-flex */
     align-items: center; /* Center vertically */
@@ -97,13 +99,10 @@ p{
     color: var(--white);
     transition: all 300ms linear;
 }
-.checkbox-majors:not(:checked) + label{
+.checkbox-majors:not(:checked) + label,
+.checkbox-minors:not(:checked) + label,
+.checkbox-years:not(:checked) + label{
 	background-color: var(--dark-light);
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-}
-
-.checkbox-minors:not(:checked) + label{
-  background-color: var(--dark-light);
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -130,6 +129,19 @@ p{
 	height: 100%;
 	border-radius: 4px;
 	background-image: linear-gradient(298deg, rgb(124, 102, 124), rgb(241, 181, 243));
+	z-index: -1;
+}
+
+.checkbox-years:checked + label::before,
+.checkbox-years:not(:checked) + label::before {
+	position: absolute;
+	content: '';
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 4px;
+	background-image: linear-gradient(298deg, rgb(201, 131, 153), rgb(170, 93, 118));
 	z-index: -1;
 }
 /************* SEARCH BOX **************/

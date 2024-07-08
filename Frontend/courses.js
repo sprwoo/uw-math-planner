@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
             for (const [category, courses] of major.courses) {
                 const categoryItem = document.createElement('li');
+                categoryItem.classList.add('category');
                 categoryItem.textContent = category;
     
                 const subList = document.createElement('ul');
@@ -152,9 +153,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Function to handle course selection
     function handleCourseSelection(listItem, relatedCourses = []) {
-        const maxSelections = getMaxSelections(listItem.parentNode.parentNode.textContent);
-        const selectedItems = listItem.parentNode.querySelectorAll('.selected');
-    
         if (listItem.classList.contains('selected')) {
             listItem.classList.remove('selected');
             // Remove course from selectedCourses
@@ -198,6 +196,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 coursePopup.classList.add('course-popup');
                 coursePopup.innerHTML = `
                     <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
+                    <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
                     <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
                     <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
                     `;
@@ -219,7 +218,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (category.includes('One ')) {
             console.log(1);
             return 1;
-        } else if (category.includes('Two ')) {
+        } else if (category.includes('Two')) {
             console.log(2);
             return 2;
         } else if (category.includes('Three ')) {

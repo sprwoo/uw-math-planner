@@ -131,7 +131,8 @@ async function lookForRange(filePath, text) {
 let test1 = "Two 400-level STAT courses";
 let test6 = "One additional CS course chosen from CS 340-CS 398, CS 440-CS 489";
 let test7 = "Two additional 400-level math courses (1.0 unit) from ACTSC, AMATH, CO, CS, MATBUS, MATH, PMATH, or STAT";
-lookForRange('CSVs\\course_info.csv', test6)
+lookForRange('CSVs\\course_info.csv', test7)
+
 // For every category, use checkForX00 to check if it is a general requirement.
 // If so, call lookForRange with the csv
 

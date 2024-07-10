@@ -1,3 +1,7 @@
+const fs = require('fs');
+const Papa = require('papaparse');
+
+// RegEx expressions
 const CODEREGEX = /\b[A-Z]{2,}/g;
 const SINGLERANGEREGEX = /\b\d{3}-/g;
 const MULTIRANGEREGEX = /\b\d{3}-[A-Z]{2,}\s?\d{3}\b/g;
@@ -13,8 +17,8 @@ function checkForX00(text) {
 // We can use the result object to parse through the course_info.csv to find any that fits within the bounds
 function parseRequirement(text) {
     const result = {
-        lowerBound: [],
-        upperBound: [],
+        lowerBounds: [],
+        upperBounds: [],
         codes: new Set(),
     }
 
@@ -43,8 +47,8 @@ function parseRequirement(text) {
                 }
             }
     
-            result['lowerBound'].push(Number(lower));
-            result['upperBound'].push(Number(upper));
+            result['lowerBounds'].push(Number(lower));
+            result['upperBounds'].push(Number(upper));
         }
     } else {
         SINGLERANGEREGEX.lastIndex = 0;
@@ -57,35 +61,101 @@ function parseRequirement(text) {
                 }
             }
 
-            result['lowerBound'].push(Number(number));
-            result['upperBound'].push(Number(number) + 99);
+            const lowerBound = Number(number);
+            const upperBound = lowerBound + 99;
+            result['lowerBounds'].push(lowerBound);
+            result['upperBounds'].push(upperBound);
         }
     }
     
     return result;
 }
 
-// Function for testing
-function testingClient(text) {
-    if (checkForX00(text)) {
-        console.log(parseRequirement(text));
-    } else {
-        console.log("This is not a general requirement");
+function fetchAndParseCSV(filePath) {
+    return new Promise((resolve, reject) => {
+        const fileContent = fs.createReadStream(filePath);
+        Papa.parse(fileContent, {
+            header: true,
+            dynamicTyping: true,
+            complete: (results) => {
+                resolve(results.data);
+            },
+            error: (error) => {
+                reject(error);
+            }
+        });
+    });
+}
+
+function loadCSV(filePath) {
+    return fetchAndParseCSV(filePath)
+        .then(data => data)
+        .catch(error => console.error(error));
+}
+
+async function lookForRange(filePath, text) {
+    const range = parseRequirement(text);
+
+    try {
+        const csv = await loadCSV(filePath);
+        const matches = new Set();
+
+        for (code of range.codes) {
+            for (let i = 0; i < range.lowerBounds.length; i++) {
+                // Get the lower and upper bounds as strings
+                const lowerBound = code + range.lowerBounds[i];
+                const upperBound = code + range.upperBounds[i];
+
+                // I want to implement binary search for this but I'm not sure how to go about it
+                // Since it is not guaranteed that COURSE400 exists. I'll just use linear search
+                // for now, and maybe try implementing binary search later.
+                
+                for (line of csv) {
+                    if (line.Course > upperBound) {
+                        break;
+                    }
+                    if (line.Course >= lowerBound) {
+                        matches.add(line);
+                    }
+                }
+            }
+        }
+
+        // Do something with this
+        console.log(matches);
+    } catch (error) {
+        console.error(error);
     }
 }
 
 let test1 = "Two 400-level STAT courses";
-let test2 = "One additional 300- or 400-level STAT course";
-let test3 = "Three additional 400-level PMATH courses (1.5 units)";
-let test4 = "One 300- or 400-level AMATH course";
-let test5 = "One of";
 let test6 = "One additional CS course chosen from CS 340-CS 398, CS 440-CS 489";
 let test7 = "Two additional 400-level math courses (1.0 unit) from ACTSC, AMATH, CO, CS, MATBUS, MATH, PMATH, or STAT";
+lookForRange('CSVs\\course_info.csv', test6)
+// For every category, use checkForX00 to check if it is a general requirement.
+// If so, call lookForRange with the csv
 
-testingClient(test1);
-testingClient(test2);
-testingClient(test3);
-testingClient(test4);
-testingClient(test5);
-testingClient(test6);
-testingClient(test7);
+// Function for testing
+// function testingClient(text) {
+//     if (checkForX00(text)) {
+//         console.log(parseRequirement(text));
+//     } else {
+//         console.log("This is not a general requirement");
+//     }
+// }
+
+// let test1 = "Two 400-level STAT courses";
+// let test2 = "One additional 300- or 400-level STAT course";
+// let test3 = "Three additional 400-level PMATH courses (1.5 units)";
+// let test4 = "One 300- or 400-level AMATH course";
+// let test5 = "One of";
+// let test6 = "One additional CS course chosen from CS 340-CS 398, CS 440-CS 489";
+// let test7 = "Two additional 400-level math courses (1.0 unit) from ACTSC, AMATH, CO, CS, MATBUS, MATH, PMATH, or STAT";
+
+// testingClient(test1);
+// testingClient(test2);
+// testingClient(test3);
+// testingClient(test4);
+// testingClient(test5);
+// testingClient(test6);
+// testingClient(test7);

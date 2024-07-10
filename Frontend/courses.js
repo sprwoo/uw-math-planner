@@ -1,4 +1,5 @@
 import { requirements_csv, courses_csv, lookup_courses } from '../csvreader.js';
+import { checkForX00, parseRequirement} from '../X00Listings.js';
 localStorage.removeItem('selectedCourses');
 
 let globalMajorsData = [];

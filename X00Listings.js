@@ -1,20 +1,16 @@
-let test1 = "Two 400-level STAT courses";
-let test2 = "One additional 300- or 400-level STAT course";
-let test3 = "Three additional 400-level PMATH courses (1.5 units)";
-let test4 = "One 300- or 400-level AMATH course";
-let test5 = "One of";
-let test6 = "One additional CS course chosen from CS 340-CS 398, CS 440-CS 489";
-
-const CODEREGEX = /\b[A-Z]{2,}\s/g;
+const CODEREGEX = /\b[A-Z]{2,}/g;
 const SINGLERANGEREGEX = /\b\d{3}-/g;
 const MULTIRANGEREGEX = /\b\d{3}-[A-Z]{2,}\s?\d{3}\b/g;
 
+// Checks if requirement listing is of the type "X00-level COURSE"
 function checkForX00(text) {
+    SINGLERANGEREGEX.lastIndex = 0;
     return SINGLERANGEREGEX.test(text);
 }
 
 // To get the bounds, if we find an MULTIRANGEREGEX, we know that the requirement is a determined range
 // Otherwise, look for SINGLERANGEREGEX to get the lower bound and add 99 for the upper bound.
+// We can use the result object to parse through the course_info.csv to find any that fits within the bounds
 function parseRequirement(text) {
     const result = {
         lowerBound: [],
@@ -31,6 +27,8 @@ function parseRequirement(text) {
         MULTIRANGEREGEX.lastIndex = 0;
         while ((match = MULTIRANGEREGEX.exec(text)) !== null) {
             const arr = match[0].split("-");
+
+            // Clean up the RegEx matches to convert into integer
             let lower = "";
             let upper = "";
             for (let i = 0; i < arr[0].length; i++) {
@@ -51,12 +49,14 @@ function parseRequirement(text) {
     } else {
         SINGLERANGEREGEX.lastIndex = 0;
         while ((match = SINGLERANGEREGEX.exec(text)) !== null) {
+            // Clean up the RegEx matches to convert into integer
             let number = "";
             for (let i = 0; i < match[0].length; i++) {
                 if (match[0][i] >= '0' && match[0][i] <= '9') {
                     number += match[0][i];
                 }
             }
+
             result['lowerBound'].push(Number(number));
             result['upperBound'].push(Number(number) + 99);
         }
@@ -65,6 +65,7 @@ function parseRequirement(text) {
     return result;
 }
 
+// Function for testing
 function testingClient(text) {
     if (checkForX00(text)) {
         console.log(parseRequirement(text));
@@ -73,23 +74,13 @@ function testingClient(text) {
     }
 }
 
-// const result = {
-//     lowerBound: [],
-//     upperBound: [],
-//     codes: [],
-// }
-// while ((match = SINGLERANGEREGEX.exec(test1)) !== null) {
-//     let number = "";
-//     for (let i = 0; i < match[0].length; i++) {
-//         if (match[0][i] >= '0' && match[0][i] <= '9') {
-//             number += match[0][i];
-//         }
-//     }
-//     result['lowerBound'].push(Number(number));
-//     result['upperBound'].push(Number(number) + 99);
-// }
-
-// console.log(result);
+let test1 = "Two 400-level STAT courses";
+let test2 = "One additional 300- or 400-level STAT course";
+let test3 = "Three additional 400-level PMATH courses (1.5 units)";
+let test4 = "One 300- or 400-level AMATH course";
+let test5 = "One of";
+let test6 = "One additional CS course chosen from CS 340-CS 398, CS 440-CS 489";
+let test7 = "Two additional 400-level math courses (1.0 unit) from ACTSC, AMATH, CO, CS, MATBUS, MATH, PMATH, or STAT";
 
 testingClient(test1);
 testingClient(test2);
@@ -97,3 +88,4 @@ testingClient(test3);
 testingClient(test4);
 testingClient(test5);
 testingClient(test6);
+testingClient(test7);

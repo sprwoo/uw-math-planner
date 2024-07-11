@@ -19,7 +19,7 @@ BACK END - TODO:
 - [X] Redo the scraping for minors
 - [X] Maybe use AWS database backend instead of CSVs (Post and fetch done, deleted AWS RDS instance because im unemployed)
 - [ ] Be able to list courses for "One of CS 300-400" etc
-- [ ] Implement binary search for course-searching?
+- [X] Implement binary search for course-searching?
 
 Nice to have features:
 - AI chatbot?

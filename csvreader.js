@@ -17,7 +17,7 @@ function fetchAndParseCSV(url) {
         });
 }
 
-function binarySearch(data, year, degree_name, degree_type) {
+function degreeBinarySearch(data, year, degree_name, degree_type) {
     let l = 0, r = data.length - 1;
     while (l <= r) {
         let mid = Math.floor(l + (r - l) / 2);
@@ -45,7 +45,7 @@ function binarySearch(data, year, degree_name, degree_type) {
  */
 export async function lookup_requirements(year, degree_name, degree_type) {
     const data = await fetchAndParseCSV(`../CSVs/${degree_type}_requirements.csv`);
-    const degree = binarySearch(data, year, degree_name, degree_type)
+    const degree = degreeBinarySearch(data, year, degree_name, degree_type)
     if (degree) {
         return degree;
     } else {
@@ -71,13 +71,33 @@ export async function requirements_csv(year, degree_name, degree_type) {
 }
 
 /**
+ * 
+ * @param {Array of Objects} data   
+ * @param {String} name 
+ * @returns {Object}
+ */
+function courseBinarySearch(data, name) {
+    let l = 0, r = data.length - 1;
+    while (l <= r) {
+        let mid = Math.floor(l + (r - l) / 2);
+        if (data[mid]['Course'] == name) {
+            return data[mid];
+        } else if (data[mid]['Course'] < name) {
+            l = mid + 1;
+        } else {
+            r = mid - 1;
+        }
+    }
+}
+
+/**
  * Parses through course_info.csv to find and return an object representing the course
  * @param {String} course_code      The code of the course we are looking for
  * @returns {Promise}               Promise with an object of the course 
  */
 export async function lookup_courses(course_code) {
     const data = await fetchAndParseCSV('../CSVs/course_info.csv');
-    const course = data.find(row => row.Course == course_code);
+    const course = courseBinarySearch(data, course_code);
     if (course) {
         return course;
     } else {

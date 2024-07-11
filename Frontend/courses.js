@@ -294,6 +294,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         if (Array.isArray(requirements)) {
                             return { name: major.name, courses: requirements };
                         } else {
+                            console.log("Type: " + typeof major);
                             console.error(`Requirements for major ${major.name} are not an array.`);
                             // Display error message on the webpage
                             const errorMessage = document.createElement('p');

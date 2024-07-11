@@ -1,5 +1,4 @@
 import { requirements_csv, courses_csv, lookup_courses } from '../csvreader.js';
- import { checkForX00, parseRequirement} from '../X00Listings.js';
 localStorage.removeItem('selectedCourses');
 
 let globalMajorsData = [];
@@ -12,6 +11,13 @@ let minors = minorsFromStorage ? minorsFromStorage : [];
 let selectedCourses = [];
 let selectionState = {};
 
+localStorage.removeItem("majors");
+localStorage.removeItem("minors");
+
+let yearDisplay = document.getElementById('year-display');
+if (yearDisplay && year) {
+    yearDisplay.textContent = `Academic Year: ${year}`;
+}
 document.addEventListener('DOMContentLoaded', async () => {
     const majorsContainer = document.getElementById('majors-container');
     const errorContainer = document.getElementById('error-container');
@@ -70,7 +76,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             return courseCount[course] > 1 && courseInAllMajors[course].size === 2;
         });
     
-        // Iterate over each major to render its details
         for (const major of majorsData) {
             const majorDiv = document.createElement('div');
             majorDiv.classList.add('major');
@@ -84,14 +89,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     
             for (const [category, courses] of major.courses) {
                 const categoryItem = document.createElement('li');
-                categoryItem.classList.add('category');
                 categoryItem.textContent = category;
     
                 const subList = document.createElement('ul');
     
                 for (const course of courses) {
-                    const parsedRequirement = parseRequirement(course);
-    
                     if (course.includes(" or ")) {
                         const orCourses = course.split(" or ");
                         const mainCourse = orCourses.shift(); // First course in the list
@@ -101,8 +103,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         mainListItem.classList.add('course-item');
                         subList.appendChild(mainListItem);
     
-                        // Highlight the main course if it's a matched course or matches the pattern
-                        if (matchedCourses.includes(mainCourse) || checkForX00(mainCourse)) {
+                        // Highlight the main course if it's a matched course
+                        if (matchedCourses.includes(mainCourse)) {
                             mainListItem.classList.add('matched-course');
                         }
     
@@ -112,8 +114,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                             subListItem.classList.add('course-sub-item');
                             subList.appendChild(subListItem);
     
-                            // Highlight the orCourse if it's a matched course or matches the pattern
-                            if (matchedCourses.includes(orCourse) || checkForX00(orCourse)) {
+                            // Highlight the orCourse if it's a matched course
+                            if (matchedCourses.includes(orCourse)) {
                                 subListItem.classList.add('matched-course');
                             }
                         });
@@ -131,8 +133,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         listItem.classList.add('course-item');
                         subList.appendChild(listItem);
     
-                        // Highlight the course if it's a matched course or matches the pattern
-                        if (matchedCourses.includes(course) || checkForX00(course)) {
+                        // Highlight the course if it's a matched course
+                        if (matchedCourses.includes(course)) {
                             listItem.classList.add('matched-course');
                         }
     
@@ -157,6 +159,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Function to handle course selection
     function handleCourseSelection(listItem, relatedCourses = []) {
+        const maxSelections = getMaxSelections(listItem.parentNode.parentNode.textContent);
+        const selectedItems = listItem.parentNode.querySelectorAll('.selected');
+    
         if (listItem.classList.contains('selected')) {
             listItem.classList.remove('selected');
             // Remove course from selectedCourses
@@ -184,6 +189,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
         localStorage.setItem('selectedCourses', JSON.stringify(selectedCourses)); // Update local storage
+        // console.log(`Category Received: ${listItem.parentNode.parentNode.textContent}`);
         console.log('Max Selections:', maxSelections);
         console.log('Selected Courses:', selectedCourses); // Log selected courses for debugging
     }
@@ -199,10 +205,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 coursePopup.classList.add('course-popup');
                 coursePopup.innerHTML = `
                     <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
-                    <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
                     <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
                     <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
                     `;
+                /*
+                <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
+                <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
+                <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
+                <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
+                */
                 listItem.appendChild(coursePopup);
             } catch (error) {
                 console.error(error);
@@ -215,7 +226,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (category.includes('One ')) {
             console.log(1);
             return 1;
-        } else if (category.includes('Two')) {
+        } else if (category.includes('Two ')) {
             console.log(2);
             return 2;
         } else if (category.includes('Three ')) {
@@ -232,10 +243,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else if (category.includes('All')) {
             return Number.MAX_SAFE_INTEGER;
         }
-    
+
         return 0;
     }
-    
+
     async function processMajors(year, majors, type) {
         const majorsData = [];
         const errorContainer = document.getElementById('error-container');
@@ -281,59 +292,78 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 requirements = JSON.parse(fixedJsonString);
                             } catch (error) {
                                 console.error(`Error parsing Requirements for major ${major.name}:`, error);
-                                // Display error message on the webpage
+                                // Display error message on the screen
                                 const errorMessage = document.createElement('p');
-                                errorMessage.textContent = `Error parsing requirements for major ${major.name}. Please try again.`;
+                                errorMessage.textContent = `Error parsing Requirements for major ${major.name}: ${error.message}`;
                                 errorContainer.appendChild(errorMessage);
+                                errorContainer.style.display = 'block'; // Show error container
                                 return null;
                             }
                         } else {
                             requirements = majorData.Requirements;
                         }
     
-                        if (Array.isArray(requirements)) {
-                            return { name: major.name, courses: requirements };
-                        } else {
-                            console.log("Type: " + typeof major);
-                            console.error(`Requirements for major ${major.name} are not an array.`);
-                            // Display error message on the webpage
-                            const errorMessage = document.createElement('p');
-                            errorMessage.textContent = `Requirements for major ${major.name} are not an array.`;
-                            errorContainer.appendChild(errorMessage);
-                            return null;
-                        }
+                        // Validate and format the requirements data
+                        const formattedMajorData = {
+                            name: major.name,
+                            type: major.type,
+                            courses: Object.entries(requirements).map(([category, courses]) => {
+                                if (!Array.isArray(courses)) {
+                                    console.error(`Invalid courses format for category ${category} in major ${major.name}`);
+                                    // Display error message on the screen
+                                    const errorMessage = document.createElement('p');
+                                    errorMessage.textContent = `Invalid courses format for category ${category} in major ${major.name}`;
+                                    errorContainer.appendChild(errorMessage);
+                                    errorContainer.style.display = 'block'; // Show error container
+                                    return [category, []]; // Return empty array for invalid courses
+                                }
+                                return [category, courses];
+                            })
+                        };
+                        return formattedMajorData;
                     } else {
-                        console.error(`Invalid data format for major ${major.name}.`);
-                        // Display error message on the webpage
+                        console.log(`No or invalid Requirements found for major: ${major.name}, Year: ${year}`);
+                        // Display error message on the screen
                         const errorMessage = document.createElement('p');
-                        errorMessage.textContent = `Invalid data format for major ${major.name}.`;
+                        errorMessage.textContent = `No or invalid Requirements found for major: ${major.name}, Year: ${year}`;
                         errorContainer.appendChild(errorMessage);
+                        errorContainer.style.display = 'block'; // Show error container
                         return null;
                     }
                 })
                 .catch(error => {
-                    console.error(`Error fetching requirements for major ${major.name}:`, error);
+                    console.error(`Error fetching major: ${major.name}`, error);
+                    // Display error message on the screen
+                    const errorMessage = document.createElement('p');
+                    errorMessage.textContent = `Error fetching major: ${major.name}: ${error.message}`;
+                    errorContainer.appendChild(errorMessage);
+                    errorContainer.style.display = 'block'; // Show error container
                     return null;
                 });
         });
     
-        try {
-            const results = await Promise.all(promises);
-            results.forEach(result => {
-                if (result) {
-                    majorsData.push(result);
-                }
-            });
+        // Wait for all promises to resolve
+        const results = await Promise.all(promises);
     
-            // Debugging log to check majorsData after processing all majors
-            console.log("Processed majorsData:", majorsData);
+        // Filter out null results (if any major fetching failed)
+        results.forEach(result => {
+            if (result) {
+                majorsData.push(result);
+            }
+        });
     
-            renderMajors(majorsData);
-        } catch (error) {
-            console.error('Error processing majors:', error);
+        // Set globalMajorsData if needed
+        globalMajorsData = majorsData;
+    
+        // Show or hide error container based on content
+        if (errorContainer.children.length > 0) {
+            errorContainer.style.display = 'block';
+        } else {
+            errorContainer.style.display = 'none';
         }
-    }
     
+        return majorsData;
+    }
     
     
     

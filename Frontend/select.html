@@ -101,12 +101,12 @@
 
               <div class="col-12 pt-3">
                 <div class="toggle-container">
-                  <span class="toggle-label joint">JOINT MAJOR</span>
+                  <span class="toggle-label joint">DOUBLE MAJOR</span>
                   <label class="switch">
                     <input type="checkbox" id="majorToggle">
                     <span class="slider"></span>
                   </label>
-                  <span class="toggle-label double">DOUBLE MAJOR</span>
+                  <span class="toggle-label double">JOINT MAJOR</span>
                 </div>
               </div>
 
@@ -202,6 +202,14 @@
       </div>
   </div>
 
+  <script>
+    window.onload = function() {
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(function(checkbox) {
+        checkbox.checked = false;
+      });
+    }
+  </script>
   <script src="select.js"></script>
 </body>
 </html>

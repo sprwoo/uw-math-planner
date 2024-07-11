@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var majors = [];
     var minors = [];
     var year = ""; // Variable to store selected year
+    
+    // Set initial toggle setting to "DOUBLE"
+    localStorage.setItem('toggleSetting', 'DOUBLE');
 
     // Define selectiveCheck function
     function selectiveCheck(event) {
@@ -15,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
             this.checked = false;
             return false;
         } else if (checkboxType === 'years' && checkedChecks.length > 1) {
-            console.log("YEAR TEST");
             event.preventDefault();
             this.checked = false;
             return false;
@@ -62,16 +64,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Toggle Switch Functionality
     var toggleSwitch = document.getElementById('majorToggle');
     if (toggleSwitch) {
+        // Set initial toggle state based on localStorage
+        if (localStorage.getItem('toggleSetting') === 'JOINT') {
+            toggleSwitch.checked = true;
+        } else {
+            toggleSwitch.checked = false;
+        }
+
         toggleSwitch.addEventListener('change', function() {
             if (toggleSwitch.checked) {
-                localStorage.setItem('toggleSetting', 'DOUBLE');
-            } else {
                 localStorage.setItem('toggleSetting', 'JOINT');
+            } else {
+                localStorage.setItem('toggleSetting', 'DOUBLE');
             }
             console.log('Toggle setting:', localStorage.getItem('toggleSetting'));
         });
     } else {
         console.error('Toggle switch element not found');
     }
-
 });

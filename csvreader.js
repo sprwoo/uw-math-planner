@@ -17,6 +17,26 @@ function fetchAndParseCSV(url) {
         });
 }
 
+function binarySearch(data, year, degree_name, degree_type) {
+    let l = 0, r = data.length - 1;
+    while (l <= r) {
+        let mid = Math.floor(l + (r - l) / 2);
+        if (data[mid][degree_type] == degree_name) {
+            if (data[mid]['Year'] == year) {
+                return data[mid];
+            } else if (data[mid]['Year'] > year) {
+                return data[mid - 1];
+            } else {
+                return data[mid + 1]
+            }
+        } else if (data[mid][degree_type] < degree_name) {
+            l = mid + 1;
+        } else {
+            r = mid - 1;
+        }
+    }
+}
+
 /**
  * Parses through major/minor_requirements.csv to find and return an object of the major/minor
  * @param {String} year         The year of the offerings we are looking for
@@ -25,7 +45,7 @@ function fetchAndParseCSV(url) {
  */
 export async function lookup_requirements(year, degree_name, degree_type) {
     const data = await fetchAndParseCSV(`../CSVs/${degree_type}_requirements.csv`);
-    const degree = data.find(row => row['Year'] == year && row[degree_type] == degree_name);
+    const degree = binarySearch(data, year, degree_name, degree_type)
     if (degree) {
         return degree;
     } else {
@@ -81,6 +101,6 @@ export async function courses_csv(course_code) {
 
 
 // Uncomment these lines to test
-//requirements_csv("2023-2024", "Mathematical Finance", "Major");
-//requirements_csv("2023-2024", "Joint Combinatorics & Optimization", "major")
-courses_csv("CO250");
+// requirements_csv("2023-2024", "Mathematical Finance", "Major");
+// requirements_csv("2023-2024", "Joint Combinatorics & Optimization", "major")
+// courses_csv("CO250");

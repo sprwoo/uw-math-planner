@@ -87,6 +87,7 @@ function fetchAndParseCSV(filePath) {
     });
 }
 
+// Why did I split these up? idk
 function loadCSV(filePath) {
     return fetchAndParseCSV(filePath)
         .then(data => data)
@@ -94,6 +95,7 @@ function loadCSV(filePath) {
 }
 
 async function lookForRange(filePath, text) {
+    // Get the X00 ranges first
     const range = parseRequirement(text);
 
     try {
@@ -122,6 +124,7 @@ async function lookForRange(filePath, text) {
         }
 
         // Do something with this
+        // This will return a set of all the matches which you can use to display on the site.
         console.log(matches);
     } catch (error) {
         console.error(error);
@@ -134,7 +137,10 @@ let test7 = "Two additional 400-level math courses (1.0 unit) from ACTSC, AMATH,
 lookForRange('CSVs\\course_info.csv', test7)
 
 // For every category, use checkForX00 to check if it is a general requirement.
-// If so, call lookForRange with the csv
+// If so, call lookForRange with the csv, which will return every match within those bounds
+
+// --------------------------------------------------------------------------------------------------
+// Testing stuff
 
 // Function for testing
 // function testingClient(text) {

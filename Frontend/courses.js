@@ -217,16 +217,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 coursePopup.classList.add('course-popup');
                 coursePopup.innerHTML = `
                     <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
+                    <p><strong>Notes:</strong> ${courseData.Notes || 'None'}</p> 
                     <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
                     <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
                     <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
                     `;
-                /*
-                <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
-                
-                <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
-                <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
-                */
                 listItem.appendChild(coursePopup);
             } catch (error) {
                 console.error(error);

@@ -13,6 +13,7 @@ FRONT END - TODO:
 - [ ] Dark/Light Toggle
 - [ ] Add loading symbols on all pages
 - [ ] Make it so that a course can only appear once in the top bar of schedule [schedule.js]
+- [ ] Fix Staistics & Mathematical Teaching
 
 BACK END - TODO:
 - [X] Make JS script to make the CSVs usable

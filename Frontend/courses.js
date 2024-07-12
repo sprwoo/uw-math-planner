@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
             for (const [category, courses] of major.courses) {
                 const categoryItem = document.createElement('li');
+                categoryItem.classList.add("category")
                 categoryItem.textContent = category;
     
                 const subList = document.createElement('ul');
@@ -159,7 +160,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Function to handle course selection
     function handleCourseSelection(listItem, relatedCourses = []) {
-        const maxSelections = getMaxSelections(listItem.parentNode.parentNode.textContent);
+        var categoryElement = listItem.closest('.category');
+        var directTextContent = '';
+
+        for (let node of categoryElement.childNodes) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                directTextContent += node.textContent.trim();
+            }
+        }
+
+        console.log("Category Item Content: ", directTextContent);
+
+        const maxSelections = getMaxSelections(directTextContent);
         const selectedItems = listItem.parentNode.querySelectorAll('.selected');
     
         if (listItem.classList.contains('selected')) {
@@ -205,12 +217,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 coursePopup.classList.add('course-popup');
                 coursePopup.innerHTML = `
                     <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
+                    <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
                     <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
                     <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
                     `;
                 /*
                 <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
-                <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
+                
                 <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
                 <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
                 */

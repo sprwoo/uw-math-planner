@@ -2,7 +2,7 @@
 const CODEREGEX = /\b[A-Z]{2,}/g;
 const SINGLERANGEREGEX = /\b\d{3}-/g;
 const MULTIRANGEREGEX = /\b\d{3}-[A-Z]{2,}\s?\d{3}\b/g;
-
+const MATHCODES = ["ACTSC", "AMATH", "CO", "CS", "MATBUS", "MATH", "PMATH", "STAT"]
 
 // Checks if requirement listing is of the type "X00-level COURSE"
 export function checkForX00(text) {
@@ -37,6 +37,21 @@ export function parseRequirement(text) {
         let match;
         while ((match = CODEREGEX.exec(text)) !== null) {
             result.codes.add(match[0].trim());
+        }
+
+        if (result.codes.size === 0 && text.includes(" math ")) {
+            for (let code of MATHCODES) {
+                result.codes.add(code);
+            }
+        }
+
+        if (text.includes(" math ") && text.includes(" other than ")) {
+            let arr = [...MATHCODES];
+            for (let code of result.codes) {
+                arr = arr.filter(item => item !== code);
+            }
+        
+            result.codes = new Set(arr);
         }
 
         if (MULTIRANGEREGEX.test(text)) {

@@ -1,4 +1,5 @@
 import { requirements_csv, courses_csv, lookup_courses } from '../csvreader.js';
+import { parseRequirement, checkForX00 } from '../X00Listings.js';
 localStorage.removeItem('selectedCourses');
 
 let globalMajorsData = [];
@@ -217,11 +218,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 coursePopup.classList.add('course-popup');
                 coursePopup.innerHTML = `
                     <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
-                    <p><strong>Notes:</strong> ${courseData.Notes || 'None'}</p> 
+                     
                     <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
+                    
+                    `;
+                    /*
+                    <p><strong>Notes:</strong> ${courseData.Notes || 'None'}</p>
                     <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
                     <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
-                    `;
+                    */
                 listItem.appendChild(coursePopup);
             } catch (error) {
                 console.error(error);
@@ -325,6 +330,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     errorContainer.style.display = 'block'; // Show error container
                                     return [category, []]; // Return empty array for invalid courses
                                 }
+
+                                if (checkForX00(category)) {
+                                    // Invoke parseRequirement if category matches X00 pattern
+                                    const parsedResult = parseRequirement(category);
+                                    console.log('Parsed result for category:', parsedResult);
+                                }
+
                                 return [category, courses];
                             })
                         };

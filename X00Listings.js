@@ -27,9 +27,9 @@ export function parseRequirement(text) {
     }
 
     // Regular expression patterns
-    const CODEREGEX = /([A-Z]{4}\s?\d{3}[A-Z]?)/g; // Adjust as per your specific code format
-    const MULTIRANGEREGEX = /(\d{3,4}\s?-\s?\d{3,4})/g;
-    const SINGLERANGEREGEX = /(\d{3,4})/g;
+    // const CODEREGEX = /([A-Z]{4}\s?\d{3}[A-Z]?)/g; // Adjust as per your specific code format
+    // const MULTIRANGEREGEX = /(\d{3,4}\s?-\s?\d{3,4})/g;
+    // const SINGLERANGEREGEX = /(\d{3,4})/g;
 
     // Use try-catch to handle potential errors in regex execution
     try {
@@ -81,7 +81,6 @@ export function parseRequirement(text) {
     return result;
 }
 
-
 function fetchAndParseCSV(url) {
     return fetch(url)
         .then(response => response.text())
@@ -96,9 +95,6 @@ function fetchAndParseCSV(url) {
             });
         });
 }
-
-
-
 
 async function parseCSV(csvText) {
     try {
@@ -139,12 +135,11 @@ export async function lookForRange(csvPath, text) {
 
         // Get the X00 ranges first
         const range = parseRequirement(text);
-
+        console.log(range);
         // Parse CSV data
         const csv = await parseCSV(csvText);
 
         const matches = new Set();
-
         for (const code of range.codes) {
             for (let i = 0; i < range.lowerBounds.length; i++) {
                 // Get the lower and upper bounds as strings
@@ -165,8 +160,9 @@ export async function lookForRange(csvPath, text) {
         }
 
         // Do something with matches
-        console.log("MATCHES:");
+        console.log(`MATCHES ON ${text}:`);
         console.log(matches);
+        return matches;
 
     } catch (error) {
         console.error('Error fetching or processing data:', error);

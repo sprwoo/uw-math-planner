@@ -1,5 +1,5 @@
 import { requirements_csv, courses_csv, lookup_courses } from '../csvreader.js';
-import { parseRequirement, checkForX00 } from '../X00Listings.js';
+import { parseRequirement, checkForX00, lookForRange } from '../X00Listings.js';
 localStorage.removeItem('selectedCourses');
 
 let globalMajorsData = [];
@@ -333,7 +333,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                                 if (checkForX00(category)) {
                                     // Invoke parseRequirement if category matches X00 pattern
-                                    const parsedResult = parseRequirement(category);
+                                    const parsedResult = lookForRange('../CSVs/course_info.csv', category);
                                     console.log('Parsed result for category:', parsedResult);
                                 }
 

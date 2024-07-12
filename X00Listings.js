@@ -73,38 +73,14 @@ export function parseRequirement(text) {
                 result.upperBounds.push(upperBound);
             }
         }
-        console.log('results: ');
-        console.log(result);
-        // Fetch and parse CSV data
-        const csvUrl = '../CSVs/course_info.csv';
-        return fetchAndParseCSV(csvUrl)
-            .then(courseData => {
-                const courses = [];
-
-                // Filter course codes from CSV data based on text match
-                courseData.forEach(course => {
-                    const { Course, Name } = course;
-                    const combinedCode = `${Course}${Name}`; // Adjust this based on your CSV structure
-
-                    // Check if combined code exists in the text
-                    if (text.includes(Course) || text.includes(combinedCode)) {
-                        courses.push(combinedCode);
-                    }
-                });
-
-                return courses;
-            })
-            .catch(error => {
-                console.error('Error fetching or parsing course data:', error);
-                return []; // Return empty array in case of error
-            });
-
     } catch (error) {
         console.error('Error parsing requirement:', error);
         // Handle error or log it as needed
-        return []; // Return empty array in case of error
     }
+
+    return result;
 }
+
 
 function fetchAndParseCSV(url) {
     return fetch(url)
@@ -125,44 +101,77 @@ function fetchAndParseCSV(url) {
 
 
 async function parseCSV(csvText) {
-    const lines = csvText.split('\n');
-    const headers = lines[0].split(',');
-    const data = lines.slice(1).map(line => {
-        const values = line.split(',');
-        const entry = {};
-        headers.forEach((header, index) => {
-            entry[header.trim()] = values[index].trim();
+    try {
+        if (!csvText || typeof csvText !== 'string') {
+            throw new Error('Invalid CSV text');
+        }
+
+        const lines = csvText.split('\n');
+        if (lines.length < 2) {
+            throw new Error('CSV text does not contain valid data');
+        }
+
+        const headers = lines[0].split(',');
+        const data = lines.slice(1).map(line => {
+            const values = line.split(',');
+            const entry = {};
+            headers.forEach((header, index) => {
+                entry[header.trim()] = index < values.length ? values[index].trim() : '';
+            });
+            return entry;
         });
-        return entry;
-    });
-    return data;
+
+        return data;
+    } catch (error) {
+        console.error('Error parsing CSV:', error);
+        return []; // Return empty array or handle error as needed
+    }
 }
 
-async function lookForRange(csvText, text) {
-    // Get the X00 ranges first
-    const range = parseRequirement(text);
-    const csv = parseCSV(csvText);
-    const matches = new Set();
+export async function lookForRange(csvPath, text) {
+    try {
+        // Fetch CSV file content
+        const response = await fetch(csvPath);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch CSV file from ${csvPath}`);
+        }
+        const csvText = await response.text();
 
-    for (const code of range.codes) {
-        for (let i = 0; i < range.lowerBounds.length; i++) {
-            // Get the lower and upper bounds as strings
-            const lowerBound = code + range.lowerBounds[i];
-            const upperBound = code + range.upperBounds[i];
+        // Get the X00 ranges first
+        const range = parseRequirement(text);
 
-            // Linear search through the CSV data
-            for (const line of csv) {
-                if (line.Course > upperBound) {
-                    break;
-                }
-                if (line.Course >= lowerBound) {
-                    matches.add(line);
+        // Parse CSV data
+        const csv = await parseCSV(csvText);
+
+        const matches = new Set();
+
+        for (const code of range.codes) {
+            for (let i = 0; i < range.lowerBounds.length; i++) {
+                // Get the lower and upper bounds as strings
+                const lowerBound = code + range.lowerBounds[i];
+                const upperBound = code + range.upperBounds[i];
+
+                // Linear search through the CSV data
+                for (const line of csv) {
+                    const courseCode = line['Course'].trim();
+                    if (courseCode > upperBound) {
+                        break;
+                    }
+                    if (courseCode >= lowerBound) {
+                        matches.add(line);
+                    }
                 }
             }
         }
-    }
 
-    // Do something with this
-    // This will return a set of all the matches which you can use to display on the site.
-    console.log(matches);
+        // Do something with matches
+        console.log("MATCHES:");
+        console.log(matches);
+
+    } catch (error) {
+        console.error('Error fetching or processing data:', error);
+        // Handle error as needed
+    }
 }
+
+

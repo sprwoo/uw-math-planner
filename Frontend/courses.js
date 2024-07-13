@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Map each major to a promise returned by requirements_csv
         const promises = majors.map(major => {
             return requirements_csv(year, major.name, major.type)
-                .then(majorData => {
+                .then(async majorData => {
                     if (majorData && majorData.Requirements) {
                         let requirements;
                         if (typeof majorData.Requirements === 'string') {
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const formattedMajorData = {
                             name: major.name,
                             type: major.type,
-                            courses: Object.entries(requirements).map(([category, courses]) => {
+                            courses: await Promise.all(Object.entries(requirements).map(async ([category, courses]) => {
                                 if (!Array.isArray(courses)) {
                                     console.error(`Invalid courses format for category ${category} in major ${major.name}`);
                                     // Display error message on the screen
@@ -330,15 +330,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     errorContainer.style.display = 'block'; // Show error container
                                     return [category, []]; // Return empty array for invalid courses
                                 }
-
+    
                                 if (checkForX00(category)) {
-                                    // Invoke parseRequirement if category matches X00 pattern
-                                    const parsedResult = lookForRange('../CSVs/course_info.csv', category);
+                                    // Invoke lookForRange if category matches X00 pattern
+                                    const parsedResult = await lookForRange('../CSVs/course_info.csv', category);
                                     console.log('Parsed result for category:', parsedResult);
+    
+                                    // Convert the Set to an array
+                                    const parsedCourses = Array.from(parsedResult).map(result => result.Course);
+                                    courses = [...courses, ...parsedCourses];
                                 }
-
+    
                                 return [category, courses];
-                            })
+                            }))
                         };
                         return formattedMajorData;
                     } else {
@@ -384,6 +388,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     
         return majorsData;
     }
+    
+    
     
     
     

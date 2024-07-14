@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var majors = [];
     var minors = [];
     var year = ""; // Variable to store selected year
-    
+    var custom = []; // Array to store custom textbox content
+
     // Set initial toggle setting to "DOUBLE"
     localStorage.setItem('toggleSetting', 'DOUBLE');
 
@@ -13,10 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
         var checkedChecks = document.querySelectorAll('input[name="' + checkboxType + '"]:checked');
 
         // Handle maximum selection logic
-        if (checkedChecks.length > max && checkboxType !== 'years') {
-            event.preventDefault();
-            this.checked = false;
-            return false;
+        if (checkboxType !== 'years') {
+            var totalMinors = checkedChecks.length + custom.length;
+
+            if (totalMinors > max) {
+                event.preventDefault();
+                this.checked = false;
+                return false;
+            }
         } else if (checkboxType === 'years' && checkedChecks.length > 1) {
             event.preventDefault();
             this.checked = false;
@@ -45,6 +50,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Function to update minors with custom text fields
+    function updateMinors() {
+        var customTextbox = document.querySelector('.textbox-custom');
+        var customText = customTextbox.value.trim();
+
+        // Clear custom array and add current custom text if it's not empty
+        custom = [];
+        if (customText) {
+            custom.push(customText);
+        }
+
+        localStorage.setItem("custom", JSON.stringify(custom));
+        console.log('Custom text:', custom);
+    }
+
     // Add event listeners to checkboxes
     var majorCheckboxes = document.querySelectorAll('input[name="majors"]');
     majorCheckboxes.forEach(function(checkbox) {
@@ -60,6 +80,43 @@ document.addEventListener('DOMContentLoaded', function() {
     yearCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
     });
+
+    // Add event listener to custom fields textbox
+    var customTextbox = document.querySelector('.textbox-custom');
+    customTextbox.addEventListener('input', updateMinors);
+
+    // Load saved selections from localStorage on page load
+    function loadSavedSelections() {
+        var savedMajors = JSON.parse(localStorage.getItem("majors") || '[]');
+        savedMajors.forEach(function(majorId) {
+            var majorCheckbox = document.getElementById(majorId);
+            if (majorCheckbox) {
+                majorCheckbox.checked = true;
+            }
+        });
+
+        var savedMinors = JSON.parse(localStorage.getItem("minors") || '[]');
+        savedMinors.forEach(function(minorId) {
+            var minorCheckbox = document.getElementById(minorId);
+            if (minorCheckbox) {
+                minorCheckbox.checked = true;
+            }
+        });
+
+        var savedYear = localStorage.getItem("year") || '';
+        var yearCheckbox = document.getElementById(savedYear);
+        if (yearCheckbox) {
+            yearCheckbox.checked = true;
+        }
+
+        var savedCustomField = JSON.parse(localStorage.getItem("custom") || '[]');
+        if (savedCustomField.length > 0) {
+            customTextbox.value = savedCustomField[0];
+            updateMinors();
+        }
+    }
+
+    loadSavedSelections(); // Load saved selections on page load
 
     // Toggle Switch Functionality
     var toggleSwitch = document.getElementById('majorToggle');
@@ -81,5 +138,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     } else {
         console.error('Toggle switch element not found');
+    }
+
+    // Handle button click event
+    var seeCoursesButton = document.querySelector('.button');
+    if (seeCoursesButton) {
+        seeCoursesButton.addEventListener('click', function() {
+            // Update minors with custom text field before navigating
+            updateMinors();
+        });
     }
 });

@@ -5,10 +5,13 @@ localStorage.removeItem('selectedCourses');
 let globalMajorsData = [];
 let majorsFromStorage = JSON.parse(localStorage.getItem("majors"));
 let minorsFromStorage = JSON.parse(localStorage.getItem("minors"));
+let customMinorFromStorage = JSON.parse(localStorage.getItem("custom"));
 let majorType = localStorage.getItem('toggleSetting');
 let year = localStorage.getItem('year');
 let majors = majorsFromStorage ? majorsFromStorage : [];
-let minors = minorsFromStorage ? minorsFromStorage : [];
+let originalMinors = minorsFromStorage ? minorsFromStorage : [];
+let custom = customMinorFromStorage ? customMinorFromStorage : [];
+let minors = [...originalMinors, ...custom];
 let selectedCourses = [];
 let selectionState = {};
 

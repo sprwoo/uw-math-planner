@@ -7,10 +7,26 @@
     box-sizing: border-box;
 }
 
+:root {
+    --clr-light: white;
+    --clr-dark: black;
+    --clr-primary: #fbf4fc;
+    --clr-secondary: #201416;
+    --clr-text: #444449;
+}
+
+.darkmode {
+    --clr-light: white;
+    --clr-dark: black;
+    --clr-primary: #201416;
+    --clr-secondary: #fbf4fc;
+    --clr-text: #e2e2e2;
+}
+
 body, html {
     height: 100%;
     overflow: hidden;
-    background-color: white;
+    background-color: var(--clr-primary);
 }
 
 .main {
@@ -44,7 +60,7 @@ body, html {
 }
 
 .title {
-    color: #1f2029;
+    color: var(--clr-text);
     font-size: 4rem;
     margin-bottom: 20px;
 }
@@ -54,7 +70,7 @@ body, html {
 }
 
 .desc {
-    color: #444449;
+    color: var(--clr-text);
     font-size: 1.2rem;
     margin-bottom: 30px;
     max-width: 600px;
@@ -62,10 +78,10 @@ body, html {
 }
 
 .button {
-    color: white;
+    color: var(--clr-light);
     width: 200px;
     height: 50px;
-    background: #201416;
+    background: var(--clr-secondary);
     border: none;
     border-radius: 5px;
     cursor: pointer;

@@ -5,22 +5,23 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 :root {
-    --clr-light: white;
-    --clr-dark: black;
-    --clr-primary: #fbf4fc;
-    --clr-secondary: #201416;
+    --clr-primary: #E6EED6;
+    --clr-secondary: #272D2D;
     --clr-text: #444449;
+    --clr-math: #df75aa;
+    --clr-blob: #e494bc;
 }
 
 .darkmode {
-    --clr-light: white;
-    --clr-dark: black;
-    --clr-primary: #201416;
-    --clr-secondary: #fbf4fc;
+    --clr-primary: #272D2D;
+    --clr-secondary: #E6EED6;
     --clr-text: #e2e2e2;
+    --clr-math: #df75aa;
+    --clr-blob: #e2bccf;
 }
 
 body, html {
@@ -44,8 +45,7 @@ body, html {
     position: absolute;
     width: 540px;
     height: 540px;
-    background: rgb(0, 255, 98);
-    background-image: linear-gradient(45deg, #e5b9e5 0%, rgb(245, 235, 245) 100%);
+    background-image: linear-gradient(45deg, var(--clr-blob) 0%, rgb(240, 186, 240) 100%);
     animation: animateBlob 10s linear infinite alternate;
 
     z-index: 1;
@@ -66,7 +66,7 @@ body, html {
 }
 
 .math {
-    color: #e086b3;
+    color: var(--clr-math);
 }
 
 .desc {
@@ -78,7 +78,7 @@ body, html {
 }
 
 .button {
-    color: var(--clr-light);
+    color: var(--clr-primary);
     width: 200px;
     height: 50px;
     background: var(--clr-secondary);
@@ -92,12 +92,18 @@ body, html {
 }
 
 .button:hover {
-    background: #ff69b4;
+    background: var(--clr-math);
     transform: translateY(-5px);
 }
 
 .button:active {
     transform: translateY(-2px);
+}
+
+button.theme-toggle {
+    margin: 0.5%;
+    padding: 0.2%;
+    float: right;
 }
 
 @media (max-width: 768px) {

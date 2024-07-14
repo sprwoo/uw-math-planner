@@ -2,14 +2,35 @@
 
 
 :root {
+	--clr-primary: #e9f0dc;
+    --clr-secondary: #272D2D;
+    --clr-text: #3d3d41;
+	--clr-box: #b2b4ae;
+	--clr-major: #e2c6dc;
+	--clr-major-shadow: #fed4f4;
+	--clr-minor: #ffc5dd;
+	--clr-minor-shadow: #ffbfce;
+	--clr-year: #ffb6ee;
+	--clr-year-shadow: #ffbaff;
+	--clr-slider-on: #dd79bc;
+	--clr-slider-off: #300d2d;
+	--clr-slider-knob: #ffffff;
+	--clr-shadow: #00000066;
+	--clr-button: #fcb1be;
+
 	--white: #ffffff;
 	--light: #f0eff3;
 	--black: #000000;
 	--dark-blue: #1f2029;
 	--dark-light: #353746;
-	--red: #daa6af;
-	--yellow: pink;
-	--grey: #523c4d;
+}
+
+.darkmode {
+	--clr-primary: #272D2D;
+    --clr-secondary: #E6EED6;
+    --clr-text: #e2e2e2;
+    --clr-math: #df75aa;
+    --clr-blob: #e2bccf;
 }
 
 /* #Primary
@@ -17,7 +38,7 @@
 
 body{
 	width: 100%;
-	background: var(--dark-blue);
+	background: var(--clr-primary);
 	overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
 	font-size: 17px;
@@ -25,11 +46,12 @@ body{
 	-webkit-transition: all 300ms linear;
 	transition: all 300ms linear; 
 }
+
 p{
   font-family: 'Poppins', sans-serif;
 	font-size: 17px;
 	line-height: 30px;
-	color: var(--white);
+	color: var(--clr-text);
 	letter-spacing: 1px;
 	font-weight: 500;
 	-webkit-transition: all 300ms linear;
@@ -54,7 +76,7 @@ p{
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: var(--dark-blue);
+	background-color: var(--clr-primary);
 	z-index: 1;
 	-webkit-transition: all 300ms linear;
 	transition: all 300ms linear; 
@@ -96,14 +118,14 @@ p{
     overflow: hidden;
     cursor: pointer;
     text-transform: uppercase;
-    color: var(--white);
+    color: var(--clr-text);
     transition: all 300ms linear;
 }
 .checkbox-majors:not(:checked) + label,
 .checkbox-minors:not(:checked) + label,
 .checkbox-years:not(:checked) + label{
-	background-color: var(--dark-light);
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+	background-color: var(--clr-box);
+	box-shadow: 0 2px 4px 0 var(--clr-shadow);
 }
 
 .checkbox-majors:checked + label::before,
@@ -115,7 +137,7 @@ p{
 	width: 100%;
 	height: 100%;
 	border-radius: 4px;
-	background-image: linear-gradient(298deg, var(--red), var(--yellow));
+	background-image: linear-gradient(298deg, var(--clr-major), var(--clr-major-shadow));
 	z-index: -1;
 }
 
@@ -128,7 +150,7 @@ p{
 	width: 100%;
 	height: 100%;
 	border-radius: 4px;
-	background-image: linear-gradient(298deg, rgb(124, 102, 124), rgb(241, 181, 243));
+	background-image: linear-gradient(298deg, var(--clr-minor), var(--clr-minor-shadow));
 	z-index: -1;
 }
 
@@ -141,7 +163,7 @@ p{
 	width: 100%;
 	height: 100%;
 	border-radius: 4px;
-	background-image: linear-gradient(298deg, rgb(201, 131, 153), rgb(170, 93, 118));
+	background-image: linear-gradient(298deg, var(--clr-year), var(--clr-year-shadow));
 	z-index: -1;
 }
 /************* SEARCH BOX **************/
@@ -167,7 +189,7 @@ p{
 	background: #fff;
 	border-radius: 10px;
 	justify-content: space-between;
-	box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+	box-shadow: 0 10px 25px var(--clr-shadow);
 	transition: all 0.3s ease;
   }
   .select-btn:hover{
@@ -186,7 +208,7 @@ p{
 	margin-top: 15px;
 	background: #fff;
 	border-radius: 10px;
-	box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+	box-shadow: 0 10px 25px var(--clr-shadow);
 	transition: all 0.3s ease;
   }
   .wrapper.active .content{
@@ -282,7 +304,7 @@ p{
 	position: absolute;
 	cursor: pointer;
 	inset: 0;
-	background: var(--grey);
+	background: var(--clr-slider-off);
 	border-radius: 50px;
 	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
@@ -293,22 +315,23 @@ p{
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 2em;
-	width: 2em;
+	height: 1.8em;
+	width: 1.8em;
 	inset: 0;
-	background-color: white;
+	translate: 1px 1.6px;
+	background-color: var(--clr-slider-knob);
 	border-radius: 50px;
-	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 10px 20px var(--clr-shadow);
 	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   
   .switch input:checked + .slider {
-	background: pink;
+	background: var(--clr-slider-on);
 	
   }
   
   .switch input:focus + .slider {
-	box-shadow: 0 0 1px pink;
+	box-shadow: 0 0 1px var(--clr-slider-on);
   }
   
   .switch input:checked + .slider:before {
@@ -318,8 +341,7 @@ p{
   /* Toggle labels */
   .toggle-label {
 	font-size: 17px;
-	font-weight: bold;
-	color: var(--white);
+	color: var(--clr-text);
   }
   
   .toggle-container .toggle-label:first-child {
@@ -338,24 +360,22 @@ p{
 
 .button {
     position: relative;
-    color: white;
+    color: var(--clr-primary);
     z-index: 2;
     width: 240px;
     height: 50px;
-    color: white;
     margin: 10px;
-    box-shadow: 0 3px 6px pink;
+    box-shadow: 0 3px 6px var(--clr-shadow);
     cursor: pointer;
     border-radius: 3px;
     border: none;
     font-size: 15px;
     letter-spacing: 2px;
     transition: 0.45s;
-    background: rgb(63, 46, 63);
+    background: var(--clr-box);
 }
 
 button:hover{
     transform: translateY(4px);
-    background: pink ;
-
+    background:  var(--clr-button);
 }

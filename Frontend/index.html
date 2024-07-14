@@ -9,11 +9,19 @@
     <script src="script.js"></script>
     <script src="https://kit.fontawesome.com/96e88eed38.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-    <!--Box Icons-->
+    <!-- Box Icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <button id="theme-toggle" class="theme-toggle">Change Colour</button>
+    <header class="header">
+        <div class="toggle-container">
+            <label class="switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </header>
+
     <section class="main">
         <div class="blob"></div>
         <div class="content">
@@ -22,9 +30,9 @@
             <a href="select.html">
                 <button class="button">SELECT MAJORS</button>
             </a>
-            
         </div>
     </section>
+
+    <script src="themecolour.js"></script>
 </body>
-<script src="themecolour.js"></script>
 </html>

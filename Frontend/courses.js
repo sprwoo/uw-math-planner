@@ -236,29 +236,44 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Function to determine maximum selections allowed based on category
     function getMaxSelections(category) {
-        if (category.includes('One ')) {
-            console.log(1);
-            return 1;
-        } else if (category.includes('Two ')) {
-            console.log(2);
-            return 2;
-        } else if (category.includes('Three ')) {
-            console.log(3);
-            return 3;
-        } else if (category.includes('Four ')) {
-            console.log(4);
-            return 4;
-        } else if (category.includes('Five ')) {
-            console.log(5); 
-            return 5;
-        } else if (category.includes('Six ')) {
-            return 6;
-        } else if (category.includes('All')) {
-            return Number.MAX_SAFE_INTEGER;
-        }
-
-        return 0;
+    if (category.includes('One ') || category.includes('1 ')) {
+        console.log(1);
+        return 1;
+    } else if (category.includes('Two ') || category.includes('2 ')) {
+        console.log(2);
+        return 2;
+    } else if (category.includes('Three ') || category.includes('3 ')) {
+        console.log(3);
+        return 3;
+    } else if (category.includes('Four ') || category.includes('4 ')) {
+        console.log(4);
+        return 4;
+    } else if (category.includes('Five ') || category.includes('5 ')) {
+        console.log(5); 
+        return 5;
+    } else if (category.includes('Six ') || category.includes('6 ')) {
+        console.log(6);
+        return 6;
+    } else if (category.includes('Seven ') || category.includes('7 ')) {
+        console.log(7);
+        return 7;
+    } else if (category.includes('Eight ') || category.includes('8 ')) {
+        console.log(8);
+        return 8;
+    } else if (category.includes('Nine ') || category.includes('9 ')) {
+        console.log(9);
+        return 9;
+    } else if (category.includes('Ten ') || category.includes('10 ')) {
+        console.log(10);
+        return 10;
+    } else if (category.includes('All')) {
+        console.log(Number.MAX_SAFE_INTEGER);
+        return Number.MAX_SAFE_INTEGER;
     }
+
+    return 0;
+}
+
 
     async function processMajors(year, majors, type) {
         const majorsData = [];

@@ -28,12 +28,20 @@ body, html {
     height: 100%;
     overflow: hidden;
     background-color: var(--clr-primary);
+    position: relative;
+}
+
+.header {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000; /* Ensure toggle is on top of other content */
 }
 
 .main {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 60px); /* Adjust height to accommodate header */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,7 +55,6 @@ body, html {
     height: 540px;
     background-image: linear-gradient(45deg, var(--clr-blob) 0%, rgb(240, 186, 240) 100%);
     animation: animateBlob 10s linear infinite alternate;
-
     z-index: 1;
     top: 50%;
     left: 50%;
@@ -100,10 +107,63 @@ body, html {
     transform: translateY(-2px);
 }
 
-button.theme-toggle {
-    margin: 0.5%;
-    padding: 0.2%;
-    float: right;
+.toggle-container {
+    display: flex;
+    align-items: center;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin: 0 10px; /* Adjust spacing */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #eec4e5;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #e2a953; /* Day color */
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #e986f1; /* Night color */
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+    background-color: #7c0b96; /* Toggle color */
+}
+
+.fa-sun,
+.fa-moon {
+    font-size: 20px;
+    color: var(--clr-text);
+    margin: 0 5px; /* Adjust spacing */
 }
 
 @media (max-width: 768px) {

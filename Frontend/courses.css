@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&subset=latin-ext');
 
+/*
 :root {
     --white: #ffffff;
     --dark-blue: #1f2029;
@@ -12,7 +13,7 @@
     --shadow: rgba(0, 0, 0, 0.2);
     --transition-speed: 0.3s;
     --transition-speed-fast: 0.2s;
-}
+} */
 
 * {
     box-sizing: border-box;
@@ -20,8 +21,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--dark-blue);
-    color: var(--white);
+    background-color: var(--clr-primary);
+    color: var(--clr-text);
     margin: 0;
     padding: 0;
     display: flex;
@@ -55,17 +56,17 @@ body {
 .title {
     font-size: 3rem;
     margin-bottom: 10px;
-    color: var(--pink);
+    color: var(--clr-major-title);
     transition: color var(--transition-speed-fast);
 }
 
 .title:hover {
-    color: var(--light-pink);
+    color: var(--clr-math);
 }
 
 .description {
     font-size: 1.1rem;
-    color: var(--grey);
+    color: var(--clr-text);
 }
 
 .course-planner {
@@ -77,13 +78,13 @@ body {
 }
 
 .major {
-    background-color: var(--dark-light);
+    background-color: var(--clr-major-box);
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 6px var(--shadow);
+    box-shadow: 0 4px 6px var(--clr-shadow);
     min-width: 300px; /* Ensure a minimum width */
     flex: 1 1 300px; /* Flex-grow, flex-shrink, flex-basis */
-    color: var(--white);
+    color: var(--clr-text);
     max-width: 700px; /* Optional: Limit maximum width */
     transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
     margin-bottom: 20px; /* Space between majors */
@@ -98,16 +99,16 @@ body {
 
 .major:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 12px var(--shadow);
-    background-color: var(--darker-grey);
+    box-shadow: 0 8px 12px var(--clr-shadow);
+    background-color: var(--clr-box-hover);
     z-index: 1; /* Ensure the hovered major is above others */
 }
 
 .major h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
-    color: var(--light-pink);
-    border-bottom: 2px solid var(--pink);
+    color: var(--clr-major-title);
+    border-bottom: 2px solid var(--clr-major-title);
     padding-bottom: 10px;
     transition: border-bottom-color var(--transition-speed);
 }
@@ -121,19 +122,21 @@ body {
 .course-list li {
     margin-bottom: 10px;
     font-weight: 500;
-    color: var(--light-pink);
+    color: var(--clr-text);
     position: relative;
 }
 
 .course-list li ul {
+    
     margin-top: 10px;
     padding-left: 20px;
 }
 
 .course-list li ul li {
+    
     margin-bottom: 5px;
     font-weight: 400;
-    color: var(--grey);
+    color: var(--clr-text);
 }
 
 .course-item {
@@ -143,8 +146,8 @@ body {
 }
 
 .course-item.selected {
-    background-color: var(--pink);
-    color: var(--white);
+    background-color: var(--clr-selected);
+    color: var(--clr-text);
 }
 
 .course-sub-item {
@@ -153,30 +156,30 @@ body {
 }
 
 .course-sub-item.selected {
-    background-color: var(--pink);
-    color: var(--white);
+    background-color: var(--clr-course-selected);
+    color: var(--clr-text);
 }
 
 .course-sub-item:hover {
-    background-color: var(--dark-grey-hover);
-    color: var(--white); 
+    background-color: var(--clr-course-hover);
+    color: var(--clr-text); 
     z-index: 2; 
     cursor: pointer;
 }
 
 .course-item:hover {
-    background-color: var(--dark-grey-hover);
-    color: var(--white); 
+    background-color: var(--clr-course-hover);
+    color: var(--clr-text); 
     z-index: 2; 
 }
 
 .course-item.selected {
-    background-color: var(--pink);
-    color: var(--white);
+    background-color: var(--clr-course-selected);
+    color: var(--clr-text);
 }
 
 .matched-course {
-    background-color: rgba(3, 177, 3, 0.226);
+    background-color: var(--clr-course-matched);
 }
 
 /*************** POP UPS ******************/
@@ -186,11 +189,11 @@ body {
     top: 0;
     right: 0;
     transform: translate(100%, -100%);
-    background-color: var(--white);
-    color: var(--darker-grey);
+    background-color: var(--clr-box);
+    color: var(--clr-text);
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--clr-shadow);
     z-index: 1000;
     width: 250px;
 }
@@ -203,32 +206,30 @@ body {
 .course-popup p {
     margin: 0;
     font-size: 0.9rem;
-    color: var(--darker-grey); 
+    color: var(--clr-text); 
 }
 
 /************** BUTTON ***********/
 .button {
     position: relative;
-    color: white;
+    color: var(--clr-text);
     z-index: 2;
     width: 240px;
     height: 50px;
-    color: white;
    
-    box-shadow: 0 3px 6px pink;
+    box-shadow: 0 3px 6px var(--clr-shadow);
     cursor: pointer;
     border-radius: 3px;
     border: none;
     font-size: 15px;
     letter-spacing: 2px;
     transition: 0.45s;
-    background: rgb(63, 46, 63);
+    background: var(--clr-major-box);
 }
 
 button:hover{
     transform: translateY(4px);
-    background: pink ;
-
+    background: var(--clr-button);
 }
 
 /********** ERRORS ***********/

@@ -12,10 +12,11 @@ const changeTheme = () => {
 }
 
 // Initialize theme based on localStorage
-if (localStorage.getItem("themeColour") === "dark") {
+if (mode === "dark") {
     document.body.classList.add('darkmode');
     themeToggle.checked = true;
 } else {
+    document.body.classList.remove('darkmode');
     themeToggle.checked = false;
 }
 

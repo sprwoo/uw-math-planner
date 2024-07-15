@@ -1,0 +1,55 @@
+:root {
+	--clr-primary: #e9f0dc;
+    --clr-secondary: #2d272b;
+    --clr-text: #3d3d41;
+
+	--clr-box: #b2b4ae;
+    --clr-major: #e2c6dc;
+	--clr-major-shadow: #fed4f4;
+	--clr-minor: #ffc5dd;
+	--clr-minor-shadow: #ffbfce;
+	--clr-year: #ffb6ee;
+	--clr-year-shadow: #ffbaff;
+
+    --clr-major-box: #d4d8ce;
+    --clr-box-hover: #adadad;
+    --clr-major-title: #fc87e1;
+    --clr-course-hover: #f0c9e7c5;
+    --clr-course-selected: #f1abe1c5;
+    --clr-course-matched: #03b1033a;
+
+
+    /* Shared properties */
+    --clr-math: #e23e93;
+    --clr-blob1: #e494bc;
+    --clr-blob2: #e47fb1;
+	--clr-slider-on: #dd79bc;
+	--clr-slider-off: #300d2d;
+	--clr-slider-knob: #ffffff;
+	--clr-shadow: #00000066;
+	--clr-button: #fcb1be;
+
+    --transition-speed: 0.3s;
+    --transition-speed-fast: 0.2s;
+}
+
+.darkmode {
+	--clr-primary: #272D2D;
+    --clr-secondary: #E6EED6;
+    --clr-text: #e2e2e2;
+
+	--clr-box: #353746;
+    --clr-major: #e681d0;
+	--clr-major-shadow: #d646b5;
+	--clr-minor: #e74689;
+	--clr-minor-shadow: #d81f6c;
+	--clr-year: #c20f98;
+	--clr-year-shadow: #960196;
+
+    --clr-major-box: #353838;
+    --clr-box-hover: #444747;
+    --clr-major-title: #fc87e1;
+    --clr-course-hover: #f0c9e7c5;
+    --clr-course-selected: #f1abe1c5;
+    --clr-course-matched: #03b1033a;
+}

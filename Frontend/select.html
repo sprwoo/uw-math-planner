@@ -1,160 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UW Math Planner</title>
-  <link rel="stylesheet" href="select.css">
-  <script src="https://kit.fontawesome.com/96e88eed38.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-  <!--Box Icons-->
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UW Math Planner</title>
+    <link rel="stylesheet" href="colourpalette.css">
+    <link rel="stylesheet" href="select.css">
+    <link rel="stylesheet" href="themeswitch.css">
+    <script src="https://kit.fontawesome.com/96e88eed38.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <!--Box Icons-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
-  <input class="checkbox" type="checkbox" name="general" id="general">
-  <div class="background-color"></div>
-  <div class="section over-hide z-bigger">
-      <div class="container pb-5">
-          <div class="row justify-content-center pb-5">
-              <div class="col-12 pt-5">
-                  <p class="mb-4 pb-2"><strong>MAJORS</strong></p>
-              </div>
-              <div class="col-12 pb-5">
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Actuarial Science">
-                  <label class="for-checkbox-majors" for="Actuarial Science">
-                      <i class='uil uil-line-alt'></i>
-                      Actuarial Science
-                  </label><!--
-                  --><input class="checkbox-majors" type="checkbox" name="majors" id="Applied Mathematics">
-                  <label class="for-checkbox-majors" for="Applied Mathematics">
-                      <i class='uil uil-vector-square'></i>
-                      Applied Mathematics
-                  </label><!--
-                  --><input class="checkbox-majors" type="checkbox" name="majors" id="Biostatistics">
-                  <label class="for-checkbox-majors" for="Biostatistics">
-                      <i class='uil uil-ruler'></i>
-                      Biostatistics
-                  </label><!--
-                  --><input class="checkbox-majors" type="checkbox" name="majors" id="Combinatorics and Optimization">
-                  <label class="for-checkbox-majors" for="Combinatorics and Optimization">
-                      <i class='uil uil-crop-alt'></i>
-                      Combinatorics & Optimization
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Computational Mathematics">
-                  <label class="for-checkbox-majors" for="Computational Mathematics">
-                      <i class='uil uil-brush-alt'></i>
-                      Computational Mathematics
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Computer Science">
-                  <label class="for-checkbox-majors" for="Computer Science">
-                      <i class='uil uil-brush-alt'></i>
-                      Computer Science
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Data Science">
-                  <label class="for-checkbox-majors" for="Data Science">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Data Science
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematical Economics">
-                  <label class="for-checkbox-majors" for="Mathematical Economics">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Mathematical Economics
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematical Finance">
-                  <label class="for-checkbox-majors" for="Mathematical Finance">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Mathematical Finance
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematical Optimization">
-                  <label class="for-checkbox-majors" for="Mathematical Optimization">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Mathematical Optimization
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematical Physics">
-                  <label class="for-checkbox-majors" for="Mathematical Physics">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Mathematical Physics
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematical Studies">
-                  <label class="for-checkbox-majors" for="Mathematical Studies">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Mathematical Studies
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematics/Teaching">
-                  <label class="for-checkbox-majors" for="Mathematics/Teaching">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Mathematics/Teaching
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Pure Mathematics">
-                  <label class="for-checkbox-majors" for="Pure Mathematics">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Pure Mathematics
-                  </label>
-                  <input class="checkbox-majors" type="checkbox" name="majors" id="Statistics">
-                  <label class="for-checkbox-majors" for="Statistics">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Statistics
-                  </label>
-              </div>
+    <header class="theme-header">
+        <div class="theme-toggle-container">
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="theme-slider"></span>
+            </label>
+        </div>
+    </header>
 
-              <div class="col-12 pt-3">
-                <div class="toggle-container">
-                  <span class="toggle-label joint">DOUBLE MAJOR</span>
-                  <label class="switch">
-                    <input type="checkbox" id="majorToggle">
-                    <span class="slider"></span>
-                  </label>
-                  <span class="toggle-label double">JOINT MAJOR</span>
+    <input class="checkbox" type="checkbox" name="general" id="general">
+    <div class="background-color"></div>
+    <div class="section over-hide z-bigger">
+        <div class="container pb-5">
+            <div class="row justify-content-center pb-5">
+                <div class="col-12 pt-5">
+                    <p class="mb-4 pb-2"><strong>MAJORS</strong></p>
                 </div>
-              </div>
+                <div class="col-12 pb-5">
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Actuarial Science">
+                    <label class="for-checkbox-majors" for="Actuarial Science">
+                        <i class='uil uil-line-alt'></i>
+                        Actuarial Science
+                    </label><!--
+                    --><input class="checkbox-majors" type="checkbox" name="majors" id="Applied Mathematics">
+                    <label class="for-checkbox-majors" for="Applied Mathematics">
+                        <i class='uil uil-vector-square'></i>
+                        Applied Mathematics
+                    </label><!--
+                    --><input class="checkbox-majors" type="checkbox" name="majors" id="Biostatistics">
+                    <label class="for-checkbox-majors" for="Biostatistics">
+                        <i class='uil uil-ruler'></i>
+                        Biostatistics
+                    </label><!--
+                    --><input class="checkbox-majors" type="checkbox" name="majors" id="Combinatorics and Optimization">
+                    <label class="for-checkbox-majors" for="Combinatorics and Optimization">
+                        <i class='uil uil-crop-alt'></i>
+                        Combinatorics & Optimization
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Computational Mathematics">
+                    <label class="for-checkbox-majors" for="Computational Mathematics">
+                        <i class='uil uil-brush-alt'></i>
+                        Computational Mathematics
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Computer Science">
+                    <label class="for-checkbox-majors" for="Computer Science">
+                        <i class='uil uil-brush-alt'></i>
+                        Computer Science
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Data Science">
+                    <label class="for-checkbox-majors" for="Data Science">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Data Science
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematical Economics">
+                    <label class="for-checkbox-majors" for="Mathematical Economics">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Mathematical Economics
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematical Finance">
+                    <label class="for-checkbox-majors" for="Mathematical Finance">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Mathematical Finance
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematical Optimization">
+                    <label class="for-checkbox-majors" for="Mathematical Optimization">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Mathematical Optimization
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematical Physics">
+                    <label class="for-checkbox-majors" for="Mathematical Physics">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Mathematical Physics
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematical Studies">
+                    <label class="for-checkbox-majors" for="Mathematical Studies">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Mathematical Studies
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Mathematics/Teaching">
+                    <label class="for-checkbox-majors" for="Mathematics/Teaching">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Mathematics/Teaching
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Pure Mathematics">
+                    <label class="for-checkbox-majors" for="Pure Mathematics">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Pure Mathematics
+                    </label>
+                    <input class="checkbox-majors" type="checkbox" name="majors" id="Statistics">
+                    <label class="for-checkbox-majors" for="Statistics">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Statistics
+                    </label>
+                </div>
 
-              <div class="col-12 pt-1">
-                  <p class="mb-4 pb-2"><strong>MINORS</strong></p>
-              </div>
-              <div class="col-12 pb-5">
-                  <input class="checkbox-minors" type="checkbox" name="minors" id="Actuarial Science Minor">
-                  <label class="for-checkbox-minors" for="Actuarial Science Minor">
-                      <i class='uil uil-line-alt'></i>
-                      Actuarial Science
-                  </label><!--
-                  --><input class="checkbox-minors" type="checkbox" name="minors" id="Applied Mathematics Minor">
-                  <label class="for-checkbox-minors" for="Applied Mathematics Minor">
-                      <i class='uil uil-vector-square'></i>
-                      Applied Mathematics
-                  </label>
-                  <input class="checkbox-minors" type="checkbox" name="minors" id="Combinatorics and Optimization Minor">
-                  <label class="for-checkbox-minors" for="Combinatorics and Optimization Minor">
-                      <i class='uil uil-crop-alt'></i>
-                      Combinatorics & Optimization
-                  </label>
-                  <input class="checkbox-minors" type="checkbox" name="minors" id="Computational Mathematics Minor">
-                  <label class="for-checkbox-minors" for="Computational Mathematics Minor">
-                      <i class='uil uil-brush-alt'></i>
-                      Computational Mathematics
-                  </label>
-                  <input class="checkbox-minors" type="checkbox" name="minors" id="Computer Science Minor">
-                  <label class="for-checkbox-minors" for="Computer Science Minor">
-                      <i class='uil uil-brush-alt'></i>
-                      Computer Science
-                  </label>
-                  <input class="checkbox-minors" type="checkbox" name="minors" id="Computing Minor">
-                  <label class="for-checkbox-minors" for="Computing Minor">
-                      <i class='uil uil-brush-alt'></i>
-                      Computing
-                  </label>
-                  <input class="checkbox-minors" type="checkbox" name="minors" id="Mathematics Minor">
-                  <label class="for-checkbox-minors" for="Mathematics Minor">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Mathematics
-                  </label>
-                  <input class="checkbox-minors" type="checkbox" name="minors" id="Pure Mathematics Minor">
-                  <label class="for-checkbox-minors" for="Pure Mathematics Minor">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      Pure Mathematics
-                  </label>
-                  <div class="textbox-container">
+                <div class="col-12 pt-3">
+                <div class="degree-toggle-container">
+                    <span class="toggle-label joint">DOUBLE MAJOR</span>
+                    <label class="degree-switch">
+                    <input type="checkbox" id="majorToggle">
+                    <span class="degree-slider"></span>
+                    </label>
+                    <span class="toggle-label double">JOINT MAJOR</span>
+                </div>
+                </div>
+
+                <div class="col-12 pt-1">
+                    <p class="mb-4 pb-2"><strong>MINORS</strong></p>
+                </div>
+                <div class="col-12 pb-5">
+                    <input class="checkbox-minors" type="checkbox" name="minors" id="Actuarial Science Minor">
+                    <label class="for-checkbox-minors" for="Actuarial Science Minor">
+                        <i class='uil uil-line-alt'></i>
+                        Actuarial Science
+                    </label><!--
+                    --><input class="checkbox-minors" type="checkbox" name="minors" id="Applied Mathematics Minor">
+                    <label class="for-checkbox-minors" for="Applied Mathematics Minor">
+                        <i class='uil uil-vector-square'></i>
+                        Applied Mathematics
+                    </label>
+                    <input class="checkbox-minors" type="checkbox" name="minors" id="Combinatorics and Optimization Minor">
+                    <label class="for-checkbox-minors" for="Combinatorics and Optimization Minor">
+                        <i class='uil uil-crop-alt'></i>
+                        Combinatorics & Optimization
+                    </label>
+                    <input class="checkbox-minors" type="checkbox" name="minors" id="Computational Mathematics Minor">
+                    <label class="for-checkbox-minors" for="Computational Mathematics Minor">
+                        <i class='uil uil-brush-alt'></i>
+                        Computational Mathematics
+                    </label>
+                    <input class="checkbox-minors" type="checkbox" name="minors" id="Computer Science Minor">
+                    <label class="for-checkbox-minors" for="Computer Science Minor">
+                        <i class='uil uil-brush-alt'></i>
+                        Computer Science
+                    </label>
+                    <input class="checkbox-minors" type="checkbox" name="minors" id="Computing Minor">
+                    <label class="for-checkbox-minors" for="Computing Minor">
+                        <i class='uil uil-brush-alt'></i>
+                        Computing
+                    </label>
+                    <input class="checkbox-minors" type="checkbox" name="minors" id="Mathematics Minor">
+                    <label class="for-checkbox-minors" for="Mathematics Minor">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Mathematics
+                    </label>
+                    <input class="checkbox-minors" type="checkbox" name="minors" id="Pure Mathematics Minor">
+                    <label class="for-checkbox-minors" for="Pure Mathematics Minor">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        Pure Mathematics
+                    </label>
+                    <div class="textbox-container">
                     <input class="textbox-custom" type="text" id="customField2">
                     <label class="for-textbox-custom" for="customField2">
                         <i class='uil uil-apps'></i>
@@ -169,50 +180,49 @@
 
             <div class="col-12 pb-5">
                 <input class="checkbox-years" type="checkbox" name="years" id="2022-2023">
-                  <label class="for-checkbox-years" for="2022-2023">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      2022-2023
-                  </label>
-                  <input class="checkbox-years" type="checkbox" name="years" id="2023-2024">
-                  <label class="for-checkbox-years" for="2023-2024">
-                      <i class='uil uil-image-resize-landscape'></i>
-                      2023-2024
-                  </label>
+                    <label class="for-checkbox-years" for="2022-2023">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        2022-2023
+                    </label>
+                    <input class="checkbox-years" type="checkbox" name="years" id="2023-2024">
+                    <label class="for-checkbox-years" for="2023-2024">
+                        <i class='uil uil-image-resize-landscape'></i>
+                        2023-2024
+                    </label>
 
             </div>
 
-          <!--
-          <div class="wrapper">
+            <!--
+            <div class="wrapper">
             <div class="select-btn">
-              <span>Select Course</span>
-              <i class="uil uil-angle-down"></i>
+                <span>Select Course</span>
+                <i class="uil uil-angle-down"></i>
             </div>
             <div class="content">
-              <div class="search">
+                <div class="search">
                 <i class="uil uil-search"></i>
                 <input spellcheck="false" type="text" placeholder="Search">
-              </div>
-              <ul class="options"></ul>
+                </div>
+                <ul class="options"></ul>
             </div>
-          </div>
-          -->
-          <div class="container">
+            </div>
+            -->
+            <div class="container">
             <a href="courses.html">
-              <button class="button">SEE COURSES</button>
+                <button class="button">SEE COURSES</button>
             </a>
-          </div>
-      </div>
-  </div>
-
-  <script>
+            </div>
+        </div>
+    </div>
+    <script>
     window.onload = function() {
-      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      checkboxes.forEach(function(checkbox) {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
         checkbox.checked = false;
-      });
+        });
     }
-  </script>
-  <script src="select.js"></script>
-  <script src="themecolour.js"></script>
+    </script>
+    <script src="select.js"></script>
+    <script src="themecolour.js"></script>
 </body>
 </html>

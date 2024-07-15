@@ -1,0 +1,65 @@
+.theme-header {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000; /* Ensure toggle is on top of other content */
+}
+
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin: 0 10px; /* Adjust spacing */
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.theme-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #eec4e5;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.theme-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #e2a953; /* Day color */
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .theme-slider {
+    background-color: #e986f1; /* Night color */
+}
+
+input:checked + .theme-slider:before {
+    transform: translateX(26px);
+    background-color: #7c0b96; /* Toggle color */
+}
+
+.fa-sun,
+.fa-moon {
+    font-size: 20px;
+    color: var(--clr-text);
+    margin: 0 5px; /* Adjust spacing */
+}

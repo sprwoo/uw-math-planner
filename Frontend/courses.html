@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="colourpalette.css">
     <link rel="stylesheet" href="courses.css">
+    <link rel="stylesheet" href="themeswitch.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script type="module" src="courses.js"></script>
     <title>Course Planner</title>
 </head>
 <body>
+    <header class="theme-header">
+        <div class="theme-toggle-container">
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="theme-slider"></span>
+            </label>
+        </div>
+    </header>
     <div class="container">
         <header class="header">
             <h1 class="title">Your Courses</h1>

@@ -17,6 +17,7 @@ FRONT END - TODO:
 - [X] Custom Minor
 - [ ] Custom Minor Fixes
 - [ ] Fix issues with "matching" some of the X00 courses with non-X00 courses
+- [ ] Fix issues with some courses not appearing in schedule (blank box)
 
 BACK END - TODO:
 - [X] Make JS script to make the CSVs usable

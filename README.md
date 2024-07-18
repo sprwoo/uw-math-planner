@@ -18,8 +18,8 @@ FRONT END - TODO:
 - [X] Custom Minor Fixes
 - [ ] Fix issues with "matching" some of the X00 courses with non-X00 courses
 - [X] Fix issues with some courses not appearing in schedule (blank box)
-- [ ] Fix slowness
-- [ ] The "custom minor" doesn't work if I put like COMPUTING or computing. Make the search non-case sensitive
+- [ ] Fix slowness (I believe this has to do with the X00 courses)
+- [X] The "custom minor" doesn't work if I put like COMPUTING or computing. Make the search non-case sensitive
 - [X] Make the custom minor automatically have "Minor" so if you input "Computing" = "Computing Minor"
 
 BACK END - TODO:

@@ -18,24 +18,39 @@ function fetchAndParseCSV(url) {
 }
 
 function degreeBinarySearch(data, year, degree_name, degree_type) {
+    // Function to format degree name
+    function formatDegreeName(name) {
+        return name.toLowerCase().replace(/\b\w/g, function(char) {
+            return char.toUpperCase();
+        });
+    }
+
+    const formattedDegreeName = formatDegreeName(degree_name);
     let l = 0, r = data.length - 1;
     while (l <= r) {
         let mid = Math.floor(l + (r - l) / 2);
-        if (data[mid][degree_type] == degree_name) {
+        const midDegree = data[mid][degree_type];
+
+        // Format the degree type for comparison
+        const formattedMidDegree = formatDegreeName(midDegree);
+
+        if (formattedMidDegree === formattedDegreeName) {
             if (data[mid]['Year'] == year) {
                 return data[mid];
             } else if (data[mid]['Year'] > year) {
                 return data[mid - 1];
             } else {
-                return data[mid + 1]
+                return data[mid + 1];
             }
-        } else if (data[mid][degree_type] < degree_name) {
+        } else if (formattedMidDegree < formattedDegreeName) {
             l = mid + 1;
         } else {
             r = mid - 1;
         }
     }
 }
+
+
 
 /**
  * Parses through major/minor_requirements.csv to find and return an object of the major/minor

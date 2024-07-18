@@ -3,25 +3,36 @@ document.addEventListener('DOMContentLoaded', () => {
     let courses = selectedCourses ? selectedCourses : [];
     console.log(courses);
 
-    const newCourses = removeDuplicates(courses);
+    // Function to clean course descriptions and format course codes
+    function cleanCourseDescriptions(courseArray) {
+        return courseArray.map(course => {
+            // Remove newlines and trim spaces
+            course = course.replace(/\n\s*/g, ' ').trim();
+
+            // Extract the course code and add a space between letters and numbers
+            const courseCodeMatch = course.match(/^([A-Z]+\s?\d+)/);
+            if (courseCodeMatch) {
+                const formattedCourseCode = courseCodeMatch[0];
+                return formattedCourseCode;
+            }
+            return course;
+        });
+    }
+
+    const cleanedCourses = cleanCourseDescriptions(courses);
+    const newCourses = removeDuplicates(cleanedCourses);
     const coursesContainer = document.getElementById('courses-container');
     const scheduleCells = document.querySelectorAll('.droppable');
     let draggedCourses = [];
     let scheduleCourses = [];
 
-    // Function to extract course code from full course name
-    function extractCourseCode(courseName) {
-        const match = courseName.match(/^[^\s]+\s[^\s]+/);
-        return match ? match[0] : '';
-    }
-
+    // Function to remove duplicates
     function removeDuplicates(arr) {
         return [...new Set(arr)];
     }
 
     // Function to create course cards
-    function createCourseCard(courseName) {
-        const courseCode = extractCourseCode(courseName);
+    function createCourseCard(courseCode) {
         const card = document.createElement('div');
         card.classList.add('course-card');
         card.textContent = courseCode;
@@ -41,26 +52,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add click event listener to drag the card back out of the table
         card.addEventListener('click', (event) => {
             const courseCode = event.target.textContent;
-            draggedCourses = draggedCourses.filter(code => code !== courseCode); 
+            draggedCourses = draggedCourses.filter(code => code !== courseCode);
             scheduleCourses = scheduleCourses.filter(code => code !== courseCode);
-            coursesContainer.appendChild(event.target); 
+            coursesContainer.appendChild(event.target);
         });
     }
 
-    // Create course cards for each course in selectedCourses
+    // Create course cards for each course in cleanedCourses
     newCourses.forEach(course => {
         createCourseCard(course);
     });
 
-    // Create empty course cards to ensure there are always 40 cards
-    /*
-    const totalCards = 40;
-    const emptyCardsToCreate = totalCards - newCourses.length;
-
-    for (let i = 0; i < emptyCardsToCreate; i++) {
-        createCourseCard('');
-    }
-    */
     // Handle drag and drop
     let dragged;
 

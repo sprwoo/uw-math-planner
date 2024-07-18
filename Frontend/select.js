@@ -116,7 +116,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Clear custom textbox and arrays on page load
+    function clearCustomField() {
+        customTextbox.value = ''; // Clear the textbox
+        custom = []; // Clear the custom array
+        localStorage.setItem("custom", JSON.stringify(custom)); // Update localStorage
+    }
+
+    // Initialize the page
     loadSavedSelections(); // Load saved selections on page load
+    clearCustomField(); // Clear custom field on refresh
 
     // Toggle Switch Functionality
     var toggleSwitch = document.getElementById('majorToggle');

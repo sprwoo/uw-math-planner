@@ -11,6 +11,7 @@ let year = localStorage.getItem('year');
 let majors = majorsFromStorage ? majorsFromStorage : [];
 let originalMinors = minorsFromStorage ? minorsFromStorage : [];
 let custom = customMinorFromStorage ? customMinorFromStorage : [];
+custom[0] += " Minor";
 let minors = [...originalMinors, ...custom];
 let selectedCourses = [];
 let selectionState = {};
@@ -358,7 +359,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     const parsedCourses = Array.from(parsedResult).map(result => result.Course);
                                     courses = [...courses, ...parsedCourses];
                                 }
-    
+                                
                                 return [category, courses];
                             }))
                         };

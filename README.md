@@ -10,14 +10,17 @@ FRONT END - TODO:
 - [X] Add a toggle for "joint majors" in the Select Page [select.js]
 - [ ] Make the schedule look more sleek, unique and better [schedule.css]
 - [ ] Improve overall UI to look more professional
-- [ ] Dark/Light Toggle
+- [X] Dark/Light Toggle
 - [ ] Add loading symbols on all pages
 - [ ] Make it so that a course can only appear once in the top bar of schedule [schedule.js]
 - [X] Fix Staistics & Mathematical Teaching
 - [X] Custom Minor
-- [ ] Custom Minor Fixes
+- [X] Custom Minor Fixes
 - [ ] Fix issues with "matching" some of the X00 courses with non-X00 courses
-- [ ] Fix issues with some courses not appearing in schedule (blank box)
+- [X] Fix issues with some courses not appearing in schedule (blank box)
+- [ ] Fix slowness
+- [ ] The "custom minor" doesn't work if I put like COMPUTING or computing. Make the search non-case sensitive
+- [X] Make the custom minor automatically have "Minor" so if you input "Computing" = "Computing Minor"
 
 BACK END - TODO:
 - [X] Make JS script to make the CSVs usable

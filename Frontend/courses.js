@@ -92,9 +92,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             const courseList = document.createElement('ul');
             courseList.classList.add('course-list');
     
-            for (const [category, courses] of major.courses) {
+            for (const [category, courses, type] of major.courses) {
                 const categoryItem = document.createElement('li');
                 categoryItem.classList.add("category")
+                if (type == "X00") categoryItem.classList.add("X00");
                 categoryItem.textContent = category;
     
                 const subList = document.createElement('ul');
@@ -107,6 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const mainListItem = document.createElement('li');
                         mainListItem.textContent = mainCourse;
                         mainListItem.classList.add('course-item');
+                        
                         subList.appendChild(mainListItem);
     
                         // Highlight the main course if it's a matched course
@@ -339,7 +341,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const formattedMajorData = {
                             name: major.name,
                             type: major.type,
-                            courses: await Promise.all(Object.entries(requirements).map(async ([category, courses]) => {
+                            courses: await Promise.all(Object.entries(requirements).map(async ([category, courses, type]) => {
+                                type = "None";
                                 if (!Array.isArray(courses)) {
                                     console.error(`Invalid courses format for category ${category} in major ${major.name}`);
                                     // Display error message on the screen
@@ -358,9 +361,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     // Convert the Set to an array
                                     const parsedCourses = Array.from(parsedResult).map(result => result.Course);
                                     courses = [...courses, ...parsedCourses];
+                                    type = "X00";
                                 }
                                 
-                                return [category, courses];
+                                return [category, courses, type];
                             }))
                         };
                         return formattedMajorData;

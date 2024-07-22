@@ -12,7 +12,7 @@ FRONT END - TODO:
 - [ ] Improve overall UI to look more professional
 - [X] Dark/Light Toggle
 - [ ] Add loading symbols on all pages
-- [ ] Make it so that a course can only appear once in the top bar of schedule [schedule.js]
+- [X] Make it so that a course can only appear once in the top bar of schedule [schedule.js]
 - [X] Fix Staistics & Mathematical Teaching
 - [X] Custom Minor
 - [X] Custom Minor Fixes

@@ -11,8 +11,15 @@ let year = localStorage.getItem('year');
 let majors = majorsFromStorage ? majorsFromStorage : [];
 let originalMinors = minorsFromStorage ? minorsFromStorage : [];
 let custom = customMinorFromStorage ? customMinorFromStorage : [];
-custom[0] += " Minor";
-let minors = [...originalMinors, ...custom];
+let minors = originalMinors;
+
+//console.log(custom.length);
+if (custom.length > 0) {
+    custom[0] += " Minor";
+    minors = [...originalMinors, ...custom];
+}
+
+
 let selectedCourses = [];
 let selectionState = {};
 

@@ -3,7 +3,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #f8f9fa;
     color: #212529;
     display: flex;
     flex-direction: column;
@@ -11,26 +11,44 @@ body {
 }
 
 h1 {
-    color: #dc3545;
+    color: #ff69b4; /* pink color */
     font-size: 2.5em;
     text-align: center;
     margin-bottom: 30px;
 }
 
+.body {
+    background-color: #d3d3d3; /* Light grey */
+    padding: 1rem 0.75rem 2rem 0.75rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.body:hover {
+    background-color: #c0c0c0; /* Slightly darker grey */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 .courses-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 30px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
 }
 
 /* Schedule Table Styles */
 .table-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
     border-collapse: collapse;
-    background-color: white;
-    text-align: left;
+    background-color: #ffffff;
     overflow: hidden;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 .schedule-table {
@@ -39,42 +57,39 @@ h1 {
 }
 
 thead th {
-    padding: 1rem 2rem;
+    padding: 1rem;
     text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    font-size: 0.7rem;
-    font-weight: 900;
-    background-color: #eff1f3;
-    position: relative;
-    transition: box-shadow 0.3s ease;
+    letter-spacing: 0.05rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    background-color: #343a40;
+    color: white;
+    transition: background-color 0.3s ease;
+    border: none;
 }
 
-/* Hover effect for th elements */
-.schedule-table th:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+thead th:first-child {
+    border-top-left-radius: 8px;
+}
+
+thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+thead th:hover {
+    background-color: #ff69b4; /* pink color */
 }
 
 .schedule-table td {
-    padding: 0.7rem 1.4rem;
-    background-color: #eceef1;
-    position: relative;
-    text-align: center; /* Center text content horizontally */
+    padding: 1rem;
+    background-color: #f8f9fa;
+    text-align: center;
+    border: none;
+    transition: background-color 0.3s ease;
 }
 
-/* Shadow effect on td elements */
-.schedule-table td::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -10px;
-    height: 10px;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: -1;
-}
-
-.schedule-table td.droppable:hover {
-    background-color: #fce4ec;
+.schedule-table td:hover {
+    background-color: #f1f1f1;
 }
 
 .cell-input {
@@ -99,32 +114,26 @@ thead th {
 .droppable {
     position: relative;
     overflow: hidden;
-    min-height: 50px; /* Adjust the minimum height as needed */
+    min-height: 50px;
 }
 
 /* Course Card Styles */
 .course-card {
-    background-color: #343a40;
-    position: relative;
+    background-color: #ff69b4; /* pink color */
+    color: #fff;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 15px;
-    width: 100px;
-    height: 25px; /* Ensure a sufficient height for content */
+    padding: 10px 15px;
+    width: 150px;
+    height: 50px;
     font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 1px;
     margin: 10px;
     text-align: center;
-    border-radius: 6px;
-    overflow: hidden;
+    border-radius: 8px;
     cursor: pointer;
-    text-transform: uppercase;
-    color: #fff;
-    transition: all 200ms linear;
+    transition: all 200ms ease-in-out;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ced4da;
 }
 
 .course-card:hover {
@@ -132,6 +141,12 @@ thead th {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.schedule-table tr:nth-child(even) {
-    background-color: red;
+/* Add more spacing around the table */
+.table-container {
+    padding: 20px;
+}
+
+/* Add some styling for the even rows to differentiate */
+.schedule-table tr:nth-child(even) td {
+    background-color: #eeeeee;
 }

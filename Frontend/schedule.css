@@ -3,13 +3,26 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f8f9fa;
+    background: linear-gradient(to right, #e497bd 55%, #e497bd 50%);
+    background-size: 100% 100%;
     color: #212529;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #ffffff  50%, #ffffff 50%);
+    clip-path: ellipse(80% 100% at 70% 0);
+    z-index: -100;
 }
 
 h1 {
@@ -163,7 +176,7 @@ thead th:hover {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: 1;
+    z-index: -1;
 }
 
 .shape {
@@ -201,8 +214,7 @@ thead th:hover {
 
 /* Animations */
 @keyframes float1 {
-    0%,
-    100% {
+    0%, 100% {
         transform: translateY(0);
     }
     50% {
@@ -211,8 +223,7 @@ thead th:hover {
 }
 
 @keyframes float2 {
-    0%,
-    100% {
+    0%, 100% {
         transform: translateY(0);
     }
     50% {
@@ -221,8 +232,7 @@ thead th:hover {
 }
 
 @keyframes float3 {
-    0%,
-    100% {
+    0%, 100% {
         transform: translateY(0);
     }
     50% {

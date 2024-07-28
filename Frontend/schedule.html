@@ -7,78 +7,87 @@
     <link rel="stylesheet" href="schedule.css">
 </head>
 <body>
-    <h1>Course Scheduler</h1>
-    <section class = "body">
-    <div id="courses-container" class="courses-container">
-        <!-- Course cards will be dynamically added here -->
+    <header>
+        <h1>Course Scheduler</h1>
+    </header>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
     </div>
-    <table id="schedule-table" class="schedule-table">
-        <thead>
-            <tr>
-                <th>Semester 1A</th>
-                <th>Semester 1B</th>
-                <th>Semester 2A</th>
-                <th>Semester 2B</th>
-                <th>Semester 3A</th>
-                <th>Semester 3B</th>
-                <th>Semester 4A</th>
-                <th>Semester 4B</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-            </tr>
-            <tr>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-            </tr>
-            <tr>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-            </tr>
-            <tr>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-            </tr>
-            <tr>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-                <td class="droppable"><input type="text" class="cell-input"></td>
-            </tr>
-        </tbody>
-    </table>
-</section>
+    <section class="body">
+        <div id="courses-container" class="courses-container">
+            <!-- Course cards will be dynamically added here -->
+        </div>
+        <div class="table-container">
+            <table id="schedule-table" class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Semester 1A</th>
+                        <th>Semester 1B</th>
+                        <th>Semester 2A</th>
+                        <th>Semester 2B</th>
+                        <th>Semester 3A</th>
+                        <th>Semester 3B</th>
+                        <th>Semester 4A</th>
+                        <th>Semester 4B</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                    </tr>
+                    <tr>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                    </tr>
+                    <tr>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                    </tr>
+                    <tr>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                    </tr>
+                    <tr>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                        <td class="droppable"><input type="text" class="cell-input"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
     <script src="schedule.js"></script>
 </body>
 </html>

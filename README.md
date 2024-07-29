@@ -11,11 +11,6 @@ FRONT END - TODO:
 - [ ] Add dark-light theme to all pages
 
 BACK END - TODO:
-- [X] Make JS script to make the CSVs usable
-- [X] Redo the scraping for minors
-- [X] Maybe use AWS database backend instead of CSVs (Post and fetch done, deleted AWS RDS instance because im unemployed)
-- [X] Be able to list courses for "One of CS 300-400" etc
-- [X] Implement binary search for course-searching?
 - [ ] Fix the Minor Courses formatting (missing the [] around the courses for non-math minors in the big CSV)
 
 Nice to have features:

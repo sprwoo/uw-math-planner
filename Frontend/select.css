@@ -3,21 +3,21 @@
 /* #Primary
 ================================================== */
 
-body{
+body {
 	width: 100%;
 	background: var(--clr-primary);
 	overflow-x: hidden;
-    font-family: 'Poppins', sans-serif;
+	font-family: 'Poppins', sans-serif;
 	font-size: 17px;
 	line-height: 30px;
-	-webkit-transition: all 300ms linear;
-	transition: all 300ms linear; 
+	transition: background-color 300ms linear, color 300ms linear;
 }
 
 p {
 	color: var(--clr-text);
 	letter-spacing: 1px;
 	font-weight: 500;
+	transition: color 300ms linear;
 }
 
 .section {
@@ -26,13 +26,15 @@ p {
 	display: block;
 	text-align: center;
 	margin: 0 auto;
+	transition: all 300ms linear;
 }
 
 .z-bigger {
-    z-index: 100 !important;
+	z-index: 100 !important;
+	transition: all 300ms linear;
 }
 
-.background-color{
+.background-color {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -40,14 +42,13 @@ p {
 	height: 100%;
 	background-color: var(--clr-primary);
 	z-index: 1;
-	-webkit-transition: all 300ms linear;
-	transition: all 300ms linear; 
+	transition: background-color 300ms linear;
 }
 
 [type="checkbox"]:checked,
 [type="checkbox"]:not(:checked),
 [type="radio"]:checked,
-[type="radio"]:not(:checked){
+[type="radio"]:not(:checked) {
 	position: absolute;
 	left: -9999px;
 	width: 0;
@@ -61,37 +62,38 @@ p {
 .checkbox-minors:not(:checked) + label,
 .checkbox-years:checked + label,
 .checkbox-years:not(:checked) + label {
-    position: relative;
-    display: inline-flex; /* Use inline-flex */
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    padding: 20px;
-    width: 200px;
-    height: 95px;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 1px;
-    margin: 0 auto;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 10px;
-    text-align: center;
-    border-radius: 4px;
-    overflow: hidden;
-    cursor: pointer;
-    text-transform: uppercase;
-    color: var(--clr-text);
-    transition: all 300ms linear;
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	width: 200px;
+	height: 95px;
+	font-size: 16px;
+	line-height: 1.5;
+	letter-spacing: 1px;
+	margin: 0 auto;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 10px;
+	text-align: center;
+	border-radius: 4px;
+	overflow: hidden;
+	cursor: pointer;
+	text-transform: uppercase;
+	color: var(--clr-text);
+	transition: background-color 300ms linear, color 300ms linear, box-shadow 300ms linear;
 }
+
 .checkbox-majors:not(:checked) + label,
 .checkbox-minors:not(:checked) + label,
-.checkbox-years:not(:checked) + label{
+.checkbox-years:not(:checked) + label {
 	background-color: var(--clr-box);
 	box-shadow: 0 2px 4px 0 var(--clr-shadow);
 }
 
 .checkbox-majors:checked + label::before,
-.checkbox-majors:not(:checked) + label::before{
+.checkbox-majors:not(:checked) + label::before {
 	position: absolute;
 	content: '';
 	top: 0;
@@ -101,11 +103,12 @@ p {
 	border-radius: 4px;
 	background-image: linear-gradient(298deg, var(--clr-major), var(--clr-major-shadow));
 	z-index: -1;
+	transition: background-color 300ms linear;
 }
 
 .checkbox-minors:checked + label::before,
-.checkbox-minors:not(:checked) + label::before{
-  position: absolute;
+.checkbox-minors:not(:checked) + label::before {
+	position: absolute;
 	content: '';
 	top: 0;
 	left: 0;
@@ -114,6 +117,7 @@ p {
 	border-radius: 4px;
 	background-image: linear-gradient(298deg, var(--clr-minor), var(--clr-minor-shadow));
 	z-index: -1;
+	transition: background-color 300ms linear;
 }
 
 .checkbox-years:checked + label::before,
@@ -127,63 +131,71 @@ p {
 	border-radius: 4px;
 	background-image: linear-gradient(298deg, var(--clr-year), var(--clr-year-shadow));
 	z-index: -1;
+	transition: background-color 300ms linear;
 }
 
 /************** TEXTBOX ****************/
 .textbox-custom {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 20px;
-    width: 20%;
-    height: 45px;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 1px;
-    margin: 0 auto;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 10px;
-    text-align: center;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    text-transform: uppercase;
-    color: var(--clr-text);
-    transition: all 300ms linear;
-    background-color: var(--clr-box);
-    position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 20px;
+	width: 20%;
+	height: 45px;
+	font-size: 16px;
+	line-height: 1.5;
+	letter-spacing: 1px;
+	margin: 0 auto;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 10px;
+	text-align: center;
+	border-radius: 8px;
+	overflow: hidden;
+	cursor: pointer;
+	text-transform: uppercase;
+	color: var(--clr-text);
+	transition: background-color 300ms linear, color 300ms linear;
+	background-color: var(--clr-box);
+	position: relative;
 	border: none;
 }
 
 .for-textbox-custom {
 	color: var(--clr-text);
-    display: block;
-    cursor: pointer;
+	display: block;
+	cursor: pointer;
+	transition: color 300ms linear;
 }
 
 .for-textbox-custom i {
-    margin-right: 10px;
+	margin-right: 10px;
+	transition: margin-right 300ms linear;
 }
 
 /************* SEARCH BOX **************/
 
-::selection{
+::selection {
 	color: #fff;
 	background: #4285f4;
-  }
-  .wrapper{
+}
+
+.wrapper {
 	width: 370px;
 	margin: 85px auto 0;
 	font-family: 'Arial', sans-serif;
-  }
-  .select-btn, li{
+}
+
+.select-btn,
+li {
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-  }
-  .select-btn{
+	transition: all 300ms linear;
+}
+
+.select-btn {
 	height: 65px;
 	padding: 0 20px;
 	font-size: 22px;
@@ -191,19 +203,23 @@ p {
 	border-radius: 10px;
 	justify-content: space-between;
 	box-shadow: 0 10px 25px var(--clr-shadow);
-	transition: all 0.3s ease;
-  }
-  .select-btn:hover{
+	transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.select-btn:hover {
 	background: #f0f0f0;
-  }
-  .select-btn i{
+}
+
+.select-btn i {
 	font-size: 31px;
 	transition: transform 0.3s linear;
-  }
-  .wrapper.active .select-btn i{
+}
+
+.wrapper.active .select-btn i {
 	transform: rotate(-180deg);
-  }
-  .content{
+}
+
+.content {
 	display: none;
 	padding: 20px;
 	margin-top: 15px;
@@ -211,14 +227,17 @@ p {
 	border-radius: 10px;
 	box-shadow: 0 10px 25px var(--clr-shadow);
 	transition: all 0.3s ease;
-  }
-  .wrapper.active .content{
+}
+
+.wrapper.active .content {
 	display: block;
-  }
-  .content .search{
+}
+
+.content .search {
 	position: relative;
-  }
-  .search i{
+}
+
+.search i {
 	top: 50%;
 	left: 15px;
 	color: #999;
@@ -226,8 +245,9 @@ p {
 	pointer-events: none;
 	transform: translateY(-50%);
 	position: absolute;
-  }
-  .search input{
+}
+
+.search input {
 	height: 50px;
 	width: 75%;
 	outline: none;
@@ -235,45 +255,57 @@ p {
 	border-radius: 5px;
 	padding: 0 20px 0 43px;
 	border: 1px solid #B3B3B3;
-	transition: all 0.3s ease;
-  }
-  .search input:focus{
+	transition: border 0.3s ease, padding 0.3s ease;
+}
+
+.search input:focus {
 	padding-left: 42px;
 	border: 2px solid #4285f4;
-  }
-  .search input::placeholder{
+}
+
+.search input::placeholder {
 	color: #bfbfbf;
-  }
-  .content .options{
+}
+
+.content .options {
 	margin-top: 10px;
 	max-height: 250px;
 	overflow-y: auto;
 	padding-right: 7px;
-  }
-  .options::-webkit-scrollbar{
+	transition: all 300ms linear;
+}
+
+.options::-webkit-scrollbar {
 	width: 7px;
-  }
-  .options::-webkit-scrollbar-track{
+}
+
+.options::-webkit-scrollbar-track {
 	background: #f1f1f1;
 	border-radius: 25px;
-  }
-  .options::-webkit-scrollbar-thumb{
+}
+
+.options::-webkit-scrollbar-thumb {
 	background: #ccc;
 	border-radius: 25px;
-  }
-  .options::-webkit-scrollbar-thumb:hover{
+}
+
+.options::-webkit-scrollbar-thumb:hover {
 	background: #b3b3b3;
-  }
-  .options li{
+}
+
+.options li {
 	height: 50px;
 	padding: 0 13px;
 	font-size: 21px;
 	border-radius: 5px;
-	transition: 0.3s ease;
-  }
-  .options li:hover, .options li.selected{
+	transition: background-color 0.3s ease;
+}
+
+.options li:hover,
+.options li.selected {
 	background: #f2f2f2;
-  }
+}
+
 /******************* TOGGLE *********/
 /* Centering the toggle container */
 .degree-toggle-container {
@@ -282,35 +314,38 @@ p {
 	justify-content: center;
 	gap: 10px;
 	margin-top: 10px;
-  }
-  
-  /* Toggle Switch CSS */
-  .degree-switch {
+	transition: all 300ms linear;
+}
+
+/* Toggle Switch CSS */
+.degree-switch {
 	font-size: 17px;
 	position: relative;
 	display: inline-block;
 	width: 3.5em;
 	height: 2em;
-  }
-  
-  /* Hide default HTML checkbox */
-  .degree-switch input {
+	transition: all 300ms linear;
+}
+
+/* Hide default HTML checkbox */
+.degree-switch input {
 	opacity: 0;
 	width: 0;
 	height: 0;
-  }
-  
-  /* The slider */
-  .degree-slider {
+	transition: all 300ms linear;
+}
+
+/* The slider */
+.degree-slider {
 	position: absolute;
 	cursor: pointer;
 	inset: 0;
 	background: var(--clr-slider-off);
 	border-radius: 50px;
-	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  
-  .degree-slider:before {
+	transition: background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.degree-slider:before {
 	position: absolute;
 	content: "";
 	display: flex;
@@ -323,60 +358,160 @@ p {
 	background-color: var(--clr-slider-knob);
 	border-radius: 50px;
 	box-shadow: 0 10px 20px var(--clr-shadow);
-	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  
-  .degree-switch input:checked + .degree-slider {
+	transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.degree-switch input:checked + .degree-slider {
 	background: var(--clr-slider-on);
-	
-  }
-  
-  .degree-switch input:focus + .degree-slider {
+	transition: background-color 300ms linear;
+}
+
+.degree-switch input:focus + .degree-slider {
 	box-shadow: 0 0 1px var(--clr-slider-on);
-  }
-  
-  .degree-switch input:checked + .degree-slider:before {
+	transition: box-shadow 300ms linear;
+}
+
+.degree-switch input:checked + .degree-slider:before {
 	transform: translateX(1.6em);
-  }
-  
-  /* Toggle labels */
-  .toggle-label {
+	transition: transform 300ms linear;
+}
+
+/* Toggle labels */
+.toggle-label {
 	font-size: 17px;
 	color: var(--clr-text);
-  }
-  
-  .degree-toggle-container .toggle-label:first-child {
+	transition: color 300ms linear;
+}
+
+.degree-toggle-container .toggle-label:first-child {
 	margin-right: 10px;
-  }
-  
-  .degree-toggle-container .toggle-label:last-child {
+	transition: margin-right 300ms linear;
+}
+
+.degree-toggle-container .toggle-label:last-child {
 	margin-left: 10px;
-  }
-  
-  
+	transition: margin-left 300ms linear;
+}
+
 /*************** BUTTON *************/
 .container {
-    text-align: center;
+	text-align: center;
+	transition: all 300ms linear;
 }
 
 .button {
-    position: relative;
-    color: var(--clr-text);
-    z-index: 2;
-    width: 240px;
-    height: 50px;
-    margin: 10px;
-    box-shadow: 0 3px 6px var(--clr-shadow);
-    cursor: pointer;
-    border-radius: 3px;
-    border: none;
-    font-size: 15px;
-    letter-spacing: 2px;
-    transition: 0.45s;
-    background: var(--clr-box);
+	position: relative;
+	color: var(--clr-text);
+	z-index: 2;
+	width: 240px;
+	height: 50px;
+	margin: 10px;
+	box-shadow: 0 3px 6px var(--clr-shadow);
+	cursor: pointer;
+	border-radius: 3px;
+	border: none;
+	font-size: 15px;
+	letter-spacing: 2px;
+	transition: transform 0.45s, background-color 300ms linear, box-shadow 300ms linear;
+	background: var(--clr-box);
 }
 
-button:hover{
-    transform: translateY(4px);
-    background:  var(--clr-button);
+button:hover {
+	transform: translateY(4px);
+	background: var(--clr-button);
+	transition: transform 300ms linear, background-color 300ms linear;
 }
+
+/********** TRANSITION *********/
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Slide-in animation from the top */
+@keyframes slideInFromTop {
+    from {
+        transform: translateY(-20%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Slide-in animation from the bottom */
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(20%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Apply slide-in animation from the top */
+.slide-in-top {
+    animation: slideInFromTop 0.6s ease-out;
+}
+
+/* Apply slide-in animation from the bottom */
+.slide-in-bottom {
+    animation: slideInFromBottom 0.6s ease-out;
+}
+
+/* Apply fade-in animation */
+.fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Background color and other sections */
+.background-color,
+.section,
+.container {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-in-out forwards;
+}
+
+/* Checkbox and text box animations */
+.checkbox-majors,
+.checkbox-minors,
+.checkbox-years,
+.textbox-custom {
+    opacity: 0;
+    animation: slideInFromLeft 0.6s ease-out forwards;
+}
+
+/* Button and degree switch transition */
+button,
+.degree-switch input:checked + .degree-slider {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Refine slide-in animation from the left */
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-20%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.checkbox-majors,
+.checkbox-minors,
+.checkbox-years,
+.textbox-custom {
+    animation: slideInFromLeft 0.6s ease-out forwards;
+}
+
+

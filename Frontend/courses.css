@@ -256,7 +256,7 @@ button:hover{
     border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
     position: absolute;
     width: 75%;
-    height: 120%;
+    height: 100%;
     background-image: linear-gradient(45deg, pink 0%, rgb(217, 177, 221) 100%);
     animation: animateBlob 20s linear infinite alternate;
     z-index: 1;

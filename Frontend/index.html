@@ -15,7 +15,9 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <header class="theme-header">
+    <div id="loader" class="loader"></div>
+    
+    <header class="theme-header appear-animation">
         <div class="theme-toggle-container">
             <label class="theme-switch">
                 <input type="checkbox" id="theme-toggle">
@@ -24,9 +26,9 @@
         </div>
     </header>
 
-    <section class="main">
-        <div class="blob"></div>
-        <div class="content">
+    <section class="main appear-animation">
+        <div class="blob appear-animation"></div>
+        <div class="content appear-animation">
             <h1 class="title">UW <span class="math">MATH</span> PLANNER</h1>
             <h3 class="desc">Plan and visualize your 8 semesters at Waterloo. Test out different major/minor combinations to find class overlaps, necessary core courses, and spaces for electives, all in one website.</h3>
             <a href="select.html">
@@ -36,5 +38,12 @@
     </section>
 
     <script src="themecolour.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'none';
+            document.body.classList.add('loaded');
+        });
+    </script>
 </body>
 </html>

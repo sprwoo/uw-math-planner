@@ -63,22 +63,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Render majors and courses
     async function renderMajors(majorsData) {
         majorsContainer.innerHTML = "";
-    
+
         const courseCount = {};
         const courseInAllMajors = {};
-    
+
         // Initialize course count and track courses appearing in all majors
         majorsData.forEach(major => {
             major.courses.forEach(([category, courses]) => {
                 courses.forEach(course => {
-                    const individualCourses = course.split(" or ");
-                    individualCourses.forEach(singleCourse => {
-                        courseCount[singleCourse] = (courseCount[singleCourse] || 0) + 1;
-                        if (!courseInAllMajors[singleCourse]) {
-                            courseInAllMajors[singleCourse] = new Set();
-                        }
-                        courseInAllMajors[singleCourse].add(major.name);
-                    });
+                    // Ensure course is a defined, non-null string
+                    if (typeof course === 'string' && course.trim()) {
+                        const individualCourses = course.split(" or ");
+                        individualCourses.forEach(singleCourse => {
+                            singleCourse = singleCourse.trim(); // Trim any leading or trailing whitespace
+                            if (singleCourse) {
+                                // Update course count
+                                courseCount[singleCourse] = (courseCount[singleCourse] || 0) + 1;
+                                
+                                // Initialize entry in courseInAllMajors if it doesn't exist
+                                if (!courseInAllMajors[singleCourse]) {
+                                    courseInAllMajors[singleCourse] = new Set();
+                                }
+                                // Add major name to the set for this course
+                                courseInAllMajors[singleCourse].add(major.name);
+                            }
+                        });
+                    } else {
+                        console.warn('Invalid course entry (not a valid string):', course);
+                    }
                 });
             });
         });
@@ -108,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const subList = document.createElement('ul');
     
                 for (const course of courses) {
-                    if (course.includes(" or ")) {
+                    if (typeof course === 'string' && course.trim() && course.includes(" or "))  {
                         const orCourses = course.split(" or ");
                         const mainCourse = orCourses.shift(); // First course in the list
     

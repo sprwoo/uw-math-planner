@@ -169,6 +169,7 @@ export async function lookForRange(csvPath, text) {
                     }
                     if (courseCode >= lowerBound) {
                         matches.add(line);
+                        // console.log(line);
                     }
                 }
             }

@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         listItem.textContent = course;
                         listItem.classList.add('course-item');
                         subList.appendChild(listItem);
-    
+                        console.log(course);
                         // Highlight the course if it's a matched course
                         if (matchedCourses.includes(course)) {
                             listItem.classList.add('matched-course');
@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         } else {
                             requirements = majorData.Requirements;
                         }
-    
+                        
                         // Validate and format the requirements data
                         const formattedMajorData = {
                             name: major.name,
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     console.log('Parsed result for category:', parsedResult);
     
                                     // Convert the Set to an array
-                                    const parsedCourses = Array.from(parsedResult).map(result => result.Course);
+                                    const parsedCourses = Array.from(parsedResult).map(result => result.Course + " " + result.Name);
                                     courses = [...courses, ...parsedCourses];
                                     type = "X00";
                                 }

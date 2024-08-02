@@ -6,7 +6,7 @@ FRONT END - TODO:
 - [ ] Finish export function for schedule [schedule.js]
 - [ ] Improve overall UI to look more professional
 - [ ] Fix issues with "matching" some of the X00 courses with non-X00 courses
-- [ ] The x00 courses only have the Course Code not Course Name (STAT440 only). Try to add the name too
+- [X] The x00 courses only have the Course Code not Course Name (STAT440 only). Try to add the name too
 - [ ] Fix the colour-themes to make it look nicer
 - [ ] Add dark-light theme to all pages
 

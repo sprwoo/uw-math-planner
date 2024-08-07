@@ -3,9 +3,9 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
-    background: linear-gradient(to right, #e497bd 55%, #e497bd 50%);
+    background: linear-gradient(to right, var(--clr-blob1) 55%, var(--clr-blob1) 50%);
     background-size: 100% 100%;
-    color: #212529;
+    color: var(--clr-secondary);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,7 +20,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, #ffffff 50%, #ffffff 50%);
+    background: linear-gradient(to right, var(--clr-primary) 50%, var(--clr-primary) 50%);
     clip-path: ellipse(80% 100% at 70% 0);
     z-index: -100;
     animation: wave 50s infinite ease-in-out;
@@ -39,7 +39,7 @@ body::before {
 }
 
 h1 {
-    color: #ff69b4; /* pink color */
+    color: var(--clr-math); /* pink color */
     font-size: 2.5em;
     text-align: center;
     margin-bottom: 30px;
@@ -50,10 +50,10 @@ h1 {
 }
 
 .body {
-    background-color: #d3d3d3; /* Light grey */
+    background-color: var(--clr-box); /* Light grey */
     padding: 1rem 0.75rem;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--clr-shadow);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     z-index: 2;
@@ -62,8 +62,8 @@ h1 {
 }
 
 .body:hover {
-    background-color: #c0c0c0; /* Slightly darker grey */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: var(--clr-box-hover); /* Slightly darker grey */
+    box-shadow: 0 8px 16px var(--clr-shadow);
 }
 
 .courses-container {
@@ -86,9 +86,9 @@ h1 {
     max-width: 1200px;
     margin: 20px auto;
     border-collapse: collapse;
-    background-color: #ffffff;
+    background-color: var(--clr-major-box);
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px var(--clr-shadow);
     border-radius: 8px;
     padding: 20px;
     z-index: 3;
@@ -108,8 +108,8 @@ thead th {
     letter-spacing: 0.05rem;
     font-size: 0.9rem;
     font-weight: 700;
-    background-color: #343a40;
-    color: white;
+    background-color: var(--clr-secondary);
+    color: var(--clr-text-alt);
     transition: background-color 0.3s ease;
     border: none;
 }
@@ -123,19 +123,19 @@ thead th:last-child {
 }
 
 thead th:hover {
-    background-color: #ff69b4; /* pink color */
+    background-color: var(--clr-math); /* pink color */
 }
 
 .schedule-table td {
     padding: 1rem;
-    background-color: #f8f9fa;
+    background-color: var(--clr-schedule);
     text-align: center;
     border: none;
     transition: background-color 0.3s ease;
 }
 
 .schedule-table td:hover {
-    background-color: #f1f1f1;
+    background-color: var(--clr-schedule-hover);
 }
 
 .cell-input {
@@ -146,11 +146,11 @@ thead th:hover {
     background-color: transparent;
     outline: none;
     font-size: 16px;
-    color: #343a40;
+    color: var(--clr-text);
 }
 
 .cell-input::placeholder {
-    color: #6c757d;
+    color: var(--clr-text);
 }
 
 .dragging {
@@ -165,8 +165,8 @@ thead th:hover {
 
 /* Course Card Styles */
 .course-card {
-    background-color: #ff69b4; /* pink color */
-    color: #fff;
+    background-color: var(--clr-blob1); /* pink color */
+    color: var(--clr-text-alt);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -179,7 +179,7 @@ thead th:hover {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--clr-shadow);
     z-index: 3;
     position: relative;
     opacity: 0;
@@ -188,7 +188,7 @@ thead th:hover {
 
 .course-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px var(--clr-shadow);
 }
 
 /* Background Shapes */
@@ -211,7 +211,7 @@ thead th:hover {
 .shape-1 {
     width: 200px;
     height: 200px;
-    background-color: #ff69b4;
+    background-color: var(--clr-blob1);
     top: 10%;
     left: 15%;
     animation: float1 6s ease-in-out infinite;
@@ -220,7 +220,7 @@ thead th:hover {
 .shape-2 {
     width: 300px;
     height: 300px;
-    background-color: #343a40;
+    background-color: var(--clr-secondary);
     top: 50%;
     left: 70%;
     animation: float2 8s ease-in-out infinite;

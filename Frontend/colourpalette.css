@@ -2,8 +2,9 @@
 	--clr-primary: #e9f0dc;
     --clr-secondary: #2d272b;
     --clr-text: #3d3d41;
+    --clr-text-alt: #e2e2e2;
 
-	--clr-box: #b2b4ae;
+	--clr-box: #c1c4bd;
     --clr-major: #e2c6dc;
 	--clr-major-shadow: #fed4f4;
 	--clr-minor: #ffc5dd;
@@ -17,6 +18,9 @@
     --clr-course-hover: #f0c9e7c5;
     --clr-course-selected: #f1abe1c5;
     --clr-course-matched: #03b1033a;
+
+    --clr-schedule: #f8f9fa;
+    --clr-schedule-hover: #e1e2e2;
 
 
     /* Shared properties */
@@ -37,6 +41,7 @@
 	--clr-primary: #272D2D;
     --clr-secondary: #E6EED6;
     --clr-text: #e2e2e2;
+    --clr-text-alt: #3d3d41;
 
 	--clr-box: #353746;
     --clr-major: #e681d0;
@@ -52,4 +57,7 @@
     --clr-course-hover: #f0c9e7c5;
     --clr-course-selected: #f1abe1c5;
     --clr-course-matched: #03b1033a;
+
+    --clr-schedule: #3b3b3b;
+    --clr-schedule-hover: #646464;
 }

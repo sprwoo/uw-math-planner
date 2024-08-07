@@ -5,10 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Scheduler</title>
     <link rel="stylesheet" href="schedule.css">
+    <link rel="stylesheet" href="themeswitch.css">
+    <link rel="stylesheet" href="colourpalette.css">
 </head>
 <body>
     <header>
         <h1>Course Scheduler</h1>
+    </header>
+    <header class="theme-header appear-animation">
+        <div class="theme-toggle-container">
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="theme-slider"></span>
+            </label>
+        </div>
     </header>
     <div class="background-shapes">
         <div class="shape shape-1"></div>
@@ -89,6 +99,7 @@
             </table>
         </div>
     </section>
+    <script src="themecolour.js"></script>
     <script src="schedule.js"></script>
 </body>
 </html>

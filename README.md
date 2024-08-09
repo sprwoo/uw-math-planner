@@ -9,7 +9,7 @@ FRONT END - TODO:
 - [X] The x00 courses only have the Course Code not Course Name (STAT440 only). Try to add the name too
 - [ ] Fix the colour-themes to make it look nicer
 - [X] Add dark-light theme to all pages
-- [ ] When courses.html is refreshed with majors selected, it resets as if no majors were selected
+- [ ] When courses.html is refreshed with majors selected, it resets as if no majors were selected (Thanks Fahmi)
 
 BACK END - TODO:
 - [ ] Fix the Minor Courses formatting (missing the [] around the courses for non-math minors in the big CSV)

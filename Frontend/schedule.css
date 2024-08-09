@@ -248,31 +248,53 @@ thead th:hover {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    padding-top: 1rem;
 }
 
 .textbox {
-    padding: 10px;
+    padding: 8px 12px; /* Adjusted padding for balance */
     border: 1px solid var(--clr-primary);
-    border-radius: 5px 0 0 5px;
-    width: 300px;
-    font-size: 1em;
+    border-radius: 2px; /* Smooth but sharp enough for formality */
+    width: 200px; /* A compact width */
+    font-size: 0.9em; /* Slightly smaller font for a neat look */
+    font-family: 'Roboto', Arial, sans-serif; /* Clean and professional font */
+    color: var(--clr-text); /* Primary text color */
+    background-color: var(--clr-bg); /* Subtle background color */
     outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.textbox:focus {
+    border-color: var(--clr-primary-hover); /* Slight color shift on focus */
+    box-shadow: 0 0 6px var(--clr-primary-hover); /* Delicate focus glow */
+    background-color: rgba(255, 192, 203, 0.384);
+}
+
+.textbox::placeholder {
+    color: var(--clr-placeholder); /* Soft color for placeholder text */
+    font-style: italic; /* Adds a bit of sophistication */
+}
+
+
 .submit-button {
-    padding: 10px 20px;
-    background-color: var(--clr-primary);
+    padding: 8px 8px; /* Smaller padding */
+    background-color: var(--clr-blob1);
     color: white;
     border: none;
-    border-radius: 0 5px 5px 0;
-    font-size: 1em;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9em; /* Slightly smaller font size */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .submit-button:hover {
-    background-color: var(--clr-primary-hover);
+    background-color: pink;
 }
+
+.submit-button:active {
+    background-color: var(--clr-primary);
+}
+
 
 
 

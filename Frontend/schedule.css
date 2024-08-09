@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -38,15 +37,24 @@ body::before {
     }
 }
 
-h1 {
-    color: var(--clr-math); /* pink color */
-    font-size: 2.5em;
+header {
     text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: var(--clr-math); /* Pink color */
+    font-size: 2.75em; /* Slightly larger for more impact */
+    font-weight: 700; /* Bold for emphasis */
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 1.2em;
+    color: var(--clr-secondary);
+    font-weight: 300;
+    margin-top: -10px;
     margin-bottom: 30px;
-    z-index: 3;
-    position: relative;
-    opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
 }
 
 .body {
@@ -80,6 +88,7 @@ h1 {
     animation: fadeIn 1s ease-out forwards;
 }
 
+
 /* Schedule Table Styles */
 .table-container {
     width: 100%;
@@ -94,7 +103,7 @@ h1 {
     z-index: 3;
     position: relative;
     opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
+    animation: fadeIn 0.25s ease-out forwards;
 }
 
 .schedule-table {
@@ -234,6 +243,38 @@ thead th:hover {
     left: 20%;
     animation: float3 10s ease-in-out infinite;
 }
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.textbox {
+    padding: 10px;
+    border: 1px solid var(--clr-primary);
+    border-radius: 5px 0 0 5px;
+    width: 300px;
+    font-size: 1em;
+    outline: none;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: var(--clr-primary);
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: var(--clr-primary-hover);
+}
+
+
 
 /* Animations */
 @keyframes fadeIn {

@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // let majorsstorage = localStorage.getItem("majors");
+    // console.log(majorsstorage);
+
     var max = 3; // Maximum number of checkboxes allowed to be checked for years
     var majors = [];
     var minors = [];
@@ -93,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (majorCheckbox) {
                 majorCheckbox.checked = true;
             }
+            console.log(majorCheckbox);
         });
 
         var savedMinors = JSON.parse(localStorage.getItem("minors") || '[]');

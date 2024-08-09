@@ -10,6 +10,7 @@ FRONT END - TODO:
 - [ ] Fix the colour-themes to make it look nicer
 - [X] Add dark-light theme to all pages
 - [ ] When courses.html is refreshed with majors selected, it resets as if no majors were selected (Thanks Fahmi)
+- [ ] select.html does not reflect what is selected in localStorage
 
 BACK END - TODO:
 - [ ] Fix the Minor Courses formatting (missing the [] around the courses for non-math minors in the big CSV)

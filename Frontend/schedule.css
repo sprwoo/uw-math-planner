@@ -253,7 +253,7 @@ thead th:hover {
 
 .textbox {
     padding: 8px 12px; /* Adjusted padding for balance */
-    border: 1px solid var(--clr-primary);
+    border: 1px solid var(--clr-secondary);
     border-radius: 2px; /* Smooth but sharp enough for formality */
     width: 200px; /* A compact width */
     font-size: 0.9em; /* Slightly smaller font for a neat look */
@@ -261,14 +261,26 @@ thead th:hover {
     color: var(--clr-text); /* Primary text color */
     background-color: var(--clr-bg); /* Subtle background color */
     outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .textbox:focus {
-    border-color: var(--clr-primary-hover); /* Slight color shift on focus */
-    box-shadow: 0 0 6px var(--clr-primary-hover); /* Delicate focus glow */
-    background-color: rgba(255, 192, 203, 0.384);
+    animation: focusGlow 0.5s ease forwards;
 }
+
+@keyframes focusGlow {
+    0% {
+        border-color: var(--clr-secondary);
+        box-shadow: 0 0 0 var(--clr-primary-hover);
+        background-color: var(--clr-bg);
+    }
+    100% {
+        border-color: var(--clr-primary-hover);
+        box-shadow: 0 0 6px var(--clr-primary-hover);
+        background-color: rgba(255, 192, 203, 0.384); /* Light pink background glow */
+    }
+}
+
 
 .textbox::placeholder {
     color: var(--clr-placeholder); /* Soft color for placeholder text */

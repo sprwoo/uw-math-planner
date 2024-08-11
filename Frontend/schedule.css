@@ -9,7 +9,9 @@ body {
     flex-direction: column;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 100vh; /* Full viewport height */
 }
 
 body::before {
@@ -67,6 +69,7 @@ h1 {
     z-index: 2;
     opacity: 0;
     animation: fadeIn 1s ease-out forwards;
+
 }
 
 .body:hover {
@@ -96,7 +99,8 @@ h1 {
     margin: 20px auto;
     border-collapse: collapse;
     background-color: var(--clr-major-box);
-    overflow: hidden;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    overflow-y: hidden; /* Prevent vertical scrolling within the table container */
     box-shadow: 0 5px 15px var(--clr-shadow);
     border-radius: 8px;
     padding: 20px;
@@ -180,7 +184,7 @@ thead th:hover {
     align-items: center;
     justify-content: center;
     padding: 10px 15px;
-    width: 100px;
+    max-width: 100%; /* Ensure the card doesn't overflow horizontally */
     height: 30px;
     font-size: 16px;
     margin: 10px;

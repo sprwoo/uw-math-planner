@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             for (const [category, courses, type] of major.courses) {
                 const categoryItem = document.createElement('li');
                 categoryItem.classList.add("category")
-                if (type == "X00") categoryItem.classList.add("X00");
+                if (type == "X00") categoryItem.classList.add("dropdown");
                 categoryItem.textContent = category;
     
                 const subList = document.createElement('ul');
@@ -431,16 +431,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         return majorsData;
     }
     
-    var X00s = document.getElementsByClassName("category X00");
+    var X00s = document.getElementsByClassName("category dropdown");
+    console.log(X00s);
     for (let X00 of X00s) {
-        X00.addEventListener('click', () => {
-            let listings = X00.childNodes[1];
-            if (listings.classList.contains("X00")){
-                listings.classList.remove("X00");
-                listings.classList.add("X00show");
-            } else {
-                listings.classList.remove("X00show");
-                listings.classList.add("X00");
+        X00.addEventListener('click', (event) => {
+            if (event.target === X00) {
+                console.log("clicked");
+                let listings = X00.querySelector('.X00, .X00show'); // Use querySelector to find the child element
+                if (listings.classList.contains("X00")) {
+                    listings.classList.remove("X00");
+                    listings.classList.add("X00show");
+                } else {
+                    listings.classList.remove("X00show");
+                    listings.classList.add("X00");
+                }
             }
         });
     }

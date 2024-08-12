@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 categoryItem.textContent = category;
     
                 const subList = document.createElement('ul');
+                if (type == "X00") subList.classList.add("X00");
     
                 for (const course of courses) {
                     if (typeof course === 'string' && course.trim() && course.includes(" or "))  {
@@ -127,6 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const mainListItem = document.createElement('li');
                         mainListItem.textContent = mainCourse;
                         mainListItem.classList.add('course-item');
+                        
                         
                         subList.appendChild(mainListItem);
     

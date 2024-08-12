@@ -181,7 +181,14 @@ body {
 .matched-course {
     background-color: var(--clr-course-matched);
 }
+ 
+ul.X00 {
+    display: none;
+}
 
+ul.X00show {
+    display: block;
+}
 /*************** POP UPS ******************/
 .course-popup {
     display: none;

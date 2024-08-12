@@ -19,7 +19,6 @@ if (custom.length > 0) {
     minors = [...originalMinors, ...custom];
 }
 
-
 let selectedCourses = [];
 let selectionState = {};
 
@@ -30,16 +29,15 @@ let yearDisplay = document.getElementById('year-display');
 if (yearDisplay && year) {
     yearDisplay.textContent = `Academic Year: ${year}`;
 }
+
 document.addEventListener('DOMContentLoaded', async () => {
     const majorsContainer = document.getElementById('majors-container');
     const errorContainer = document.getElementById('error-container');
     // Temporary course details
-    const courseDetails = {
+    // const courseDetails = {
         
-    };
-
+    // };`
     try {
-
         if (year === null || year === undefined || year === "") {
             year = "No Year Selected"; // Update the global variable if year is empty
         }
@@ -263,43 +261,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Function to determine maximum selections allowed based on category
     function getMaxSelections(category) {
-    if (category.includes('One ') || category.includes('1 ')) {
-        console.log(1);
-        return 1;
-    } else if (category.includes('Two ') || category.includes('2 ')) {
-        console.log(2);
-        return 2;
-    } else if (category.includes('Three ') || category.includes('3 ')) {
-        console.log(3);
-        return 3;
-    } else if (category.includes('Four ') || category.includes('4 ')) {
-        console.log(4);
-        return 4;
-    } else if (category.includes('Five ') || category.includes('5 ')) {
-        console.log(5); 
-        return 5;
-    } else if (category.includes('Six ') || category.includes('6 ')) {
-        console.log(6);
-        return 6;
-    } else if (category.includes('Seven ') || category.includes('7 ')) {
-        console.log(7);
-        return 7;
-    } else if (category.includes('Eight ') || category.includes('8 ')) {
-        console.log(8);
-        return 8;
-    } else if (category.includes('Nine ') || category.includes('9 ')) {
-        console.log(9);
-        return 9;
-    } else if (category.includes('Ten ') || category.includes('10 ')) {
-        console.log(10);
-        return 10;
-    } else if (category.includes('All')) {
-        console.log(Number.MAX_SAFE_INTEGER);
-        return Number.MAX_SAFE_INTEGER;
-    }
+        if (category.includes('One ') || category.includes('1 ')) {
+            console.log(1);
+            return 1;
+        } else if (category.includes('Two ') || category.includes('2 ')) {
+            console.log(2);
+            return 2;
+        } else if (category.includes('Three ') || category.includes('3 ')) {
+            console.log(3);
+            return 3;
+        } else if (category.includes('Four ') || category.includes('4 ')) {
+            console.log(4);
+            return 4;
+        } else if (category.includes('Five ') || category.includes('5 ')) {
+            console.log(5); 
+            return 5;
+        } else if (category.includes('Six ') || category.includes('6 ')) {
+            console.log(6);
+            return 6;
+        } else if (category.includes('Seven ') || category.includes('7 ')) {
+            console.log(7);
+            return 7;
+        } else if (category.includes('Eight ') || category.includes('8 ')) {
+            console.log(8);
+            return 8;
+        } else if (category.includes('Nine ') || category.includes('9 ')) {
+            console.log(9);
+            return 9;
+        } else if (category.includes('Ten ') || category.includes('10 ')) {
+            console.log(10);
+            return 10;
+        } else if (category.includes('All')) {
+            console.log(Number.MAX_SAFE_INTEGER);
+            return Number.MAX_SAFE_INTEGER;
+        }
 
-    return 0;
-}
+        return 0;
+    }
 
 
     async function processMajors(year, majors, type) {
@@ -433,11 +431,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         return majorsData;
     }
     
+    var X00s = document.getElementsByClassName("category X00");
+    for (let X00 of X00s) {
+        X00.addEventListener('click', () => {
+            let listings = X00.childNodes[1];
+            if (listings.classList.contains("X00")){
+                listings.classList.remove("X00");
+                listings.classList.add("X00show");
+            } else {
+                listings.classList.remove("X00show");
+                listings.classList.add("X00");
+            }
+        });
+    }
     
-    
-    
-    
-
-    console.log("COURSE LOOKUP");
-    console.log(courseDetails);
 });

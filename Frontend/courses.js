@@ -30,6 +30,26 @@ if (yearDisplay && year) {
     yearDisplay.textContent = `Academic Year: ${year}`;
 }
 
+function X00Dropdown () {
+    var X00s = document.getElementsByClassName("category dropdown");
+    console.log(X00s);
+    for (let X00 of X00s) {
+        X00.addEventListener('click', (event) => {
+            if (event.target === X00) {
+                console.log("clicked");
+                let listings = X00.querySelector('.X00, .X00show'); // Use querySelector to find the child element
+                if (listings.classList.contains("X00")) {
+                    listings.classList.remove("X00");
+                    listings.classList.add("X00show");
+                } else {
+                    listings.classList.remove("X00show");
+                    listings.classList.add("X00");
+                }
+            }
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const majorsContainer = document.getElementById('majors-container');
     const errorContainer = document.getElementById('error-container');
@@ -431,22 +451,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         return majorsData;
     }
     
-    var X00s = document.getElementsByClassName("category dropdown");
-    console.log(X00s);
-    for (let X00 of X00s) {
-        X00.addEventListener('click', (event) => {
-            if (event.target === X00) {
-                console.log("clicked");
-                let listings = X00.querySelector('.X00, .X00show'); // Use querySelector to find the child element
-                if (listings.classList.contains("X00")) {
-                    listings.classList.remove("X00");
-                    listings.classList.add("X00show");
-                } else {
-                    listings.classList.remove("X00show");
-                    listings.classList.add("X00");
-                }
-            }
-        });
-    }
-    
+    X00Dropdown();
 });

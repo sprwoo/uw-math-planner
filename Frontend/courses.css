@@ -183,11 +183,42 @@ body {
 }
  
 ul.X00 {
+    opacity: 0;
     display: none;
+    animation: disappear 0.5s;
 }
 
 ul.X00show {
     display: block;
+    opacity: 1;
+    animation: appear 0.5s;
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        transform: translateX(-5rem);
+    } 50% {
+        transform: translateX(0);
+    } 100% {
+        opacity: 1;
+        transform:translateX(0);
+    }
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+        transform:translateX(0);
+        display: block;
+    }
+    50% {
+        transform: translateX(0);
+    } 100% {
+        opacity: 0;
+        transform: translateX(-5rem);
+        display: none;
+    }
 }
 /*************** POP UPS ******************/
 .course-popup {

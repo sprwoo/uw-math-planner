@@ -131,10 +131,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     
             for (const [category, courses, type] of major.courses) {
                 const categoryItem = document.createElement('li');
-                categoryItem.classList.add("category")
-                if (type == "X00") categoryItem.classList.add("dropdown");
+                categoryItem.classList.add("category");
                 categoryItem.textContent = category;
-    
+                
+                // let dropdownContainer;
+
+                if (type == "X00") {
+                    // dropdownContainer = document.createElement('div');
+
+                    // dropdownContainer.appendChild(categoryItem);
+
+                    categoryItem.classList.add("dropdown");
+                    // const arrow = document.createElement('span');
+                    // arrow.textContent = "V";
+
+                    // dropdownContainer.appendChild(arrow);
+                }
+                
                 const subList = document.createElement('ul');
                 if (type == "X00") subList.classList.add("X00");
     
@@ -196,6 +209,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
     
                 categoryItem.appendChild(subList);
+
+                // if (dropdownContainer) {
+                //     courseList.appendChild(dropdownContainer);
+                // } else 
                 courseList.appendChild(categoryItem);
             }
     

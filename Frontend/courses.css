@@ -181,7 +181,11 @@ body {
 .matched-course {
     background-color: var(--clr-course-matched);
 }
- 
+
+.dropdown {
+    cursor: pointer;
+}
+
 ul.X00 {
     opacity: 0;
     display: none;
@@ -220,6 +224,12 @@ ul.X00show {
         display: none;
     }
 }
+
+.category-container {
+    display: inline;
+    align-items: center;
+}
+
 /*************** POP UPS ******************/
 .course-popup {
     display: none;

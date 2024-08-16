@@ -286,29 +286,27 @@ thead th:hover {
 }
 
 
-.textbox::placeholder {
-    color: var(--clr-placeholder); /* Soft color for placeholder text */
-    font-style: italic; /* Adds a bit of sophistication */
-}
-
-
 .submit-button {
-    padding: 8px 8px; /* Smaller padding */
-    background-color: var(--clr-blob1);
-    color: white;
+    color: var(--clr-primary);
+    width: 200px;
+    height: 50px;
+    background: var(--clr-secondary);
     border: none;
-    border-radius: 0 4px 4px 0;
-    font-size: 0.9em; /* Slightly smaller font size */
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: #1f2029;
 }
 
 .submit-button:hover {
-    background-color: pink;
+    background: var(--clr-math);
+    transform: translateY(5px);
 }
 
 .submit-button:active {
-    background-color: var(--clr-primary);
+    transform: translateY(-2px);
 }
 
 

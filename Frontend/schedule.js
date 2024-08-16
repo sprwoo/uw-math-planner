@@ -113,35 +113,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    
+    document.querySelector('.submit-button').addEventListener('click', function() {
+        var table = document.getElementById('schedule-table');
+        var ws_data = [];
 
-    /*
-    // Export to Google Sheets
-    document.getElementById('export').addEventListener('click', () => {
-        const tableData = [];
+        // Add table headers
+        var headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent);
+        ws_data.push(headers);
 
-        scheduleCells.forEach(cell => {
-            if (cell.firstChild && cell.firstChild.classList && cell.firstChild.classList.contains('course-card')) {
-                tableData.push(cell.firstChild.textContent);
-            } else {
-                tableData.push('');
-            }
+        // Add table data
+        Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
+            var rowData = Array.from(row.querySelectorAll('td')).map(td => {
+                const card = td.querySelector('.course-card');
+                return card ? card.textContent : '';
+            });
+            ws_data.push(rowData);
         });
 
-        fetch('/export', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ data: tableData }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+        // Create a workbook and a worksheet
+        var ws = XLSX.utils.aoa_to_sheet(ws_data);
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Schedule");
+
+        // Style the headers
+        ws['!cols'] = [{ width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }];
+        ws['!rows'] = [];
+        for (let i = 0; i < headers.length; i++) {
+            ws['A1'].s = { font: { bold: true, color: "FFFFFF" }, fill: { fgColor: { rgb: "4F81BD" } } };
+        }
+
+        // Generate Excel file and trigger download
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        var blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "course_schedule.xlsx";
+        document.body.appendChild(link); // Required for Firefox
+        link.click(); // Trigger the download
+        document.body.removeChild(link); // Clean up
     });
-    */
 });

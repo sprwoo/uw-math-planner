@@ -116,32 +116,41 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.submit-button').addEventListener('click', function() {
         var table = document.getElementById('schedule-table');
         var ws_data = [];
-
+    
         // Add table headers
         var headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent);
         ws_data.push(headers);
-
+    
         // Add table data
         Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
             var rowData = Array.from(row.querySelectorAll('td')).map(td => {
                 const card = td.querySelector('.course-card');
-                return card ? card.textContent : '';
+                const input = td.querySelector('.cell-input');
+    
+                // If there's a course card, use its textContent; otherwise, use the input value
+                if (card) {
+                    return card.textContent;
+                } else if (input && input.value) {
+                    return input.value;
+                } else {
+                    return ''; // Empty cell
+                }
             });
             ws_data.push(rowData);
         });
-
+    
         // Create a workbook and a worksheet
         var ws = XLSX.utils.aoa_to_sheet(ws_data);
         var wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Schedule");
-
+    
         // Style the headers
         ws['!cols'] = [{ width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }];
         ws['!rows'] = [];
         for (let i = 0; i < headers.length; i++) {
             ws['A1'].s = { font: { bold: true, color: "FFFFFF" }, fill: { fgColor: { rgb: "4F81BD" } } };
         }
-
+    
         // Generate Excel file and trigger download
         var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
         function s2ab(s) {
@@ -158,4 +167,5 @@ document.addEventListener('DOMContentLoaded', () => {
         link.click(); // Trigger the download
         document.body.removeChild(link); // Clean up
     });
+    
 });

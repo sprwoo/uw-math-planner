@@ -101,7 +101,7 @@ p {
 	width: 100%;
 	height: 100%;
 	border-radius: 4px;
-	background-image: linear-gradient(298deg, var(--clr-major), var(--clr-major-shadow));
+	background-image: linear-gradient(298deg, var(--clr-major), var(--clr-major));
 	z-index: -1;
 	transition: background-color 300ms linear;
 }
@@ -115,7 +115,7 @@ p {
 	width: 100%;
 	height: 100%;
 	border-radius: 4px;
-	background-image: linear-gradient(298deg, var(--clr-minor), var(--clr-minor-shadow));
+	background-image: linear-gradient(298deg, var(--clr-minor), var(--clr-minor));
 	z-index: -1;
 	transition: background-color 300ms linear;
 }
@@ -129,7 +129,7 @@ p {
 	width: 100%;
 	height: 100%;
 	border-radius: 4px;
-	background-image: linear-gradient(298deg, var(--clr-year), var(--clr-year-shadow));
+	background-image: linear-gradient(298deg, var(--clr-year), var(--clr-year));
 	z-index: -1;
 	transition: background-color 300ms linear;
 }

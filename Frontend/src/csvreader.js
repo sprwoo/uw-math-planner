@@ -17,37 +17,11 @@ function fetchAndParseCSV(url) {
         });
 }
 
-function lowercase(str) {
-    let result = '';
-    for (let i = 0; i < str.length; i++) {
-        const charCode = str.charCodeAt(i);
-        if (charCode >= 65 && charCode <= 90) {
-            result += String.fromCharCode(charCode + 32);
-        } else {
-            result += str[i];
-        }
-    }
-    return result;
-}
-
-function uppercase(str) {
-    let result = '';
-    for (let i = 0; i < str.length; i++) {
-        const charCode = str.charCodeAt(i);
-        if (charCode >= 97 && charCode <= 122) { // 'a' to 'z'
-            result += String.fromCharCode(charCode - 32); // Convert to uppercase
-        } else {
-            result += str[i];
-        }
-    }
-    return result;
-}
-
 function degreeBinarySearch(data, year, degree_name, degree_type) {
     // Function to format degree name
     function formatDegreeName(name) {
-        return lowercase(name).replace(/\b\w/g, function(char) {
-            return uppercase(char);
+        return name.toLowerCase().replace(/\b\w/g, function(char) {
+            return char.toUpperCase();
         });
     }
 

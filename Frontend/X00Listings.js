@@ -185,5 +185,3 @@ export async function lookForRange(csvPath, text) {
         // Handle error as needed
     }
 }
-
-

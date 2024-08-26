@@ -17,11 +17,29 @@ function fetchAndParseCSV(url) {
         });
 }
 
+function lowercase(str) {
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] >= 'A' && str[i] <= 'Z')
+            str[i] = str[i] - 'A' + 'a';
+    }
+
+    return str;
+}
+
+function uppercase(str) {
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] >= 'a' && str[i] <= 'z')
+            str[i] = str[i] - 'a' + 'A';
+    }
+
+    return str;
+}
+
 function degreeBinarySearch(data, year, degree_name, degree_type) {
     // Function to format degree name
     function formatDegreeName(name) {
-        return name.toLowerCase().replace(/\b\w/g, function(char) {
-            return char.toUpperCase();
+        return lowercase(name).replace(/\b\w/g, function(char) {
+            return uppercase(char);
         });
     }
 

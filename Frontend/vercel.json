@@ -7,7 +7,7 @@
       },
       {
         "src": "src/*.js",
-        "use": "@vercel/node"
+        "use": "@vercel/static"
       },
       {
         "src": "src/*.css",
@@ -29,4 +29,3 @@
       }
     ]
   }
-  

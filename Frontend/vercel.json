@@ -1,0 +1,31 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/**/*.html",
+        "use": "@vercel/static"
+      },
+      {
+        "src": "src/**/*.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "src/**/*.css",
+        "use": "@vercel/static"
+      },
+      {
+        "src": "public/CSVs/*",
+        "use": "@vercel/static"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/CSVs/(.*)",
+        "dest": "/public/CSVs/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/src/$1"
+      }
+    ]
+  }

@@ -18,21 +18,29 @@ function fetchAndParseCSV(url) {
 }
 
 function lowercase(str) {
+    let result = '';
     for (let i = 0; i < str.length; i++) {
-        if (str[i] >= 'A' && str[i] <= 'Z')
-            str[i] = str[i] - 'A' + 'a';
+        const charCode = str.charCodeAt(i);
+        if (charCode >= 65 && charCode <= 90) {
+            result += String.fromCharCode(charCode + 32);
+        } else {
+            result += str[i];
+        }
     }
-
-    return str;
+    return result;
 }
 
 function uppercase(str) {
+    let result = '';
     for (let i = 0; i < str.length; i++) {
-        if (str[i] >= 'a' && str[i] <= 'z')
-            str[i] = str[i] - 'a' + 'A';
+        const charCode = str.charCodeAt(i);
+        if (charCode >= 97 && charCode <= 122) { // 'a' to 'z'
+            result += String.fromCharCode(charCode - 32); // Convert to uppercase
+        } else {
+            result += str[i];
+        }
     }
-
-    return str;
+    return result;
 }
 
 function degreeBinarySearch(data, year, degree_name, degree_type) {

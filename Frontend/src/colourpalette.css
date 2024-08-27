@@ -1,10 +1,10 @@
 :root {
-	--clr-primary: #e9f0dc;
+	--clr-primary: #F6F5F2;
     --clr-secondary: #2d272b;
     --clr-text: #3d3d41;
     --clr-text-alt: #e2e2e2;
 
-	--clr-box: #c1c4bd;
+	--clr-box: #F0EBE3;
     --clr-major: #e2c6dc;
 	--clr-major-shadow: #fed4f4;
 	--clr-minor: #ffc5dd;
@@ -12,7 +12,7 @@
 	--clr-year: #ffb6ee;
 	--clr-year-shadow: #ffbaff;
 
-    --clr-major-box: #d4d8ce;
+    --clr-major-box: #F0EBE3;
     --clr-box-hover: #adadad;
     --clr-major-title: #fc87e1;
     --clr-course-hover: #f0c9e7c5;
@@ -44,11 +44,11 @@
     --clr-text-alt: #3d3d41;
 
 	--clr-box: #353746;
-    --clr-major: #e681d0;
-	--clr-major-shadow: #d646b5;
-	--clr-minor: #e74689;
-	--clr-minor-shadow: #d81f6c;
-	--clr-year: #c20f98;
+    --clr-major: #de5d83;
+	--clr-major-shadow: #F3D0D7;
+	--clr-minor: #E87EA0 ;
+	--clr-minor-shadow: #FFEFEF;
+	--clr-year: #a94064;
 	--clr-year-shadow: #960196;
 
     --clr-major-box: #353838;

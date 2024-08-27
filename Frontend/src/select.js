@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set initial toggle setting to "DOUBLE"
     localStorage.setItem('toggleSetting', 'DOUBLE');
 
+    // Clear localStorage data on page load to reset selections
+    localStorage.removeItem("majors");
+    localStorage.removeItem("minors");
+    localStorage.removeItem("year");
+    localStorage.removeItem("custom");
+
     // Define selectiveCheck function
     function selectiveCheck(event) {
         var checkboxType = this.getAttribute('name');

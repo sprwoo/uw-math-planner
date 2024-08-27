@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // let majorsstorage = localStorage.getItem("majors");
-    // console.log(majorsstorage);
-
     var max = 3; // Maximum number of checkboxes allowed to be checked for years
     var majors = [];
     var minors = [];
@@ -78,64 +75,25 @@ document.addEventListener('DOMContentLoaded', function() {
     var majorCheckboxes = document.querySelectorAll('input[name="majors"]');
     majorCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
+        checkbox.checked = false; // Uncheck all major checkboxes on page load
     });
 
     var minorCheckboxes = document.querySelectorAll('input[name="minors"]');
     minorCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
+        checkbox.checked = false; // Uncheck all minor checkboxes on page load
     });
 
     var yearCheckboxes = document.querySelectorAll('input[name="years"]');
     yearCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
+        checkbox.checked = false; // Uncheck all year checkboxes on page load
     });
 
     // Add event listener to custom fields textbox
     var customTextbox = document.querySelector('.textbox-custom');
+    customTextbox.value = ''; // Clear the custom textbox on page load
     customTextbox.addEventListener('input', updateMinors);
-
-    // Load saved selections from localStorage on page load
-    function loadSavedSelections() {
-        var savedMajors = JSON.parse(localStorage.getItem("majors") || '[]');
-        savedMajors.forEach(function(majorId) {
-            var majorCheckbox = document.getElementById(majorId);
-            if (majorCheckbox) {
-                majorCheckbox.checked = true;
-            }
-            console.log(majorCheckbox);
-        });
-
-        var savedMinors = JSON.parse(localStorage.getItem("minors") || '[]');
-        savedMinors.forEach(function(minorId) {
-            var minorCheckbox = document.getElementById(minorId);
-            if (minorCheckbox) {
-                minorCheckbox.checked = true;
-            }
-        });
-
-        var savedYear = localStorage.getItem("year") || '';
-        var yearCheckbox = document.getElementById(savedYear);
-        if (yearCheckbox) {
-            yearCheckbox.checked = true;
-        }
-
-        var savedCustomField = JSON.parse(localStorage.getItem("custom") || '[]');
-        if (savedCustomField.length > 0) {
-            customTextbox.value = savedCustomField[0];
-            updateMinors();
-        }
-    }
-
-    // Clear custom textbox and arrays on page load
-    function clearCustomField() {
-        customTextbox.value = ''; // Clear the textbox
-        custom = []; // Clear the custom array
-        localStorage.setItem("custom", JSON.stringify(custom)); // Update localStorage
-    }
-
-    // Initialize the page
-    loadSavedSelections(); // Load saved selections on page load
-    clearCustomField(); // Clear custom field on refresh
 
     // Toggle Switch Functionality
     var toggleSwitch = document.getElementById('majorToggle');

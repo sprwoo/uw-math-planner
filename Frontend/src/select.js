@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var custom = []; // Array to store custom textbox content
 
     // Set initial toggle setting to "DOUBLE"
-    localStorage.setItem('toggleSetting', 'DOUBLE');
+    if (!localStorage.getItem('toggleSetting')) {
+        localStorage.setItem('toggleSetting', 'DOUBLE');
+    }
 
     // Clear localStorage data on page load to reset selections
     localStorage.removeItem("majors");

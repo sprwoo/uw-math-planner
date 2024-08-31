@@ -2,17 +2,16 @@ University of Waterloo Undegraduate Calendar for Math students.
 
 A data scraping project by Ajai Chandi and Daniel Yang.
 
-DEPLOYED WEBSITE: https://uw-math-planner.vercel.app
+DEPLOYED WEBSITE: https://uwmathplanner.vercel.app
 
-FRONT END - 
-- [ ] Fix issues with "matching" some of the X00 courses with non-X00 courses
-- [ ] DEPLOY
+TO-DOs
+- [ ] When in dark mode and accessing select.html, the theme slider resets to light mode. This only happens on this page for some reason
+- [ ] Fix the Non-Math Minor Courses formatting 
+- [ ] Deployed website keeps past courses highlighted
+- [ ] Schedule is NOT mobile friendly
 
-BACK END - TODO:
-- [ ] Fix the Minor Courses formatting (missing the [] around the courses for non-math minors in the big CSV)
+^^^ (Drag/drop works for mobile in the form of pickup/drop, now for the table to be visible)
 
 Nice to have features:
-- AI chatbot?
-- Recommendation features
+- AI chatbot
 - Log in + Accounts
-- Grade Tracking 

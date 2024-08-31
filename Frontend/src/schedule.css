@@ -176,9 +176,10 @@ thead th:hover {
     min-height: 50px;
 }
 
+
 /* Course Card Styles */
 .course-card {
-    background-color: var(--clr-blob1); /* pink color */
+    background-color: var(--clr-course-card); /* pink color */
     color: var(--clr-text-alt);
     display: inline-flex;
     align-items: center;
@@ -197,6 +198,11 @@ thead th:hover {
     position: relative;
     opacity: 0;
     animation: slideInFromBottom 0.6s ease-out forwards;
+}
+
+.clicked {
+    opacity: 0.5;
+    background-color: var(--clr-card-selected);
 }
 
 .course-card:hover {

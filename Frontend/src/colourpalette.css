@@ -21,7 +21,8 @@
 
     --clr-schedule: #f8f9fa;
     --clr-schedule-hover: #e1e2e2;
-
+    --clr-course-card: #e494bc;
+    --clr-card-selected: #ec4398;
 
     /* Shared properties */
     --clr-math: #e23e93;

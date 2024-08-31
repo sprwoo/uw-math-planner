@@ -4,20 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(courses);
 
     // Function to clean course descriptions and format course codes
-    function cleanCourseDescriptions(courseArray) {
-        return courseArray.map(course => {
-            // Remove newlines and trim spaces
-            course = course.replace(/\n\s*/g, ' ').trim();
-
-            // Extract the course code and add a space between letters and numbers
-            const courseCodeMatch = course.match(/^([A-Z]+\s?\d+)/);
-            if (courseCodeMatch) {
-                const formattedCourseCode = courseCodeMatch[0];
-                return formattedCourseCode;
-            }
-            return course;
-        });
-    }
 
     const cleanedCourses = cleanCourseDescriptions(courses);
     const newCourses = removeDuplicates(cleanedCourses);
@@ -25,11 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const scheduleCells = document.querySelectorAll('.droppable');
     let draggedCourses = [];
     let scheduleCourses = [];
-
-    // Function to remove duplicates
-    function removeDuplicates(arr) {
-        return [...new Set(arr)];
-    }
 
     // Function to create course cards
     function createCourseCard(courseCode) {
@@ -66,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle drag and drop
     let dragged;
 
+    // Handle click thing
+    let clicked;
+
     coursesContainer.addEventListener('dragstart', (event) => {
         dragged = event.target;
         dragged.classList.add('dragging');
@@ -74,7 +58,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     coursesContainer.addEventListener('dragend', (event) => {
         dragged.classList.remove('dragging');
+        dragged = null;
     });
+
+    // Handle touch start (similar to dragstart)
+    coursesContainer.addEventListener('touchstart', (event) => {
+        dragged = event.target;
+        dragged.classList.add('dragging');
+        event.preventDefault();
+    });
+
+    // Handle touch end (similar to dragend)
+    coursesContainer.addEventListener('touchend', (event) => {
+        if (dragged) {
+            dragged.classList.remove('dragging');
+            dragged = null;
+        }
+        event.preventDefault();
+    });
+
 
     scheduleCells.forEach(cell => {
         cell.addEventListener('dragover', (event) => {
@@ -113,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Turn into an Excel file
     document.querySelector('.submit-button').addEventListener('click', function() {
         var table = document.getElementById('schedule-table');
         var ws_data = [];
@@ -169,3 +172,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
 });
+
+function cleanCourseDescriptions(courseArray) {
+    return courseArray.map(course => {
+        // Remove newlines and trim spaces
+        course = course.replace(/\n\s*/g, ' ').trim();
+
+        // Extract the course code and add a space between letters and numbers
+        const courseCodeMatch = course.match(/^([A-Z]+\s?\d+)/);
+        if (courseCodeMatch) {
+            const formattedCourseCode = courseCodeMatch[0];
+            return formattedCourseCode;
+        }
+        return course;
+    });
+}
+
+// Function to remove duplicates
+function removeDuplicates(arr) {
+    return [...new Set(arr)];
+}

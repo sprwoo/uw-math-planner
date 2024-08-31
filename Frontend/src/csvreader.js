@@ -59,7 +59,11 @@ function degreeBinarySearch(data, year, degree_name, degree_type) {
  * @returns {Promise}           Promise with an object representing the major/minor
  */
 export async function lookup_requirements(year, degree_name, degree_type) {
+    // For testing
+    // const data = await fetchAndParseCSV(`../public/CSVs/${degree_type}_requirements.csv`);
+    // For actual deployed server
     const data = await fetchAndParseCSV(`../CSVs/${degree_type}_requirements.csv`);
+
     const degree = degreeBinarySearch(data, year, degree_name, degree_type)
     if (degree) {
         return degree;
@@ -111,7 +115,11 @@ function courseBinarySearch(data, name) {
  * @returns {Promise}               Promise with an object of the course 
  */
 export async function lookup_courses(course_code) {
+    // For testing
+    //const data = await fetchAndParseCSV('../public/CSVs/course_info.csv');
+    // For actual deployed server
     const data = await fetchAndParseCSV('../CSVs/course_info.csv');
+
     const course = courseBinarySearch(data, course_code);
     if (course) {
         return course;

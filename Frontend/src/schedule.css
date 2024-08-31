@@ -176,6 +176,10 @@ thead th:hover {
     min-height: 50px;
 }
 
+.clicked {
+    opacity: 0.5;
+}
+
 /* Course Card Styles */
 .course-card {
     background-color: var(--clr-blob1); /* pink color */

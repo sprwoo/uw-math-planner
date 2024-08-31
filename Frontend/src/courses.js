@@ -411,7 +411,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     
                                 if (checkForX00(category)) {
                                     // Invoke lookForRange if category matches X00 pattern
-                                    const parsedResult = await lookForRange('./CSVs/course_info.csv', category);
+                                    // For testing
+                                    // const parsedResult = await lookForRange('../public/CSVs/course_info.csv', category);
+                                    // For the actual deployed server
+                                    const parsedResult = await lookForRange('../CSVs/course_info.csv', category); 
+
                                     console.log('Parsed result for category:', parsedResult);
     
                                     // Convert the Set to an array

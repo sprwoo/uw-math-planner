@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cleanedCourses = cleanCourseDescriptions(courses);
     const newCourses = removeDuplicates(cleanedCourses);
+    newCourses.push("TEST");
+
     const coursesContainer = document.getElementById('courses-container');
     const scheduleCells = document.querySelectorAll('.droppable');
     let draggedCourses = [];
@@ -46,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle drag and drop
     let dragged;
+    let clicked;
+    let isClicked = false;
 
     coursesContainer.addEventListener('dragstart', (event) => {
         dragged = event.target;
@@ -56,6 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
     coursesContainer.addEventListener('dragend', (event) => {
         dragged.classList.remove('dragging');
     });
+
+    coursesContainer.addEventListener('click', (event) => {
+        clicked = event.target;
+
+        if (!isClicked) { // If nothing else is selected, select this card
+            clicked.classList.add('clicked');
+            isClicked = true;
+        } else { // Prevents other cards from being selected
+             // If the clicked card is the selected card, unselect it
+            if (clicked.classList.contains('clicked')) {
+                clicked.classList.remove('clicked');
+                isClicked = false;
+            }
+        }
+    })
 
     scheduleCells.forEach(cell => {
         cell.addEventListener('dragover', (event) => {
@@ -90,6 +109,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     draggedCourses.push(courseCode);
                     scheduleCourses.push(courseCode);
                 }
+            }
+        });
+
+        cell.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (clicked && clicked.classList.contains('course-card') && clicked.classList.contains('clicked')) {
+                const courseCode = clicked.textContent;
+                // Check if the cell already contains a card
+                if (cell.childNodes.length > 0 && cell.firstChild.classList.contains('course-card')) {
+                    const existingCourseCode = cell.firstChild.textContent;
+                    draggedCourses = draggedCourses.filter(code => code !== existingCourseCode);
+                    scheduleCourses = scheduleCourses.filter(code => code !== existingCourseCode);
+                    coursesContainer.appendChild(cell.firstChild);
+                }
+
+                // Allow duplicates if the dragged card is empty ("" content)
+                if (courseCode === '') {
+                    cell.innerHTML = '';
+                    cell.appendChild(clicked);
+                } else {
+                    // Check if the course is already in scheduleCourses array
+                    if (scheduleCourses.includes(courseCode)) {
+                        return; // Prevent adding the same course to multiple cells
+                    }
+                    cell.innerHTML = '';
+                    cell.appendChild(clicked);
+                    draggedCourses.push(courseCode);
+                    scheduleCourses.push(courseCode);
+                }
+                clicked.classList.remove('clicked');
+                isClicked = false;
             }
         });
     });

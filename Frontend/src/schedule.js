@@ -47,9 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle drag and drop
     let dragged;
 
-    // Handle click thing
-    let clicked;
-
     coursesContainer.addEventListener('dragstart', (event) => {
         dragged = event.target;
         dragged.classList.add('dragging');
@@ -58,25 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     coursesContainer.addEventListener('dragend', (event) => {
         dragged.classList.remove('dragging');
-        dragged = null;
     });
-
-    // Handle touch start (similar to dragstart)
-    coursesContainer.addEventListener('touchstart', (event) => {
-        dragged = event.target;
-        dragged.classList.add('dragging');
-        event.preventDefault();
-    });
-
-    // Handle touch end (similar to dragend)
-    coursesContainer.addEventListener('touchend', (event) => {
-        if (dragged) {
-            dragged.classList.remove('dragging');
-            dragged = null;
-        }
-        event.preventDefault();
-    });
-
 
     scheduleCells.forEach(cell => {
         cell.addEventListener('dragover', (event) => {

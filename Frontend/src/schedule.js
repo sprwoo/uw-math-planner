@@ -48,19 +48,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle drag and drop
     let dragged;
+
+    // Handle pick up and drop
     let clicked;
     let isClicked = false;
 
+    // Start of drag
     coursesContainer.addEventListener('dragstart', (event) => {
         dragged = event.target;
         dragged.classList.add('dragging');
         event.dataTransfer.effectAllowed = 'move';
     });
 
+    // End of drag
     coursesContainer.addEventListener('dragend', (event) => {
         dragged.classList.remove('dragging');
     });
 
+    // Select and unselect for pick up
     coursesContainer.addEventListener('click', (event) => {
         clicked = event.target;
 

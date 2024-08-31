@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cleanedCourses = cleanCourseDescriptions(courses);
     const newCourses = removeDuplicates(cleanedCourses);
-    newCourses.push("TEST");
+    // newCourses.push("TEST");
 
     const coursesContainer = document.getElementById('courses-container');
     const scheduleCells = document.querySelectorAll('.droppable');

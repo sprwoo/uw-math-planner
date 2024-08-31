@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var year = ""; // Variable to store selected year
     var custom = []; // Array to store custom textbox content
 
-    // Set initial toggle setting to "DOUBLE"
+    // Set initial toggle setting to "DOUBLE" if not set
     if (!localStorage.getItem('toggleSetting')) {
         localStorage.setItem('toggleSetting', 'DOUBLE');
     }
@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.removeItem("minors");
     localStorage.removeItem("year");
     localStorage.removeItem("custom");
+
+    // Force reset all checkboxes on page load
+    var allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+    allCheckboxes.forEach(function(checkbox) {
+        checkbox.checked = false; // Uncheck all checkboxes on page load
+    });
 
     // Define selectiveCheck function
     function selectiveCheck(event) {
@@ -77,19 +83,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var majorCheckboxes = document.querySelectorAll('input[name="majors"]');
     majorCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
-        checkbox.checked = false; // Uncheck all major checkboxes on page load
     });
 
     var minorCheckboxes = document.querySelectorAll('input[name="minors"]');
     minorCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
-        checkbox.checked = false; // Uncheck all minor checkboxes on page load
     });
 
     var yearCheckboxes = document.querySelectorAll('input[name="years"]');
     yearCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', selectiveCheck);
-        checkbox.checked = false; // Uncheck all year checkboxes on page load
     });
 
     // Add event listener to custom fields textbox

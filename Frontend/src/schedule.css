@@ -381,10 +381,7 @@ thead th:hover {
 
 @media (max-width: 768px) {
     th{
-        display: none;
-    }
-
-    td {
         display: block;
     }
+
 }

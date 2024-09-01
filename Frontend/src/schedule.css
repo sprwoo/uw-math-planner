@@ -263,14 +263,14 @@ thead th:hover {
 }
 
 .textbox {
-    padding: 8px 12px; /* Adjusted padding for balance */
+    padding: 8px 12px; 
     border: 1px solid var(--clr-secondary);
-    border-radius: 2px; /* Smooth but sharp enough for formality */
-    width: 200px; /* A compact width */
-    font-size: 0.9em; /* Slightly smaller font for a neat look */
-    font-family: 'Roboto', Arial, sans-serif; /* Clean and professional font */
-    color: var(--clr-text); /* Primary text color */
-    background-color: var(--clr-bg); /* Subtle background color */
+    border-radius: 2px; 
+    width: 200px; 
+    font-size: 0.9em; 
+    font-family: 'Roboto', Arial, sans-serif; 
+    color: var(--clr-text); 
+    background-color: var(--clr-bg); 
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
@@ -380,6 +380,9 @@ thead th:hover {
 
 
 @media (max-width: 768px) {
+    .body {
+        padding: 0rem 0.5rem;
+    }
     .schedule-table, .schedule-table thead, .schedule-table tbody, .schedule-table tr {
         display: block; /* Display elements as blocks */
         width: 100%;

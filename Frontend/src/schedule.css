@@ -380,9 +380,6 @@ thead th:hover {
 
 
 @media (max-width: 768px) {
-    .body {
-        padding: 0rem 0rem;
-    }
     .schedule-table, .schedule-table thead, .schedule-table tbody, .schedule-table tr {
         display: block; /* Display elements as blocks */
         width: 100%;
@@ -408,10 +405,9 @@ thead th:hover {
     .schedule-table td {
         display: block; /* Make each cell a block */
         width: 100%; /* Full width for better visibility */
-        text-align: left; /* Align text to the left */
+        text-align: center; /* Center text inside cell */
         padding: 10px;
         box-sizing: border-box;
-        justify-content: center;
     }
 
     .schedule-table tbody {
@@ -430,6 +426,9 @@ thead th:hover {
         background-color: #f7f7f7;
         border-radius: 4px;
         border: 1px solid #ccc;
+        display: flex; /* Flexbox for centering content */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
     }
 
     .droppable:hover {
@@ -441,5 +440,9 @@ thead th:hover {
         -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
         padding: 10px;
         margin: 0 auto;
+    }
+
+    .cell-input {
+        text-align: center; /* Center text in input */
     }
 }

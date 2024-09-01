@@ -381,7 +381,7 @@ thead th:hover {
 
 @media (max-width: 768px) {
     .body {
-        padding: 0rem 0.5rem;
+        padding: 0rem 0rem;
     }
     .schedule-table, .schedule-table thead, .schedule-table tbody, .schedule-table tr {
         display: block; /* Display elements as blocks */

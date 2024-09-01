@@ -411,6 +411,7 @@ thead th:hover {
         text-align: left; /* Align text to the left */
         padding: 10px;
         box-sizing: border-box;
+        justify-content: center;
     }
 
     .schedule-table tbody {

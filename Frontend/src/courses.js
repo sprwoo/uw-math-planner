@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const courseData = await lookup_courses(courseCode);
                 const coursePopup = document.createElement('div');
-                coursePopup.classList.add('course-popup');
+                coursePopup.classList.add('course-popup-onload');
                 coursePopup.innerHTML = `
                     <p><strong>Description:</strong> ${(courseData.Description && courseData.Description.split('.')[0] + '.') || 'No description available.'}</p>
                     <p><strong>Prerequisites:</strong> ${courseData.Prerequisites || 'None'}</p>
@@ -285,12 +285,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
                     <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
                     `;
-                    /*
-                    <p><strong>Notes:</strong> ${courseData.Notes || 'None'}</p>
-                    <p><strong>Corequisites:</strong> ${courseData.Corequisites || 'None'}</p>
-                    <p><strong>Antirequisites:</strong> ${courseData.Antirequisites || 'None'}</p>
-                    */
                 listItem.appendChild(coursePopup);
+
+                const bound = coursePopup.getBoundingClientRect();
+                console.log(bound);
+                if (bound.top < 0) {
+                    coursePopup.classList.add('adjust-position');
+                } else {
+                    coursePopup.classList.remove('adjust-position');
+                }
+                
+                coursePopup.classList.remove('course-popup-onload');
+                coursePopup.classList.add('course-popup');
             } catch (error) {
                 console.error(error);
             }
@@ -413,9 +419,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 if (checkForX00(category)) {
                                     // Invoke lookForRange if category matches X00 pattern
                                     // For testing
-                                    // const parsedResult = await lookForRange('../public/CSVs/course_info.csv', category);
+                                    const parsedResult = await lookForRange('../public/CSVs/course_info.csv', category);
                                     // For the actual deployed server
-                                    const parsedResult = await lookForRange('../CSVs/course_info.csv', category); 
+                                    // const parsedResult = await lookForRange('../CSVs/course_info.csv', category); 
 
                                     console.log('Parsed result for category:', parsedResult);
     

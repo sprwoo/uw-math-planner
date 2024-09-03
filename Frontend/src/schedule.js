@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var ws_data = [];
     
         // Add table headers (including empty corner cell)
-        var headers = ['Semester/Course']; 
+        var headers = ['Semester/Course']; // Initial header for the "Semester/Course" column
         headers = headers.concat(Array.from(table.querySelectorAll('thead th')).slice(1).map(th => th.textContent)); // Skip the first empty header
         ws_data.push(headers);
     
@@ -169,11 +169,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
             // Add course data
             Array.from(row.querySelectorAll('td')).forEach(td => {
-                const input = td.querySelector('.cell-input');
+                const courseCard = td.querySelector('.course-card'); // Check for course card element
+                const input = td.querySelector('.cell-input'); // Check for input element
     
-                // Use the input value or empty if not available
-                if (input && input.value) {
-                    rowData.push(input.value);
+                // If a course card is present, use its text; otherwise, use input value if available
+                if (courseCard) {
+                    rowData.push(courseCard.textContent.trim());
+                } else if (input && input.value) {
+                    rowData.push(input.value.trim());
                 } else {
                     rowData.push(''); // Empty cell
                 }
@@ -187,8 +190,18 @@ document.addEventListener('DOMContentLoaded', () => {
         var wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Schedule");
     
+        // Set column widths (you can adjust these widths as needed)
         ws['!cols'] = [{ width: 20 }].concat(new Array(headers.length - 1).fill({ width: 15 }));
-
+    
+        // Style the headers (optional)
+        headers.forEach((header, index) => {
+            const cellRef = XLSX.utils.encode_cell({ c: index, r: 0 }); // Header row is row 0
+            if (!ws[cellRef]) ws[cellRef] = {};
+            ws[cellRef].s = {
+                font: { bold: true, color: { rgb: "FFFFFF" } },
+                fill: { fgColor: { rgb: "4F81BD" } }
+            };
+        });
     
         // Generate Excel file and trigger download
         var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
@@ -202,10 +215,11 @@ document.addEventListener('DOMContentLoaded', () => {
         var link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = "course_schedule.xlsx";
-        document.body.appendChild(link); 
-        link.click(); 
-        document.body.removeChild(link); 
+        document.body.appendChild(link); // Required for Firefox
+        link.click(); // Trigger the download
+        document.body.removeChild(link); // Clean up
     });
+    
     
     
 });

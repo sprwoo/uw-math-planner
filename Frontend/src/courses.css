@@ -232,12 +232,23 @@ ul.X00show {
 }
 
 /*************** POP UPS ******************/
+.course-popup-onload {
+    display: block;
+    position: absolute;
+    transform: translate(100%, -100%);
+    background-color: var(--clr-box);
+    color: var(--clr-text);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px var(--clr-shadow);
+    z-index: 1000;
+    width: 250px;
+}
+
 .course-popup {
     display: none;
     position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(100%, -100%);
+    transform: translate(205%, -100%);
     background-color: var(--clr-box);
     color: var(--clr-text);
     padding: 10px;
@@ -250,6 +261,10 @@ ul.X00show {
 .course-item:hover .course-popup {
     display: block;
     z-index: 1000;
+}
+
+.adjust-position {
+    transform: translate(205%, -8%);
 }
 
 .course-popup p {

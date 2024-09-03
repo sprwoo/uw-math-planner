@@ -199,12 +199,15 @@
         </div>
     </div>
     <script>
-    window.onload = function() {
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(function(checkbox) {
-        checkbox.checked = false;
-        });
-    }
+        window.onload = function() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(function(checkbox) {
+                // shit took me too long to realize this would reset the checkbox for the theme toggle
+                if (checkbox.id != "theme-toggle") { 
+                    checkbox.checked = false;
+                }
+            });
+        }
     </script>
     <script src="select.js"></script>
     <script src="themecolour.js"></script>

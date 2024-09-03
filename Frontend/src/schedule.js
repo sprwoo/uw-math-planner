@@ -154,25 +154,31 @@ document.addEventListener('DOMContentLoaded', () => {
         var table = document.getElementById('schedule-table');
         var ws_data = [];
     
-        // Add table headers
-        var headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent);
+        // Add table headers (including empty corner cell)
+        var headers = ['Semester/Course']; 
+        headers = headers.concat(Array.from(table.querySelectorAll('thead th')).slice(1).map(th => th.textContent)); // Skip the first empty header
         ws_data.push(headers);
     
         // Add table data
         Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
-            var rowData = Array.from(row.querySelectorAll('td')).map(td => {
-                const card = td.querySelector('.course-card');
+            var rowData = [];
+            
+            // Add semester name as the first element
+            var semesterName = row.querySelector('th').textContent;
+            rowData.push(semesterName);
+    
+            // Add course data
+            Array.from(row.querySelectorAll('td')).forEach(td => {
                 const input = td.querySelector('.cell-input');
     
-                // If there's a course card, use its textContent; otherwise, use the input value
-                if (card) {
-                    return card.textContent;
-                } else if (input && input.value) {
-                    return input.value;
+                // Use the input value or empty if not available
+                if (input && input.value) {
+                    rowData.push(input.value);
                 } else {
-                    return ''; // Empty cell
+                    rowData.push(''); // Empty cell
                 }
             });
+    
             ws_data.push(rowData);
         });
     
@@ -181,12 +187,8 @@ document.addEventListener('DOMContentLoaded', () => {
         var wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Schedule");
     
-        // Style the headers
-        ws['!cols'] = [{ width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }];
-        ws['!rows'] = [];
-        for (let i = 0; i < headers.length; i++) {
-            ws['A1'].s = { font: { bold: true, color: "FFFFFF" }, fill: { fgColor: { rgb: "4F81BD" } } };
-        }
+        ws['!cols'] = [{ width: 20 }].concat(new Array(headers.length - 1).fill({ width: 15 }));
+
     
         // Generate Excel file and trigger download
         var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
@@ -200,19 +202,18 @@ document.addEventListener('DOMContentLoaded', () => {
         var link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = "course_schedule.xlsx";
-        document.body.appendChild(link); // Required for Firefox
-        link.click(); // Trigger the download
-        document.body.removeChild(link); // Clean up
+        document.body.appendChild(link); 
+        link.click(); 
+        document.body.removeChild(link); 
     });
+    
     
 });
 
 function cleanCourseDescriptions(courseArray) {
     return courseArray.map(course => {
-        // Remove newlines and trim spaces
         course = course.replace(/\n\s*/g, ' ').trim();
 
-        // Extract the course code and add a space between letters and numbers
         const courseCodeMatch = course.match(/^([A-Z]+\s?\d+)/);
         if (courseCodeMatch) {
             const formattedCourseCode = courseCodeMatch[0];
